@@ -13,6 +13,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'root',
+    redirect: '/login'
+  },
+  {
     path: '/login',
     name: 'log-in',
     component: LognIn
