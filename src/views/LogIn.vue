@@ -1,10 +1,10 @@
 // ./src/views/SignIn.vue
 <template>
-  <div class="container py-5">
-    <form class="w-100" @submit.prevent.stop="handleSubmit">
-      <div class="text-center mb-4">
+  <div class="container">
+    <form class="" @submit.prevent.stop="handleSubmit">
+      <div class="">
         <img src="../assets/image/Logo.png" alt="">
-        <h1 class="h3 mb-3 font-weight-normal">
+        <h1 class="">
           登入 Alphitter
         </h1>
       </div>
