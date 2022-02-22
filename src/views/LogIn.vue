@@ -98,6 +98,10 @@ export default {
       .input-box{
         position: relative;
         margin-bottom: 32px;
+        background-color:#F5F8FA;
+        width: 540px;
+        border-bottom: solid 2px #657786;
+        border-radius: 0px 0px 4px 4px;
         label{
           font-weight: 500;
           font-size: 15px;
@@ -109,12 +113,14 @@ export default {
         }
       }
       #account, #password{
-        width: 540px;
+        padding: 0 0 0 50px;
         height: 52px;
         background-color:#F5F8FA;
         border: none;
-        border-bottom: solid 2px #657786;
-        border-radius: 0px 0px 4px 4px;
+        font-size: 30px;
+        &:focus {
+          outline: none;
+        }
       }
       .sign-in{
         margin: 10px auto 20px auto;
