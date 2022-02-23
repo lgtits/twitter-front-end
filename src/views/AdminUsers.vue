@@ -7,15 +7,20 @@
       <div class="header">
         <h1>使用者列表</h1>
       </div>
+      <div>
+        <UserCard />
+      </div>
     </main>
   </div>
 </template>
 
 <script>
 import AdminNavbar from "./../components/AdminNavbar";
+import UserCard from "./../components/UserCard";
 export default {
   components: {
     AdminNavbar,
+    UserCard,
   },
   data() {
     return {
