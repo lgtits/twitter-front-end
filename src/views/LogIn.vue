@@ -113,11 +113,12 @@ export default {
         }
       }
       #account, #password{
-        padding: 0 0 0 50px;
+        padding: 20px 0 0 10px;
         height: 52px;
         background-color:#F5F8FA;
         border: none;
-        font-size: 30px;
+        font-size: 19px;
+        line-height: 28px;
         &:focus {
           outline: none;
         }
@@ -130,6 +131,7 @@ export default {
         border-radius: 50px;
         color: white;
         font-size: 18px;
+        font-weight: bold;
         line-height: 26px;
         text-align: center;
       }
@@ -139,6 +141,7 @@ export default {
         a{
           color: #0099FF;
           font-size: 18px;
+          font-weight: bold;
           text-decoration-line: underline;
         }
       }

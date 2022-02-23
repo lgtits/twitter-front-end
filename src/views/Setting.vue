@@ -1,84 +1,86 @@
 <template>
-  <div class="container py-5">
-    <div>
+  <div class="container">
+    <div class="left-column">
       <Navbar />
     </div>
-    <form class="w-100" >
-      <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">
+    <main>
+      <div class="header">
+        <h1>
           帳戶設定
         </h1>
       </div>
-
-      <div class="form-label-group mb-2">
-        <label for="account">帳號</label>
-        <input
-          id="account"
-          v-model="account"
-          name="account"
-          type="account"
-          class="form-control"
-          autocomplete="username"
-          required
-          autofocus
+      <form class="main-form" >
+        <div class="input-box">
+          <label for="account">帳號</label>
+          <input
+            id="account"
+            v-model="account"
+            name="account"
+            type="account"
+            class="form-control"
+            autocomplete="username"
+            required
+            autofocus
+          >
+        </div>
+        <div class="input-box">
+          <label for="account">名稱</label>
+          <input
+            id="name"
+            v-model="name"
+            name="name"
+            type="name"
+            class="form-control"
+            autocomplete="name"
+            required
+            autofocus
+          >
+        </div>
+        <div class="input-box">
+          <label for="account">Email</label>
+          <input
+            id="email"
+            v-model="email"
+            name="email"
+            type="email"
+            class="form-control"
+            autocomplete="email"
+            required
+            autofocus
+          >
+        </div>
+        <div class="input-box">
+          <label for="password">密碼</label>
+          <input
+            id="password"
+            v-model="password"
+            name="password"
+            type="password"
+            class="form-control"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+        <div class="input-box">
+          <label for="passwordCheck">密碼確認</label>
+          <input
+            id="passwordCheck"
+            v-model="passwordCheck"
+            name="passwordCheck"
+            type="password"
+            class="form-control"
+            required
+          >
+        </div>
+        <button
+          class="save"
+          type="submit"
         >
-      </div>
-      <div class="form-label-group mb-2">
-        <label for="account">名稱</label>
-        <input
-          id="name"
-          v-model="name"
-          name="name"
-          type="name"
-          class="form-control"
-          autocomplete="name"
-          required
-          autofocus
-        >
-      </div>
-      <div class="form-label-group mb-2">
-        <label for="account">Email</label>
-        <input
-          id="email"
-          v-model="email"
-          name="email"
-          type="email"
-          class="form-control"
-          autocomplete="email"
-          required
-          autofocus
-        >
-      </div>
-      <div class="form-label-group mb-3">
-        <label for="password">密碼</label>
-        <input
-          id="password"
-          v-model="password"
-          name="password"
-          type="password"
-          class="form-control"
-          autocomplete="current-password"
-          required
-        >
-      </div>
-      <div class="form-label-group mb-3">
-        <label for="passwordCheck">密碼確認</label>
-        <input
-          id="passwordCheck"
-          v-model="passwordCheck"
-          name="passwordCheck"
-          type="password"
-          class="form-control"
-          required
-        >
-      </div>
-      <button
-        class="btn btn-lg  btn-block mb-3"
-        type="submit"
-      >
-        儲存
-      </button>
-    </form>
+          儲存
+        </button>
+      </form>
+    </main>
+    
   </div>
 </template>
 
@@ -109,3 +111,77 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .container{
+    display: grid;
+    grid-template-columns: auto 600px auto;
+    margin: 0 auto;
+    position: relative;
+    .left-column{
+      position: relative;
+    }
+    main{
+      border: 1px solid #E6ECF0;
+      .header{
+        height: 55px;
+        border-bottom: 1px solid #E6ECF0;
+        position: relative;
+        h1{
+          font-size: 19px;
+          position: absolute;
+          top: 13px;
+          left: 20px;
+        }
+      }
+    }
+    form{
+      display: flex;
+      flex-direction: column;
+      width: 540px;
+      margin: 30px auto auto auto;
+      .input-box{
+        position: relative;
+        margin-bottom: 32px;
+        background-color:#F5F8FA;
+        width: 540px;
+        border-bottom: solid 2px #657786;
+        border-radius: 0px 0px 4px 4px;
+        label{
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 15px;
+          color: #657786;
+          position: absolute;
+          left: 10px;
+          top: 5px;
+        }
+      }
+      #account, #name, #email, #password, #passwordCheck{
+        padding: 20px 0 0 10px;
+        height: 52px;
+        background-color:#F5F8FA;
+        border: none;
+        font-size: 19px;
+        line-height: 28px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .save{
+        margin: 10px auto 20px auto;
+        width: 116px;
+        height: 46px;
+        background: $orange;
+        border-radius: 50px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 26px;
+        text-align: center;
+        margin-right: 0;
+      }
+    }
+  }
+  
+</style>
