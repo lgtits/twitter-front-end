@@ -10,7 +10,7 @@
           1.5k
           </span>
         <span class="like">
-          <img class="icon icon-like" src="images/icon_like.png">
+          <img class="icon icon-like" src="images/icon_likes.png">
           20k
         </span>
       </div>
