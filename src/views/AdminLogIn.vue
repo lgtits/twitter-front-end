@@ -1,15 +1,15 @@
 // ./src/views/SignIn.vue
 <template>
-  <div class="container py-5">
-    <form class="w-100" @submit.prevent.stop="handleSubmit">
-      <div class="text-center mb-4">
-        <img src="../assets/image/Logo.png" alt="">
-        <h1 class="h3 mb-3 font-weight-normal">
+  <div class="container">
+    <form class="" @submit.prevent.stop="handleSubmit">
+      <div class="upper">
+        <img class="logo" src="../assets/image/Logo.png" alt="">
+        <h1 class="title">
           後台登入
         </h1>
       </div>
 
-      <div class="form-label-group mb-2">
+      <div class="input-box">
         <label for="adminAccount">帳號</label>
         <input
           id="adminAccount"
@@ -23,7 +23,7 @@
         >
       </div>
 
-      <div class="form-label-group mb-3">
+      <div class="input-box">
         <label for="password">密碼</label>
         <input
           id="password"
@@ -37,13 +37,13 @@
       </div>
 
       <button
-        class="btn btn-lg  btn-block mb-3"
+        class="sign-in"
         type="submit"
       >
         登入
       </button>
 
-      <div class="text-center mb-3">
+      <div class="front-sign-in">
         <p>
           <router-link to="/login">前台登入</router-link>
         </p>
@@ -72,3 +72,74 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .container{
+    form{
+      width: 540px;
+      margin: 64px auto;
+      .upper{
+        .logo{
+          margin: 0 auto;
+          width: 50px;
+          height: 50px;
+        }
+        .title{
+          text-align:center;
+          margin: 20px auto 40px auto;
+          font-family: Noto Sans TC;
+          font-style: normal;
+          font-size: 23px;
+          font-weight: bold;
+        }
+      }
+      .input-box{
+        position: relative;
+        margin-bottom: 32px;
+        background-color:#F5F8FA;
+        width: 540px;
+        border-bottom: solid 2px #657786;
+        border-radius: 0px 0px 4px 4px;
+        label{
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 15px;
+          color: #657786;
+          position: absolute;
+          left: 10px;
+          top: 5px;
+        }
+      }
+      #adminAccount, #password{
+        padding: 0 0 0 50px;
+        height: 52px;
+        background-color:#F5F8FA;
+        border: none;
+        font-size: 30px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .sign-in{
+        margin: 10px auto 20px auto;
+        width: 540px;
+        height: 46px;
+        background: $orange;
+        border-radius: 50px;
+        color: white;
+        font-size: 18px;
+        line-height: 26px;
+        text-align: center;
+      }
+      p{
+        text-align:right;
+        color: #0099FF;
+        a{
+          color: #0099FF;
+          font-size: 18px;
+          text-decoration-line: underline;
+        }
+      }
+    }
+  }
+</style>
