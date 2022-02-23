@@ -1,17 +1,59 @@
 <template>
-  <div>
-    <AdminNavbar />
-    <div>
-      推文清單
+  <div class="container">
+    <div class="left-column">
+      <AdminNavbar />
     </div>
+    <main>
+      <div class="header">
+        <h1>推文清單</h1>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import AdminNavbar from './../components/AdminNavbar'
+import AdminNavbar from "./../components/AdminNavbar";
 export default {
   components: {
-    AdminNavbar
+    AdminNavbar,
   },
+  data() {
+    return {
+      account: "",
+      name: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.container {
+  display: grid;
+  grid-template-columns: auto 600px auto;
+  grid-template-rows: auto;
+  grid-template-areas: "navbar main main ";
+  height: 100vh;
+  position: relative;
+  .left-column {
+    position: relative;
+  }
+  main {
+    border: 1px solid #e6ecf0;
+    grid-area: main;
+    .header {
+      height: 55px;
+      border-bottom: 1px solid #e6ecf0;
+      position: relative;
+      h1 {
+        font-size: 19px;
+        position: absolute;
+        top: 13px;
+        left: 20px;
+      }
+    }
+  }
 }
-</script>d
+</style>
