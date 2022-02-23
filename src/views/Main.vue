@@ -12,8 +12,12 @@
           </div>
        </main>
         <div class="popularList">
+<<<<<<< HEAD
           <PopularUser/>
 
+=======
+          <PopularList/>
+>>>>>>> 6ecfd9f (新增tweet組件)
         </div>
       </div>
     </div>
@@ -22,14 +26,22 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Tweet from '../components/Tweet.vue'
+<<<<<<< HEAD
 import PopularUser from '../components/PopularUser.vue'
 import UserCreateTweet from '../components/UserCreateTweet.vue'
+=======
+import PopularList from '../components/PopularList.vue'
+>>>>>>> 6ecfd9f (新增tweet組件)
 
 export default {
   components: {
     Navbar,
+<<<<<<< HEAD
     UserCreateTweet,
     PopularUser,
+=======
+    PopularList,
+>>>>>>> 6ecfd9f (新增tweet組件)
     Tweet
   },
   data(){

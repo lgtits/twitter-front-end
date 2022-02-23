@@ -164,5 +164,33 @@ export default {
                 margin-right: 10px;
             }
         }
+        .tweet-body{
+            display: flex;
+            flex-direction: column;
+            .tweet-name{
+                display: flex;
+            }
+        }
+        .tweet-name{
+            margin-bottom: 5px;
+        }
+        .tweet-content{
+            margin-bottom: 15px;
+        }
+        .reaction{
+            display: flex;
+            .comments{
+                display: flex;
+                align-items: center;
+                margin-right: 50px;
+            }
+            .favorite{
+                display: flex;
+                align-items: center;
+            }
+            i{
+                margin-right: 10px;
+            }
+        }
     }
 </style>
