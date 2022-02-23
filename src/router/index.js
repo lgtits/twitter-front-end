@@ -8,6 +8,7 @@ import AdminLogIn from '../views/AdminLogIn.vue'
 import AdminTweets from '../views/AdminTweets.vue'
 import AdminUsers from '../views/AdminUsers.vue'
 import NotFound from '../views/NotFound.vue'
+import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
     path: '/adminusers',
     name: 'adminUsers',
     component: AdminUsers
+  },
+  {
+    path: '/main',
+    name: 'main',
+    component: Main
   },
   {
     path: '*',
