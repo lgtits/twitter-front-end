@@ -7,8 +7,13 @@
       <div class="header">
         <h1>使用者列表</h1>
       </div>
-      <div>
+      <div class="card-board">
         <UserCard />
+        <UserCard />
+        <UserCard />
+                <UserCard />
+        <UserCard />
+
       </div>
     </main>
   </div>
@@ -58,6 +63,9 @@ export default {
         top: 13px;
         left: 20px;
       }
+    }
+    .card-board{
+      display: flex;
     }
   }
 }

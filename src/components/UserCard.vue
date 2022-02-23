@@ -4,15 +4,19 @@
       <div class="user-photo"></div>
       <div class="name">Name</div>
       <span class="account">@account</span>
-      <div class="count">
-        <span class="tweets">
-          <img class="icon icon-tweet" src="images/icon_tweet.png">
-          1.5k
+      <div class="counts">
+        <div class="count tweets">
+          <img class="icon icon-tweet" src="../assets/image/icon_tweet.png">
+          <span class="count-number">
+            1.5k
           </span>
-        <span class="like">
-          <img class="icon icon-like" src="images/icon_liked.png">
-          20k
-        </span>
+        </div>
+        <div class="count likes">
+          <img class="icon icon-like" src="../assets/image/icon_like.png">
+          <span class="count-number">
+            1.5k
+          </span>
+        </div>
       </div>
       <div class="follow">
         <span class="following-count">34 個</span>
@@ -31,8 +35,9 @@
     background: #c4c4c4;
     border-radius: 10px;
     position: relative;
+    margin: 15px 0 0 15px;
     .content{
-      background: #fcfcfc;
+      background: #F6F7F8;
       border-radius: 0 0 10px 10px;
       position: absolute;
       bottom: 0px;
@@ -64,16 +69,40 @@
         font-size: 15px;
         color: #657786;
       }
-      .count{
+      .counts{
         height: 24px;
         margin-top: 15px;
-        .icon{
-          display: inline-block;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        .count{
+          font-size: 15px;
+          font-weight: 500;
+          &.tweets{
+          margin-right: 15px;
+          }
+          .count-number{
+            vertical-align: middle;
+          }
+          .icon{
+            display: inline-block;
+            vertical-align: middle;
+            width: 24px;
+            height: 24px;
+          }
         }
       }
       .follow{
         height: 20px;
         margin-top: 15px;
+        font-size: 14px;
+        font-weight: 500;
+        .following, .followed{
+          color: #657786
+        }
+        .following{
+          margin-right: 5px;
+        }
       }
     }
   }
