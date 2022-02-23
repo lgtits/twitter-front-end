@@ -10,7 +10,7 @@
           </div>
        </main>
         <div class="popularList">
-
+          <PopularList/>
         </div>
       </div>
     </div>
@@ -19,10 +19,18 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Tweet from '../components/Tweet.vue'
+import PopularList from '../components/PopularList.vue'
+
 export default {
   components: {
     Navbar,
+    PopularList,
     Tweet
+  },
+  data(){
+    return {
+
+    }
   }
 }
 </script>
