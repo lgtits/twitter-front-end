@@ -30,12 +30,9 @@
 
 <style lang="scss" scoped>
 .navbar{
-  /* width: 235px; */
   width: 240px;
   height: 100%;
-  /* position: absolute; */
-  right: 40px;
-  // will
+
   position: relative;
   min-height: 100vh;
   background-color: #fff;
