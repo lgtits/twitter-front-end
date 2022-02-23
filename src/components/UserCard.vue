@@ -20,7 +20,7 @@
           <img class="icon icon-like" src="images/icon_liked.png">
           20k
         </span>
-      </div>
+ㄕㄛ      </div>
       <div class="follow">
         <span class="following-count">34 個</span>
         <span class="following">跟隨中</span>
