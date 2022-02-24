@@ -9,15 +9,22 @@ export default {
         initText:{
             type: String,
             default: '追隨'
+<<<<<<< HEAD
         },
         isFollowing:{
             type: Boolean,
             default: false
+=======
+>>>>>>> a73af3d (新增靜態main頁面)
         }
     },
     data() {
         return{
+<<<<<<< HEAD
             text: !this.isFollowing ? this.initText : '正在跟隨'
+=======
+            text: this.initText
+>>>>>>> a73af3d (新增靜態main頁面)
         }
     }
 }

@@ -2,11 +2,15 @@
     <div class="create-tweet">
         <Avatar/>
         <div class="say">
+<<<<<<< HEAD
             <textarea 
             class="say-content" 
             placeholder="有什麼新鮮事"
             v-model="createText"
             ></textarea>
+=======
+            <textarea class="say-content" placeholder="有什麼新鮮事"></textarea>
+>>>>>>> a73af3d (新增靜態main頁面)
             <SolidBtn initText="推文"/>
         </div>
     </div>
@@ -18,11 +22,14 @@
         components: {
             Avatar,
             SolidBtn
+<<<<<<< HEAD
         },
         data(){
             return {
                 createText: ''
             }
+=======
+>>>>>>> a73af3d (新增靜態main頁面)
         }
     }
 </script>
