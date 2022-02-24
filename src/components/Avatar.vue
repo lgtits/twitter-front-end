@@ -1,6 +1,6 @@
 <template>
     <figure>
-<<<<<<< HEAD
+
         <img :src="initImage" alt="大頭貼">
     </figure>
 </template>
@@ -16,12 +16,6 @@ export default {
 }
 </script>
 
-=======
-        <img src="https://fakeimg.pl/300/" alt="大頭貼">
-    </figure>
-</template>
-
->>>>>>> a73af3d (新增靜態main頁面)
 <style lang="scss" scoped>
 // 該組件永遠為圓形，寬度為父層寬度
 figure{
