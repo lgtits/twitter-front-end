@@ -1,8 +1,19 @@
 <template>
     <figure>
-        <img src="https://fakeimg.pl/300/" alt="大頭貼">
+        <img :src="initImage" alt="大頭貼">
     </figure>
 </template>
+
+<script>
+export default {
+    props: {
+        initImage:{
+            type: String,
+            default: 'https://fakeimg.pl/300/'
+        }
+    }
+}
+</script>
 
 <style lang="scss" scoped>
 // 該組件永遠為圓形，寬度為父層寬度

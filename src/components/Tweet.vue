@@ -1,21 +1,21 @@
 <template>
     <div class="tweet-wrapper">
-        <Avatar/>
+        <Avatar :init-image="tweet.image"/>
         <div class="tweet-body">
             <div class="tweet-name">
-                <div class="name">Apple</div>
-                <div class="account-name">apple</div>
-                <div class="update-time">3小時</div>
+                <div class="name">{{tweet.name}}</div>
+                <div class="account-name">{{tweet.accountName}}</div>
+                <div class="update-time">{{tweet.createAt | fromNow }}</div>
             </div>
-            <div class="tweet-content">Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. </div>
+            <div class="tweet-content">{{tweet.content}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
                     <i><img src="../assets/image/message.svg" alt="評論符號"></i>
-                    <p>13</p>
+                    <p>{{tweetComments.length}}</p>
                 </a>
                 <a href="#" class="favorite">
                     <i><img src="../assets/image/favorite.svg" alt="最愛符號"></i>
-                    <p>76</p>
+                    <p>{{tweetLikes.length}}</p>
                 </a>
             </div>
         </div>
@@ -23,9 +23,71 @@
 </template>
 <script>
 import Avatar from '../components/Avatar.vue'
+import moment from 'moment'
+const dummyData = {
+    tweet: {
+        id: 1,
+        userId: 1,
+        name: 'Apple',
+        accountName: 'apple',
+        image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
+        content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+        createAt: '2019-06-07T13:28:51.000Z',
+        isLiked: false,
+    },
+    tweetLikes: [{},{},{},{}],
+    tweetComments: [{},{},{},{},{},{},{},{},{},{},{},{}]
+}
 export default {
     components: {
         Avatar
+    },
+    data(){
+        return {
+            tweet: {
+                id: -1,
+                userId: -1,
+                name: '',
+                accountName: '',
+                image: '',
+                content: '',
+                createAt: '',
+                isLiked: false,
+            },
+            tweetLikes: [],
+            tweetComments: [],
+        }
+    },
+    methods: {
+        fetchTweetDate(){
+            const {id, userId, name, accountName, image, content, createAt, isLiked} = dummyData.tweet
+            const {tweetLikes, tweetComments} = dummyData
+            this.tweet = {
+                ...this.tweet,
+                id,
+                userId, 
+                name, 
+                accountName, 
+                image, 
+                content, 
+                createAt, 
+                isLiked
+            }
+            this.tweetLikes = tweetLikes,
+            this.tweetComments = tweetComments
+        }
+    },
+    created(){
+        this.fetchTweetDate()
+    },
+    filters: {
+        fromNow(datetime){
+            if(!datetime){
+                return '-'
+            }
+            // 使用moment 提供的fromNow 方法
+            return moment(datetime).fromNow()
+        }
     }
 }
 </script>
