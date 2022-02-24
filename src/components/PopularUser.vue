@@ -27,6 +27,13 @@
 <script>
 import OutlineBtn from './OutlineBtn.vue'
 import Avatar from './Avatar.vue'
+
+const dummyData = {
+    popularUser: {
+        test123: ''
+    }
+}
+
 export default {
     components: {
         OutlineBtn,
