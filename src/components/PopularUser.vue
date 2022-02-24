@@ -1,4 +1,4 @@
-<template>
+npm<template>
     <div class="popular-list">
         <h2>Popular</h2>
         <ul class="list">
@@ -18,6 +18,7 @@
 import OutlineBtn from './OutlineBtn.vue'
 import Avatar from './Avatar.vue'
 
+
 const dummyData = {
     users: [{
         id: 1,
@@ -34,6 +35,8 @@ const dummyData = {
     }
     ]
 }
+
+
 
 export default {
     components: {
