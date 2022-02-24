@@ -6,11 +6,14 @@
         </div>
         <main>
           <div class="card-list">
+            <h2>首頁</h2>
+             <UserCreateTweet/>
             <Tweet/>
           </div>
        </main>
         <div class="popularList">
-          <PopularList/>
+          <PopularUser/>
+
         </div>
       </div>
     </div>
@@ -19,12 +22,14 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Tweet from '../components/Tweet.vue'
-import PopularList from '../components/PopularList.vue'
+import PopularUser from '../components/PopularUser.vue'
+import UserCreateTweet from '../components/UserCreateTweet.vue'
 
 export default {
   components: {
     Navbar,
-    PopularList,
+    UserCreateTweet,
+    PopularUser,
     Tweet
   },
   data(){
@@ -53,14 +58,22 @@ export default {
     min-height: 100vh;
   }
   .popularList{
-    background-color: #eee;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     width: 350px;
     height: 1000px;
   }
   main{
-    background-color: skyblue;
+    background-color: $border;
     width: 100%;
     height: 1200px;
+    border: 1px solid $border;
+    .card-list{
+      >h2{
+        padding: 15px;
+        border-bottom: 1px solid $border;
+        background-color: $white;
+        @include font(18px, 1.4, normal, 700);
+      }
+    }
   }
 </style>
