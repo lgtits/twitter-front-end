@@ -8,6 +8,7 @@
       />
     </div>
     <div class="content">
+<<<<<<< HEAD
       <div class="user-photo"></div>
       <div class="name">Name</div>
       <span class="account">@account</span>
@@ -20,6 +21,22 @@
           <img class="icon icon-like" src="images/icon_liked.png">
           20k
         </span>
+=======
+      <div class="user-photo">
+        <img class="avatar" :src="user.image" />
+      </div>
+      <div class="name">{{ user.name }}</div>
+      <span class="account">@{{ user.account }}</span>
+      <div class="counts">
+        <div class="count tweets">
+          <img class="icon icon-tweet" src="../assets/image/icon_tweet.png" />
+          <span class="count-number"> 1.5k </span>
+        </div>
+        <div class="count likes">
+          <img class="icon icon-like" src="../assets/image/icon_like.png" />
+          <span class="count-number"> 1.5k </span>
+        </div>
+>>>>>>> 00417a6 (newest)
       </div>
       <div class="follow">
         <span class="following-count">34 個</span>
