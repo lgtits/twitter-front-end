@@ -171,7 +171,7 @@ export default {
       margin: 10px auto 20px auto;
       width: 116px;
       height: 46px;
-      background: $orange;
+      background: $primary;
       border-radius: 50px;
       color: white;
       font-size: 18px;
