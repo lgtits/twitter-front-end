@@ -2,21 +2,13 @@
     <div class="popular-list">
         <h2>Popular</h2>
         <ul class="list">
-            <li class="popular-card">
-                <Avatar/>
+            <li class="popular-card" v-for="user in users" :key="user.id">
+                <Avatar :initImage="user.image"/>
                 <div class="popular-name">
-                    <div class="name">Apple</div>
-                    <div class="account-name">apple</div>
+                    <div class="name">{{user.name}}</div>
+                    <div class="account-name">{{user.accountName}}</div>
                 </div>
-                <OutlineBtn/>
-            </li>
-            <li class="popular-card">
-                <Avatar/>
-                <div class="popular-name">
-                    <div class="name">Apple</div>
-                    <div class="account-name">apple</div>
-                </div>
-                <OutlineBtn/>
+                <OutlineBtn :isFollowing="user.isFollowing"/>
             </li>
         </ul>
     </div>
@@ -27,15 +19,49 @@ import OutlineBtn from './OutlineBtn.vue'
 import Avatar from './Avatar.vue'
 
 const dummyData = {
-    popularUser: {
-        test123: ''
+    users: [{
+        id: 1,
+        name: 'Pizza Hut',
+        accountName: 'pizzahut',
+        image: 'https://gravatar.com/avatar/59eef608fce338d03c39915b08c9ae51?s=400&d=wavatar&r=x',
+        isFollowing: false
+    },{
+        id: 2,
+        name: "L'Oréal",
+        accountName: 'Loreal',
+        image: 'https://gravatar.com/avatar/f35709965b81ef84b3a2f94addd372a2?s=400&d=wavatar&r=x',
+        isFollowing: true
     }
+    ]
 }
 
 export default {
     components: {
         OutlineBtn,
         Avatar
+    },
+    data(){
+        return {
+            users: []
+            //  {
+            //     id: -1,
+            //     name: '',
+            //     accountName: '',
+            //     image: '',
+            //     isFollowing: false
+            // }
+        }
+    },
+    methods:{
+        fetchUsers(){
+        this.users = [
+            ...this.users,
+            ...dummyData.users
+            ]
+        }
+    },
+    created(){
+        this.fetchUsers()
     }
 }
 </script>

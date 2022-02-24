@@ -2,7 +2,11 @@
     <div class="create-tweet">
         <Avatar/>
         <div class="say">
-            <textarea class="say-content" placeholder="有什麼新鮮事"></textarea>
+            <textarea 
+            class="say-content" 
+            placeholder="有什麼新鮮事"
+            v-model="createText"
+            ></textarea>
             <SolidBtn initText="推文"/>
         </div>
     </div>
@@ -14,6 +18,11 @@
         components: {
             Avatar,
             SolidBtn
+        },
+        data(){
+            return {
+                createText: ''
+            }
         }
     }
 </script>

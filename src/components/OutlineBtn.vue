@@ -9,11 +9,15 @@ export default {
         initText:{
             type: String,
             default: '追隨'
+        },
+        isFollowing:{
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return{
-            text: this.initText
+            text: !this.isFollowing ? this.initText : '正在跟隨'
         }
     }
 }
