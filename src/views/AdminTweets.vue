@@ -7,15 +7,21 @@
       <div class="header">
         <h1>推文清單</h1>
       </div>
+      <div class="list-board">
+        <AdminTweetsTable />
+      </div>
     </main>
   </div>
 </template>
 
 <script>
 import AdminNavbar from "./../components/AdminNavbar";
+import AdminTweetsTable from "./../components/AdminTweetsTable";
+
 export default {
   components: {
     AdminNavbar,
+    AdminTweetsTable,
   },
   data() {
     return {
@@ -31,6 +37,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  max-width: 1260px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: auto 600px auto;
   grid-template-rows: auto;
@@ -53,6 +61,9 @@ export default {
         top: 13px;
         left: 20px;
       }
+    }
+    .list-board{
+      max-width: 1040px;
     }
   }
 }

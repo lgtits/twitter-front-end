@@ -1,21 +1,26 @@
 <template>
   <div class="main">
+    <div class="cover">
+      <img
+        class="cover-photo"
+        src="https://upload.wikimedia.org/wikipedia/zh/4/40/Sky-Light_Awaits_Cover.jpg"
+        alt=""
+      />
+    </div>
     <div class="content">
-      <div class="user-photo"></div>
-      <div class="name">Name</div>
-      <span class="account">@account</span>
+      <div class="user-photo">
+        <img class="avatar" :src="user.image" />
+      </div>
+      <div class="name">{{ user.name }}</div>
+      <span class="account">@{{ user.account }}</span>
       <div class="counts">
         <div class="count tweets">
-          <img class="icon icon-tweet" src="../assets/image/icon_tweet.png">
-          <span class="count-number">
-            1.5k
-          </span>
+          <img class="icon icon-tweet" src="../assets/image/icon_tweet.png" />
+          <span class="count-number"> 1.5k </span>
         </div>
         <div class="count likes">
-          <img class="icon icon-like" src="../assets/image/icon_like.png">
-          <span class="count-number">
-            1.5k
-          </span>
+          <img class="icon icon-like" src="../assets/image/icon_like.png" />
+          <span class="count-number"> 1.5k </span>
         </div>
       </div>
       <div class="follow">
@@ -28,82 +33,114 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: {
+    initialUser: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      user: this.initialUser,
+    };
+  },
+};
+</script>
+
+
 <style lang="scss" scoped>
-  .main{
+.main {
+  width: 245px;
+  height: 314px;
+  background: #c4c4c4;
+  border-radius: 10px;
+  position: relative;
+  margin: 15px 0 0 15px;
+  .cover {
     width: 245px;
-    height: 314px;
-    background: #c4c4c4;
-    border-radius: 10px;
-    position: relative;
-    margin: 15px 0 0 15px;
-    .content{
-      background: #F6F7F8;
-      border-radius: 0 0 10px 10px;
-      position: absolute;
-      bottom: 0px;
+    height: 140px;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    .cover-photo {
       width: 100%;
-      height: 174px;
-      text-align: center;
-      .user-photo{
-        position: absolute;
-        top: -72px;
-        left: 72.5px;
-        width: 100px;
-        height: 100px;
-        background-image: url(https://i.imgur.com/TKOAhCa.png);
-        background-size: cover;
-        background-position: center center;
-        border-radius: 50%;
-        border: 4px solid #ffffff;
-      }
-      .name{
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .content {
+    background: #f6f7f8;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 174px;
+    text-align: center;
+    .user-photo {
+      position: absolute;
+      top: -72px;
+      left: 72.5px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      img {
         width: 100%;
-        height: 22px;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+    .name {
+      width: 100%;
+      height: 22px;
+      font-size: 15px;
+      font-weight: 900;
+      margin: 33px 0 0 0;
+    }
+    .account {
+      margin-top: 2px;
+      height: 22px;
+      font-size: 15px;
+      color: #657786;
+    }
+    .counts {
+      height: 24px;
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      .count {
         font-size: 15px;
-        font-weight: 900;
-        margin: 33px 0 0 0 ;
-      }
-      .account{
-        margin-top: 2px;
-        height: 22px;
-        font-size: 15px;
-        color: #657786;
-      }
-      .counts{
-        height: 24px;
-        margin-top: 15px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        .count{
-          font-size: 15px;
-          font-weight: 500;
-          &.tweets{
-          margin-right: 15px;
-          }
-          .count-number{
-            vertical-align: middle;
-          }
-          .icon{
-            display: inline-block;
-            vertical-align: middle;
-            width: 24px;
-            height: 24px;
-          }
-        }
-      }
-      .follow{
-        height: 20px;
-        margin-top: 15px;
-        font-size: 14px;
         font-weight: 500;
-        .following, .followed{
-          color: #657786
+        &.tweets {
+          margin-right: 15px;
         }
-        .following{
-          margin-right: 5px;
+        .count-number {
+          vertical-align: middle;
+        }
+        .icon {
+          display: inline-block;
+          vertical-align: middle;
+          width: 24px;
+          height: 24px;
         }
       }
     }
+    .follow {
+      height: 20px;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+      .following,
+      .followed {
+        color: #657786;
+      }
+      .following {
+        margin-right: 5px;
+      }
+    }
   }
+}
 </style>
