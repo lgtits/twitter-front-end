@@ -29,6 +29,7 @@
 </template>
 
 <style lang="scss" scoped>
+
 .navbar{
   /* width: 235px; */
   width: 240px;
@@ -70,7 +71,7 @@
       & .post{
         width: 210px;
         height: 38px;
-        background: $orange;
+        background: $primary;
         border-radius: 100px;
         justify-content: center;
         line-height: 38px;
