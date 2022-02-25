@@ -3,10 +3,11 @@
     <img class="logo" src="../assets/image/Logo.png" alt="" />
     <ul class="nav">
       <li>
-        <a class="" >
-          <img class="icon" src="../assets/image/icon_index.png" alt="">
+        <router-link class="" to="/main">
+          <img v-if="this.$route.name === 'main'" class="icon" src="../assets/image/icon_index2.png" alt="">
+          <img v-else class="icon" src="../assets/image/icon_index.png" alt="">
           首頁
-        </a>
+        </router-link>
       </li>
       <li>
         <a class="" href="#">
@@ -15,18 +16,35 @@
           </a>
       </li>
       <li>
-        <a class="" href="#">
-          <img class="icon"  src="../assets/image/icon_cog.png" alt="">
+        <router-link class="" to="/setting">
+          <img v-if="this.$route.name === 'setting'" class="icon" src="../assets/image/icon_cog2.png" alt="">
+          <img v-else class="icon"  src="../assets/image/icon_cog.png" alt="">
           設定
-        </a>
+        </router-link>
       </li>
       <li>
         <a class="post">推文</a>
       </li>
     </ul>
-    <router-link class="log-out" to="/login"><img class="icon"  src="../assets/image/icon_logout.png" alt="">登出</router-link>
+    <button class="sign-out" @click="logOut">
+      <img class="icon"  src="../assets/image/icon_logout.png" alt="" >
+      登出
+    </button>
   </div>
+  
 </template>
+
+<script>
+  export default {
+    methods: {
+      logOut(){
+        console.log('log out')
+        console.log(this.$route)
+      }
+    },
+  }
+</script>
+
 
 <style lang="scss" scoped>
 
@@ -61,6 +79,9 @@
         top: 15px;
         display: flex;
         align-items:center;
+        &.active{
+          color: $primary;
+        }
         .icon{
           width: 24px;
           height: 24px;
@@ -78,14 +99,19 @@
         color: white;
         font-size: 18px;
         font-weight: bold;
+        cursor: pointer;
       }
     }
   }
-  .log-out{
+  .sign-out{
+    padding: 0;
     position: absolute;
     left: 11px;
     bottom: 17px;
-    width: 235px; 
+    width: 100px; 
+    height: 26px;
+    font-family: Noto Sans TC;
+    font-style: normal;
     font-size: 18px;
     font-weight: bold;
     display: flex;
@@ -95,9 +121,9 @@
       height: 24px;
       display: inline-block;
       margin-right: 23px;
+    
     }
   }
-
 
 }
 </style>

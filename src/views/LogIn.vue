@@ -130,6 +130,8 @@ export default {
         background: $primary;
         border-radius: 50px;
         color: white;
+        font-family: Noto Sans TC;
+        font-style: normal;
         font-size: 18px;
         font-weight: bold;
         line-height: 26px;
