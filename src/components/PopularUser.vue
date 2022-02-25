@@ -8,7 +8,14 @@ npm<template>
                     <div class="name">{{user.name}}</div>
                     <div class="account-name">{{user.accountName}}</div>
                 </div>
-                <OutlineBtn :isFollowing="user.isFollowing"/>
+                <OutlineBtn 
+                initText="追隨" 
+                v-if="user.isFollowing"
+                />
+                <SolidBtn 
+                initText="正在跟隨" 
+                v-else
+                />
             </li>
         </ul>
     </div>
@@ -16,6 +23,7 @@ npm<template>
 
 <script>
 import OutlineBtn from './OutlineBtn.vue'
+import SolidBtn from './SolidBtn.vue'
 import Avatar from './Avatar.vue'
 
 
@@ -41,7 +49,8 @@ const dummyData = {
 export default {
     components: {
         OutlineBtn,
-        Avatar
+        Avatar,
+        SolidBtn
     },
     data(){
         return {

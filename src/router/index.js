@@ -13,6 +13,7 @@ import Main from '../views/Main.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  // 根目錄
   {
     path: '/',
     name: 'root',
@@ -48,10 +49,36 @@ const routes = [
     name: 'adminUsers',
     component: AdminUsers
   },
+  // 首頁
   {
     path: '/main',
     name: 'main',
     component: Main
+  },
+  // user系列
+  {
+    path: '/user/:id',
+    component: () => import('@/views/User.vue'),
+    children: [
+      // 推文
+      {
+        path: 'tweets',
+        name: 'user-tweets',
+        component: () => import('@/components/TweetContent.vue')
+      },
+      // 推文與回覆
+      {
+        path: 'replies',
+        name: 'user-replies',
+        component: () => import('@/components/ReplyContent')
+      },
+      // 喜歡的內容
+      {
+        path: 'likes',
+        name: 'user-likes',
+        component: () => import('@/components/LikeContent')
+      }
+  ]
   },
   {
     path: '*',

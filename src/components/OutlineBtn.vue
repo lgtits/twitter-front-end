@@ -1,5 +1,5 @@
 <template>
-    <a class="outline-btn" href="#">
+    <a class="outlineBtn" href="#">
         {{text}}
     </a>
 </template>
@@ -10,20 +10,16 @@ export default {
             type: String,
             default: '追隨'
         },
-        isFollowing:{
-            type: Boolean,
-            default: false
-        }
     },
     data() {
         return{
-            text: !this.isFollowing ? this.initText : '正在跟隨'
+            text: this.initText
         }
     }
 }
 </script>
 <style lang="scss" scoped>
- .outline-btn{
+ .outlineBtn{
     height: fit-content;
     width: fit-content;
     padding: 10px 15px;
@@ -31,6 +27,10 @@ export default {
     border: 1px solid $primary; 
     border-radius: 500px;
     @include font(15px, 1.2, normal ,700);
+    &.focus{
+        background-color: $primary;
+        color: $white;
+    }
     &:hover{
         background-color: $primary;
         color: $white;

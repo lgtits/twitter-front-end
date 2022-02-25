@@ -1,5 +1,9 @@
 <template>
-    <a class="solid-btn" href="#">
+    <a 
+    class="solid-btn" 
+    href="#"
+    @click.stop.prevent="handlePublish"
+    >
         {{text}}
     </a>
 </template>
@@ -14,6 +18,11 @@ export default {
     data() {
         return{
             text: this.initText
+        }
+    },
+    methods: {
+        handlePublish(){
+            this.$emit("after-click-publish")
         }
     }
 }

@@ -7,7 +7,10 @@
             placeholder="有什麼新鮮事"
             v-model="createText"
             ></textarea>
-            <SolidBtn initText="推文"/>
+            <SolidBtn 
+            initText="推文"
+            @after-click-publish="afterClickPublish"
+            />
         </div>
     </div>
 </template>
@@ -22,6 +25,12 @@
         data(){
             return {
                 createText: ''
+            }
+        },
+        methods:{
+            afterClickPublish(){
+                // TODO:發布文章
+                console.log(this.createText)
             }
         }
     }
