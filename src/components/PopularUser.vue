@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 
 <template>
-=======
-npm<template>
->>>>>>> 00417a6 (newest)
     <div class="popular-list">
         <h2>Popular</h2>
         <ul class="list">
