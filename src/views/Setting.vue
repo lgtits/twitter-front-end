@@ -114,6 +114,10 @@ export default {
   position: relative;
   .left-column {
     position: relative;
+    .navbar{
+      position: absolute;
+      
+    }
   }
   main {
     border: 1px solid #e6ecf0;

@@ -12,17 +12,8 @@
           </div>
        </main>
         <div class="popularList">
-<<<<<<< HEAD
-<<<<<<< HEAD
           <PopularUser/>
 
-=======
-          <PopularList/>
->>>>>>> 6ecfd9f (新增tweet組件)
-=======
-          <PopularUser/>
-
->>>>>>> a73af3d (新增靜態main頁面)
         </div>
       </div>
     </div>
@@ -31,37 +22,17 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Tweet from '../components/Tweet.vue'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import PopularUser from '../components/PopularUser.vue'
 import UserCreateTweet from '../components/UserCreateTweet.vue'
-=======
-import PopularList from '../components/PopularList.vue'
->>>>>>> 6ecfd9f (新增tweet組件)
-=======
-import PopularUser from '../components/PopularUser.vue'
-import UserCreateTweet from '../components/UserCreateTweet.vue'
->>>>>>> a73af3d (新增靜態main頁面)
-
 export default {
   components: {
     Navbar,
-<<<<<<< HEAD
-<<<<<<< HEAD
     UserCreateTweet,
     PopularUser,
-=======
-    PopularList,
->>>>>>> 6ecfd9f (新增tweet組件)
-=======
-    UserCreateTweet,
-    PopularUser,
->>>>>>> a73af3d (新增靜態main頁面)
     Tweet
   },
   data(){
     return {
-
     }
   }
 }

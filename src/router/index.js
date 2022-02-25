@@ -13,6 +13,7 @@ import Main from '../views/Main.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  
   {
     path: '/',
     name: 'root',
@@ -45,7 +46,7 @@ const routes = [
   },
   {
     path: '/adminusers',
-    name: 'adminUsers',
+    name: 'adminusers',
     component: AdminUsers
   },
   {
@@ -61,6 +62,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   routes,
 })
 

@@ -10,6 +10,7 @@
     <div class="content">
       <div class="user-photo">
         <img class="avatar" :src="user.image" />
+
       </div>
       <div class="name">{{ user.name }}</div>
       <span class="account">@{{ user.account }}</span>
@@ -144,3 +145,4 @@ export default {
   }
 }
 </style>
+

@@ -3,30 +3,59 @@
     <li>
       <div class="list">
         <div class="user-photo">
-          <img class="avatar" src="https://i.imgur.com/TKOAhCa.png" alt="" />
+          <img class="avatar" :src="tweet.image" alt="" />
         </div>
         <div class="content">
-          <span class="name">name</span>
-          <span class="account-date">@account·3小時</span>
+          <span class="name">{{ tweet.name }}</span>
+          <span class="account-date"
+            >@{{ tweet.accountName }}·{{ tweet.createAt | fromNow }}</span
+          >
           <div class="tweet-content">
-            Lorem ipsum dolor sit amr ridiculus mus. Praesent at ante al...
+            {{ tweet.content }}
           </div>
         </div>
-        <button class="destroy">X</button>
+        <button class="destroy" @click="deleteTweet(tweet.id)">
+          <img
+            class="d-inline-block"
+            src="../assets/image/icon_close.png"
+            alt=""
+          />
+        </button>
       </div>
     </li>
   </ul>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
+  props: {
+    initialTweet: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
-      restaurants: [],
+      tweet: this.initialTweet,
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    deleteTweet(id){
+      console.log('delete tweet id:', id)
+    }
+  },
+  filters: {
+    fromNow(datetime) {
+      if (!datetime) {
+        return "-";
+      }
+      // 使用moment 提供的fromNow 方法
+      return moment(datetime).fromNow();
+    },
+  },
 };
 </script>
 
@@ -34,13 +63,14 @@ export default {
 li {
   .list {
     display: flex;
-
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #e6ecf0;
     .user-photo {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       margin: 13px 15px;
-      border: solid 1px red;
       .avatar {
         width: 100%;
         height: 100%;
@@ -53,6 +83,7 @@ li {
       .name {
         font-size: 15px;
         font-weight: 700;
+        margin-right: 5px;
       }
       .account-date {
         font-size: 15px;
@@ -64,6 +95,16 @@ li {
         font-weight: 500;
         max-width: 600px;
         margin-top: 6px;
+      }
+    }
+    .destroy {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      right: 15px;
+      img {
+        width: 24px;
+        height: 24px;
       }
     }
   }
