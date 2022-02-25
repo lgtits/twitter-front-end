@@ -128,8 +128,10 @@ export default {
         background: $primary;
         border-radius: 50px;
         color: white;
+        font-family: Noto Sans TC;
+        font-style: normal;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 700;
         line-height: 26px;
         text-align: center;
       }
@@ -139,7 +141,7 @@ export default {
         a{
           color: #0099FF;
           font-size: 18px;
-          font-weight: bold;
+          font-weight: 700;
           text-decoration-line: underline;
         }
       }

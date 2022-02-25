@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '/adminusers',
-    name: 'adminUsers',
+    name: 'adminusers',
     component: AdminUsers
   },
   // 首頁
@@ -88,6 +88,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   routes,
 })
 

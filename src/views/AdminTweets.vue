@@ -8,7 +8,11 @@
         <h1>推文清單</h1>
       </div>
       <div class="list-board">
-        <AdminTweetsTable />
+        <AdminTweetsTable 
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :initial-tweet = "tweet"
+        />
       </div>
     </main>
   </div>
@@ -18,20 +22,48 @@
 import AdminNavbar from "./../components/AdminNavbar";
 import AdminTweetsTable from "./../components/AdminTweetsTable";
 
+const dummyData = {
+    tweets: [
+      {
+        id: 1,
+        userId: 1,
+        name: 'Apple',
+        accountName: 'appl365',
+        image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
+        content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+        createAt: '2019-06-07T13:28:51.000Z',
+      },
+      {
+        id: 2,
+        userId: 2,
+        name: 'Pen',
+        accountName: '123Pen',
+        image: 'https://www.w3schools.com/howto/img_avatar.png',
+        content: 'Nulla Lorem mserunt reprehenderit elit laborum. ',
+        createAt: '2017-09-07T13:28:51.000Z',
+      },
+    ]
+}
+
 export default {
   components: {
     AdminNavbar,
     AdminTweetsTable,
   },
-  data() {
+  data(){
     return {
-      account: "",
-      name: "",
-      email: "",
-      password: "",
-      passwordCheck: "",
-    };
+          tweets: []
+    }
+  }
+  ,
+  created(){
+    this.fetchTweets()
   },
+  methods: {
+    fetchTweets(){
+      this.tweets = dummyData.tweets
+    }
+  }
 };
 </script>
 
