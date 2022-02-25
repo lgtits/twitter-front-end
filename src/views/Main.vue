@@ -7,7 +7,9 @@
         <main>
           <div class="card-list">
             <h2>首頁</h2>
-             <UserCreateTweet/>
+             <UserCreateTweet 
+             @after-create-tweet="afterCreateTweet"
+             />
             <Tweet/>
           </div>
        </main>
@@ -35,6 +37,11 @@ export default {
   data(){
     return {
 
+    }
+  },
+  methods: {
+    afterCreateTweet(value){
+      console.log('value',value)
     }
   }
 }

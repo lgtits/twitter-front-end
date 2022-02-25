@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         handlePublish(){
-            this.$emit("after-click-publish")
+            this.$emit("after-create-tweet")
         }
     }
 }

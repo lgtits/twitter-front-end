@@ -9,7 +9,7 @@
             ></textarea>
             <SolidBtn 
             initText="推文"
-            @after-click-publish="afterClickPublish"
+            @after-create-tweet="afterCreateTweet"
             />
         </div>
     </div>
@@ -17,6 +17,7 @@
 <script>
     import Avatar from './Avatar.vue'
     import SolidBtn from './SolidBtn.vue'
+    import uuid from 'uuid'
     export default {
         components: {
             Avatar,
@@ -28,13 +29,19 @@
             }
         },
         methods:{
-            afterClickPublish(){
+            afterCreateTweet(){
                 // TODO:發布文章
-                console.log(this.createText)
+                this.$emit('after-create-tweet',{
+                    id: uuid(),
+                    createText: this.createText
+                })
+                // 清空
+                this.createText = ""
             }
         }
     }
 </script>
+
 <style lang="scss" scoped>
     .create-tweet{
         display: grid;
