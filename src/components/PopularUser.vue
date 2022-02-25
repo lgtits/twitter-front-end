@@ -1,4 +1,3 @@
-
 <template>
     <div class="popular-list">
         <h2>Popular</h2>

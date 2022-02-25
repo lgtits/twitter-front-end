@@ -1,6 +1,5 @@
 <template>
     <figure>
-
         <img :src="initImage" alt="大頭貼">
     </figure>
 </template>

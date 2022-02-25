@@ -24,6 +24,7 @@ import Navbar from '../components/Navbar.vue'
 import Tweet from '../components/Tweet.vue'
 import PopularUser from '../components/PopularUser.vue'
 import UserCreateTweet from '../components/UserCreateTweet.vue'
+
 export default {
   components: {
     Navbar,
@@ -33,6 +34,7 @@ export default {
   },
   data(){
     return {
+
     }
   }
 }
