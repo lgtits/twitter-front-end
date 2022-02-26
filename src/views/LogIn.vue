@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import authorizationAPI from './../apis/authorization'
+
 export default {
   data () {
     return {
@@ -62,13 +64,15 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      const data = JSON.stringify({
-        email: this.account,
+    handleSubmit (e) {
+      console.log(e)
+      authorizationAPI.signIn({
+        account: this.account,
         password: this.password
+      }).then(response => {
+        // TODO: 取得 API 請求後的資料
+        console.log('response', response)
       })
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log('data', data)
     }
   }
 }

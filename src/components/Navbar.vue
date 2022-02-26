@@ -23,9 +23,18 @@
         </router-link>
       </li>
       <li>
-        <a class="post">推文</a>
+        <button class="post" @click="showModal=true">推文</button>
       </li>
     </ul>
+    <Modal class="light-box" v-model="showModal">
+      <div class="tweet-modal-content">
+        <div class="user-photo-container">
+          <img class="post-tweet-avatar" :src="currentUser.image" alt="">
+        </div>
+        <textarea name="" id="" cols="30" rows="10" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
+      </div>
+      <button class="post-tweet" @click="sendPost">推文</button>
+    </Modal>
     <button class="sign-out" @click="logOut">
       <img class="icon"  src="../assets/image/icon_logout.png" alt="" >
       登出
@@ -35,11 +44,31 @@
 </template>
 
 <script>
+  const dummyUser = {
+  currentUser: {
+    id: 1,
+    name: '管理者',
+    email: 'root@example.com',
+    image: 'https://i.pravatar.cc/300',
+    isAdmin: true
+  },
+  isAuthenticated: true
+}
   export default {
+    data(){
+      return{
+        showModal: false,
+        tweetContent:"",
+        currentUser: dummyUser.currentUser
+      }
+    },
     methods: {
       logOut(){
         console.log('log out')
         console.log(this.$route)
+      },
+      sendPost(){
+        console.log('推文:', this.tweetContent)
       }
     },
   }
@@ -99,7 +128,6 @@
         color: white;
         font-size: 18px;
         font-weight: bold;
-        cursor: pointer;
       }
     }
   }
@@ -124,6 +152,45 @@
     
     }
   }
-
 }
+// modal style
+  .vm{
+    .tweet-modal-content{
+      display: flex;
+      .user-photo-container{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+        .post-tweet-avatar{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+      textarea {
+        resize: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: Noto Sans TC;
+        font-style: normal;
+      }
+    }
+    .post-tweet{
+      width: 66px;
+      height: 38px;
+      font-size: 18px;
+      font-weight: 500;
+      font-family: Noto Sans TC;
+      font-style: normal;
+      color: white;
+      background-color: $primary;
+      border-radius: 100px;
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+    }
+  }
 </style>
