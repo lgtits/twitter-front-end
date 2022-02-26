@@ -1,11 +1,11 @@
 <template>
     <div class="create-tweet">
-        <Avatar/>
+        <Avatar :initImage="avatar"/>
         <div class="say">
             <textarea 
             class="say-content" 
             placeholder="有什麼新鮮事"
-            v-model="createText"
+            v-model="description"
             ></textarea>
             <SolidBtn 
             initText="推文"
@@ -18,6 +18,24 @@
     import Avatar from './Avatar.vue'
     import SolidBtn from './SolidBtn.vue'
     import uuid from 'uuid'
+
+    const dummyUser = {
+    id: 1,
+    email: "root@example.com",
+    password: "12345678",
+    name: "root",
+    account: "root",
+    role: "admin",
+    avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
+    introduction: "",
+    cover: "",
+    tweetCount: null,
+    followingCount: null,
+    followerCount: null,
+    likedCount: null,
+    createdAt: "",
+    updatedAt: "",
+  }
     export default {
         components: {
             Avatar,
@@ -25,7 +43,8 @@
         },
         data(){
             return {
-                createText: ''
+                description: '',
+                avatar: dummyUser.avatar
             }
         },
         methods:{
@@ -33,10 +52,10 @@
                 // TODO:發布文章
                 this.$emit('after-create-tweet',{
                     id: uuid(),
-                    createText: this.createText
+                    description: this.description
                 })
                 // 清空
-                this.createText = ""
+                this.description = ""
             }
         }
     }

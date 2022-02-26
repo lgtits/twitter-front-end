@@ -20,7 +20,7 @@
                 </div>
             </div>
              <div class="buttonWrapper">
-                <OutlineBtn :initText="編輯個人資料"/>
+                <OutlineBtn initText="編輯個人資料"/>
             </div>
         </div>
     </div>

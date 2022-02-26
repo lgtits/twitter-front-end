@@ -5,9 +5,9 @@
             <div class="tweet-name">
                 <div class="name">{{tweet.name}}</div>
                 <div class="account-name">{{tweet.accountName}}</div>
-                <div class="update-time">{{tweet.createAt | fromNow }}</div>
+                <div class="update-time">{{tweet.createdAt | fromNow }}</div>
             </div>
-            <div class="tweet-content">{{tweet.content}}</div>
+            <div class="tweet-content">{{tweet.description}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
                     <i><img src="../assets/image/message.svg" alt="評論符號"></i>
@@ -24,23 +24,29 @@
 <script>
 import Avatar from '../components/Avatar.vue'
 import moment from 'moment'
-const dummyData = {
-    tweet: {
-        id: 1,
-        userId: 1,
-        name: 'Apple',
-        accountName: 'apple',
-        image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
-        content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
-        createAt: '2019-06-07T13:28:51.000Z',
-        isLiked: false,
-    },
-    tweetLikes: [{},{},{},{}],
-    tweetComments: [{},{},{},{},{},{},{},{},{},{},{},{}]
-}
+// const dummyData = {
+//     tweet: {
+//         id: 1,
+//         userId: 1,
+//         name: 'Apple',
+//         accountName: 'apple',
+//         image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
+//         content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
+//         createAt: '2019-06-07T13:28:51.000Z',
+//         isLiked: false,
+//     },
+//     tweetLikes: [{},{},{},{}],
+//     tweetComments: [{},{},{},{},{},{},{},{},{},{},{},{}]
+// }
 export default {
     components: {
         Avatar
+    },
+    props:{
+        initTweet: {
+            type: Object,
+            required: true
+        }
     },
     data(){
         return {
@@ -50,8 +56,8 @@ export default {
                 name: '',
                 accountName: '',
                 image: '',
-                content: '',
-                createAt: '',
+                description: '',
+                createdAt: '',
                 isLiked: false,
             },
             tweetLikes: [],
@@ -60,8 +66,18 @@ export default {
     },
     methods: {
         fetchTweetDate(){
-            const {id, userId, name, accountName, image, content, createAt, isLiked} = dummyData.tweet
-            const {tweetLikes, tweetComments} = dummyData
+            const {
+                id, 
+                userId,       
+                description, 
+                createdAt,
+                User
+            } = this.initTweet
+            const {
+                name,
+                account: accountName,
+                avatar: image
+            } = User
             this.tweet = {
                 ...this.tweet,
                 id,
@@ -69,17 +85,22 @@ export default {
                 name, 
                 accountName, 
                 image, 
-                content, 
-                createAt, 
-                isLiked
+                description, 
+                createdAt, 
             }
-            this.tweetLikes = tweetLikes,
-            this.tweetComments = tweetComments
         }
     },
     created(){
         this.fetchTweetDate()
     },
+    // watch: {
+    //     initTweet(newValue){
+    //         this.tweet ={
+    //             ...this.tweet,
+    //             ...newValue
+    //         }
+    //     }
+    // },
     filters: {
         fromNow(datetime){
             if(!datetime){
