@@ -13,4 +13,5 @@ export default {
 
 <style lang="scss">
   @import "assets/style/_reset.scss";
+  @import "assets/style/vue-modal.css";
 </style>
