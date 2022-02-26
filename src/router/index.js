@@ -1,4 +1,9 @@
 // ./src/router/index.js
+import VueModal from '@kouts/vue-modal'
+import '../assets/style/vue-modal.css'
+Vue.component('Modal', VueModal)
+
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LognIn from '../views/LogIn.vue'
@@ -11,6 +16,7 @@ import NotFound from '../views/NotFound.vue'
 import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
+
 
 const routes = [
   // 根目錄
