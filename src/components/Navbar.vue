@@ -29,7 +29,7 @@
     <Modal class="light-box" v-model="showModal">
       <div class="tweet-modal-content">
         <div class="user-photo-container">
-          <img class="post-tweet-avatar" :src="currentUser.image" alt="">
+          <img class="post-tweet-avatar" :src="currentUser.avatar" alt="">
         </div>
         <textarea name="" id="" cols="30" rows="10" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
       </div>
@@ -44,22 +44,14 @@
 </template>
 
 <script>
-  const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+import { mapState } from 'vuex'
+
+
   export default {
     data(){
       return{
         showModal: false,
         tweetContent:"",
-        currentUser: dummyUser.currentUser
       }
     },
     methods: {
@@ -71,6 +63,9 @@
         console.log('推文:', this.tweetContent)
       }
     },
+    computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
   }
 </script>
 

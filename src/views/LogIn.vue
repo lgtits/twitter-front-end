@@ -38,6 +38,7 @@
       <button
         class="sign-in"
         type="submit"
+        :disabled="isProcessing"
       >
         登入
       </button>
@@ -55,23 +56,63 @@
 
 <script>
 import authorizationAPI from './../apis/authorization'
+import { Toast } from './../utils/helpers'
 
 export default {
   data () {
     return {
       account: '',
-      password: ''
+      password: '',
+      isProcessing: false
     }
   },
   methods: {
     handleSubmit (e) {
       console.log(e)
+            // 如果 email 或 password 為空，則使用 Toast 提示
+      // 然後 return 不繼續往後執行
+      if (!this.account || !this.password) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填入 account 和 password'
+        })
+        return
+      }
+
+      this.isProcessing = true
+
       authorizationAPI.signIn({
         account: this.account,
         password: this.password
       }).then(response => {
         // TODO: 取得 API 請求後的資料
         console.log('response', response)
+        // 取得 API 請求後的資料
+        const { data } = response
+        // 將 token 存放在 localStorage 內
+        if (data.status !== 'success') {
+          console.log('errpr', data)
+          throw new Error(data.message)
+        }
+        localStorage.setItem('token', data.data.token)
+        
+
+        //將資料傳入vuex
+        console.log(data.data.user)
+        this.$store.commit('setCurrentUser', data.data.user)
+
+        //成功後轉到首頁
+        this.$router.push('/main')
+      }).catch(error => {
+        // 將密碼欄位清空
+        this.password = ''
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '請確認您輸入了正確的帳號密碼'
+        })
+        this.isProcessing = false
+        console.log('error', error)
       })
     }
   }

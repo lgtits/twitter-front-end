@@ -1,6 +1,6 @@
 <template>
     <div class="create-tweet">
-        <Avatar :initImage="avatar"/>
+        <Avatar :initImage="currentUser.avatar"/>
         <div class="say">
             <textarea 
             class="say-content" 
@@ -18,24 +18,25 @@
     import Avatar from './Avatar.vue'
     import SolidBtn from './SolidBtn.vue'
     import uuid from 'uuid'
+    import { mapState } from 'vuex'
 
-    const dummyUser = {
-    id: 1,
-    email: "root@example.com",
-    password: "12345678",
-    name: "root",
-    account: "root",
-    role: "admin",
-    avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
-    introduction: "",
-    cover: "",
-    tweetCount: null,
-    followingCount: null,
-    followerCount: null,
-    likedCount: null,
-    createdAt: "",
-    updatedAt: "",
-  }
+//     const dummyUser = {
+//     id: 1,
+//     email: "root@example.com",
+//     password: "12345678",
+//     name: "root",
+//     account: "root",
+//     role: "admin",
+//     avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
+//     introduction: "",
+//     cover: "",
+//     tweetCount: null,
+//     followingCount: null,
+//     followerCount: null,
+//     likedCount: null,
+//     createdAt: "",
+//     updatedAt: "",
+//   }
     export default {
         components: {
             Avatar,
@@ -44,7 +45,7 @@
         data(){
             return {
                 description: '',
-                avatar: dummyUser.avatar
+                // avatar: currentUser.avatar
             }
         },
         methods:{
@@ -57,7 +58,10 @@
                 // 清空
                 this.description = ""
             }
-        }
+        },
+        computed: {
+            ...mapState(['currentUser', 'isAuthenticated'])
+        },
     }
 </script>
 
