@@ -24,12 +24,12 @@ import Tweet from "../components/Tweet.vue";
 import PopularUser from "../components/PopularUser.vue";
 import UserCreateTweet from "../components/UserCreateTweet.vue";
 import tweetApis from '../apis/tweet'
-// import axios from 'axios'
+import { Toast } from '../utils/helpers.js'
 const dummyUser = {
     id: 1,
     email: "root@example.com",
     password: "12345678",
-    name: "root",
+    name: "是我",
     account: "root",
     role: "admin",
     avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
@@ -57,40 +57,52 @@ export default {
     };
   },
   methods: {
-    afterCreateTweet(payload) {
+    async afterCreateTweet(payload) {
       const {id, description} = payload
-      this.tweets.unshift({
+      // 回傳tweet物件
+      const result = {
           id,
-          UserId: -1,
+          UserId: 2,
           description,
           // TODO:優化
           createdAt: new Date(),
-          updatedAt: "",
-          userId: -1,
           User: {
-            id: 4,
-            email: dummyUser.email,
-            password: dummyUser.password,
-            name: "root",
-            account: "root",
-            role: dummyUser.role,
+            name: dummyUser.name,
+            account: dummyUser.account,
             avatar: dummyUser.avatar,
-            introduction: "",
-            cover: "",
-            tweetCount: null,
-            followingCount: null,
-            followerCount: null,
-            likedCount: null,
-            createdAt: "",
-            updatedAt: "",
           }
-      }) 
+      }
+      try{
+        // 前端手動更新
+        this.tweets.unshift(result) 
+        // post請求
+        const {statusText} = await tweetApis.createTweet(result)
+        if(statusText !== 'OK'){
+          throw new Error(statusText)
+        }
+
+      }catch(error){
+        console.log('error', error)
+        Toast.fire({
+          icon: 'error',
+          title: '無法新增推文，請稍後在試'
+        })
+      }
     },
     async fetchTweets(){
-      const { data } = await tweetApis.getMainTweet()
-      console.log('@',data)
-      
-      this.tweets = data
+      try{
+        const { data,statusText } = await tweetApis.getMainTweet()   
+        if(statusText !== 'OK'){
+          throw new Error(statusText)
+        }
+        this.tweets = data
+      }catch(error){
+        console.log('error', error)
+        Toast.fire({
+          icon: 'error',
+          title: '無取取得餐廳資料，請稍後在試'
+        })
+      }
     }
 
   },

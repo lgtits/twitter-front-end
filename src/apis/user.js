@@ -5,15 +5,9 @@ const getToken = () =>{
 }
 
 export default {
-    getMainTweet(){
-        return apiHelper.get('/tweets',{
-            headers: { Authorization: `Bearer ${getToken()}` } 
-        })
-    },
-    createTweet(tweetData){
-        console.log('@@@',tweetData)
-        return apiHelper.post('/tweets', tweetData,{
-            headers: { Authorization: `Bearer ${getToken()}` } 
+    getUser({id}){
+        return apiHelper.get(`users/${id}`,{
+            headers: {Authorization: `Bearer ${getToken()}`}
         })
     }
 }

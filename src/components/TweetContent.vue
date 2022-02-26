@@ -58,6 +58,7 @@ const dummyData = {
 import Tweet from '../components/Tweet.vue'
 import PersonalCard from '../components/PersonalCard.vue'
 import UserNavTabs from '../components/UserNavTabs.vue'
+import UsersApi from '../apis/user'
 
 export default {
     
@@ -68,9 +69,32 @@ export default {
     },
     data(){
         return {
-            tweet: dummyData,
-            user: dummyUser
+            tweet: {},
+            user: {
+                
+            }
         }
+    },
+    methods: {
+        async fetchUser(id){
+            try{
+                const {data, statusText} = await UsersApi.getUser({id})
+                const {data} = data
+                const {} = data
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.user= {
+                    ...this.user
+                }
+
+            }catch(error){
+                console.log('error',error)
+            }
+        }
+    },
+    created(){
+        this.fetchUser(4)
     }
 }
 </script>
