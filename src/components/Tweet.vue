@@ -68,7 +68,7 @@ export default {
         fetchTweetDate(){
             const {
                 id, 
-                userId,       
+                UserId: userId,       
                 description, 
                 createdAt,
                 User
