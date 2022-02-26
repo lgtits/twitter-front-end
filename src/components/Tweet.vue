@@ -24,20 +24,7 @@
 <script>
 import Avatar from '../components/Avatar.vue'
 import moment from 'moment'
-// const dummyData = {
-//     tweet: {
-//         id: 1,
-//         userId: 1,
-//         name: 'Apple',
-//         accountName: 'apple',
-//         image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
-//         content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
-//         createAt: '2019-06-07T13:28:51.000Z',
-//         isLiked: false,
-//     },
-//     tweetLikes: [{},{},{},{}],
-//     tweetComments: [{},{},{},{},{},{},{},{},{},{},{},{}]
-// }
+
 export default {
     components: {
         Avatar
