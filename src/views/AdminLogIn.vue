@@ -53,6 +53,9 @@
 </template>
 
 <script>
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
+
 export default {
   data () {
     return {
@@ -61,13 +64,53 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      const data = JSON.stringify({
-        email: this.adminAccount,
-        password: this.password
-      })
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log('data', data)
+    async handleSubmit (e) {
+      try {
+        console.log(e)
+        // 如果 email 或 password 為空，則使用 Toast 提示
+        // 然後 return 不繼續往後執行
+        if (!this.adminAccount || !this.password) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請填入 account 和 password'
+          })
+          return
+        }
+
+        this.isProcessing = true
+
+        const response = await adminAPI.adminSignIn({
+          account: this.adminAccount,
+          password: this.password
+        })
+
+        const { data } = response
+        console.log('response', response)
+        
+        if (data.status !== 'success') {
+          console.log('errpr', data)
+          throw new Error(data.message)
+        }
+
+        localStorage.setItem('token', data.data.token)
+        
+
+        //將資料傳入vuex
+        console.log(data.data.user)
+        this.$store.commit('setCurrentUser', data.data.user)
+
+        //成功後轉到首頁
+        this.$router.push('/admintweets')
+      } catch (error){
+        this.password = ''
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '請確認您輸入了正確的帳號密碼'
+        })
+        this.isProcessing = false
+        console.log('error', error)
+      }
     }
   }
 }

@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
+
 const dummyData = {
   "users": [
     {
@@ -82,16 +85,37 @@ export default {
   },
   data() {
     return {
-      users:[]
+      users:[],
+      test:[]
     };
   },
   created(){
     this.fetchUsers()
+    this.fetchTopUsers()
   },
   methods:{
     fetchUsers(){
       this.users = dummyData.users
-    }
+    },
+    async fetchTopUsers () {
+  try {
+    const { data } = await adminAPI.adminGetUsers()
+    console.log(data)
+    // this.test = data.map(user => ({
+    //   id: user.id,
+    //   name: user.name,
+    //   image: user.image,
+    //   followerCount: user.FollowerCount,
+    //   isFollowed: user.isFollowed
+    // }))
+  } catch (error) {
+    console.log(error)
+    Toast.fire({
+      icon: 'error',
+      title: '無法取得users，請稍後再試'
+    })
+  }
+},
   }
 };
 </script>
