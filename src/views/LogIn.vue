@@ -67,33 +67,34 @@ export default {
     }
   },
   methods: {
-    handleSubmit (e) {
-      console.log(e)
-            // 如果 email 或 password 為空，則使用 Toast 提示
-      // 然後 return 不繼續往後執行
-      if (!this.account || !this.password) {
-        Toast.fire({
-          icon: 'warning',
-          title: '請填入 account 和 password'
+    async handleSubmit (e) {
+      try {
+        console.log(e)
+        // 如果 email 或 password 為空，則使用 Toast 提示
+        // 然後 return 不繼續往後執行
+        if (!this.account || !this.password) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請填入 account 和 password'
+          })
+          return
+        }
+
+        this.isProcessing = true
+
+        const response = await authorizationAPI.signIn({
+          account: this.account,
+          password: this.password
         })
-        return
-      }
 
-      this.isProcessing = true
-
-      authorizationAPI.signIn({
-        account: this.account,
-        password: this.password
-      }).then(response => {
-        // TODO: 取得 API 請求後的資料
-        console.log('response', response)
-        // 取得 API 請求後的資料
         const { data } = response
-        // 將 token 存放在 localStorage 內
+        console.log('response', response)
+        
         if (data.status !== 'success') {
           console.log('errpr', data)
           throw new Error(data.message)
         }
+
         localStorage.setItem('token', data.data.token)
         
 
@@ -103,8 +104,7 @@ export default {
 
         //成功後轉到首頁
         this.$router.push('/main')
-      }).catch(error => {
-        // 將密碼欄位清空
+      } catch (error){
         this.password = ''
         // 顯示錯誤提示
         Toast.fire({
@@ -113,7 +113,7 @@ export default {
         })
         this.isProcessing = false
         console.log('error', error)
-      })
+      }
     }
   }
 }

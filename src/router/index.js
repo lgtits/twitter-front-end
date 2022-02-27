@@ -41,6 +41,11 @@ const routes = [
     component: Setting
   },
   {
+    path: '/admin',
+    name: 'adminRoot',
+    redirect: '/adminlogin'
+  },
+  {
     path: '/adminlogin',
     name: 'adminlog-in',
     component: AdminLogIn
