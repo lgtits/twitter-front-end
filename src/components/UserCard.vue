@@ -3,13 +3,13 @@
     <div class="cover">
       <img
         class="cover-photo"
-        src="https://upload.wikimedia.org/wikipedia/zh/4/40/Sky-Light_Awaits_Cover.jpg"
+        :src="user.cover"
         alt=""
       />
     </div>
     <div class="content">
       <div class="user-photo">
-        <img class="avatar" :src="user.image" />
+        <img class="avatar" :src="user.avatar" />
 
       </div>
       <div class="name">{{ user.name }}</div>

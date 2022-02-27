@@ -6,12 +6,12 @@
           <img class="avatar" :src="tweet.image" alt="" />
         </div>
         <div class="content">
-          <span class="name">{{ tweet.name }}</span>
+          <span class="name">{{ tweet.username }}</span>
           <span class="account-date"
-            >@{{ tweet.accountName }}·{{ tweet.createAt | fromNow }}</span
+            >@{{ tweet.account }}·{{ tweet.createdAt | fromNow }}</span
           >
           <div class="tweet-content">
-            {{ tweet.content }}
+            {{ tweet.description }}
           </div>
         </div>
         <button class="destroy" @click="deleteTweet(tweet.id)">
@@ -43,8 +43,9 @@ export default {
   },
   created() {},
   methods: {
-    deleteTweet(id){
-      console.log('delete tweet id:', id)
+    deleteTweet(TweetID){
+      console.log('emit delete tweet id:', TweetID)
+      this.$emit('after-delete-tweet', TweetID)
     }
   },
   filters: {

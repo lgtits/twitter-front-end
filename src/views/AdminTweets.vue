@@ -12,6 +12,7 @@
           v-for="tweet in tweets"
           :key="tweet.id"
           :initial-tweet = "tweet"
+          @after-delete-tweet="afterDeleteTweet"
         />
       </div>
     </main>
@@ -21,29 +22,8 @@
 <script>
 import AdminNavbar from "./../components/AdminNavbar";
 import AdminTweetsTable from "./../components/AdminTweetsTable";
-
-const dummyData = {
-    tweets: [
-      {
-        id: 1,
-        userId: 1,
-        name: 'Apple',
-        accountName: 'appl365',
-        image: 'https://gravatar.com/avatar/c039486cb31925728a7abb14bae5d493?s=400&d=wavatar&r=x',
-        content: 'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ',
-        createAt: '2019-06-07T13:28:51.000Z',
-      },
-      {
-        id: 2,
-        userId: 2,
-        name: 'Pen',
-        accountName: '123Pen',
-        image: 'https://www.w3schools.com/howto/img_avatar.png',
-        content: 'Nulla Lorem mserunt reprehenderit elit laborum. ',
-        createAt: '2017-09-07T13:28:51.000Z',
-      },
-    ]
-}
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
 
 export default {
   components: {
@@ -52,7 +32,7 @@ export default {
   },
   data(){
     return {
-          tweets: []
+      tweets: []
     }
   }
   ,
@@ -60,8 +40,30 @@ export default {
     this.fetchTweets()
   },
   methods: {
-    fetchTweets(){
-      this.tweets = dummyData.tweets
+    async fetchTweets(){
+      try{
+        const {data} = await adminAPI.adminGetTweets()
+
+        console.log(data.data)
+        this.tweets = data.data
+
+      } catch(error){
+        console.log('error', error)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得推文，請稍後再試'
+        })
+      }
+    },
+    async afterDeleteTweet(TweetID){
+      try{
+        const result = await adminAPI.adminDeleteTweet(TweetID)
+        console.log(result)
+        console.log('receive request delete ',TweetID)
+        this.tweets = this.tweets.filter( tweet => tweet.id !== TweetID)
+      } catch(error){
+        console.log('error happend', error)
+      }
     }
   }
 };

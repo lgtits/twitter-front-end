@@ -11,7 +11,17 @@ export default {
     })
   },
   adminGetUsers() {
-    return apiHelper.post('/admin/users', {
+    return apiHelper.get('/admin/users', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  adminGetTweets() {
+    return apiHelper.get('/admin/tweets', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  adminDeleteTweet(TweetID) {
+    return apiHelper.delete(`/admin/tweets/${TweetID}`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   }
