@@ -26,6 +26,7 @@
       <li>
         <NewTweet/>
         <SelfEdit/>
+        <MainReplyModal/>
       </li>
     </ul>
     <button class="sign-out" @click="logOut" >
@@ -40,10 +41,13 @@
 import { mapState } from 'vuex'
 import NewTweet from "./../components/NewTweet";
 import SelfEdit from "./../components/SelfEdit";
+import MainReplyModal from "./../components/MainReplyModal";
 
   export default {
     components:{
-    NewTweet,SelfEdit
+      NewTweet,
+      SelfEdit,
+      MainReplyModal
     },
     data(){
       return{
