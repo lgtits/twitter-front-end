@@ -3,7 +3,7 @@
     <li>
       <div class="list">
         <div class="user-photo">
-          <img class="avatar" :src="tweet.image" alt="" />
+          <img class="avatar" :src="tweet.avatar" alt="" />
         </div>
         <div class="content">
           <span class="name">{{ tweet.username }}</span>

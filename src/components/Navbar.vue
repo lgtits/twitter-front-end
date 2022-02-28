@@ -23,19 +23,10 @@
         </router-link>
       </li>
       <li>
-        <button class="post" @click="showModal=true">推文</button>
+        <NewTweet/>
       </li>
     </ul>
-    <Modal class="light-box" v-model="showModal">
-      <div class="tweet-modal-content">
-        <div class="user-photo-container">
-          <img class="post-tweet-avatar" :src="currentUser.avatar" alt="">
-        </div>
-        <textarea name="" id="" cols="30" rows="10" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
-      </div>
-      <button class="post-tweet" @click="sendPost">推文</button>
-    </Modal>
-    <button class="sign-out" @click="logOut">
+    <button class="sign-out" @click="logOut" >
       <img class="icon"  src="../assets/image/icon_logout.png" alt="" >
       登出
     </button>
@@ -45,9 +36,12 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import NewTweet from "./../components/NewTweet";
 
   export default {
+    components:{
+    NewTweet
+    },
     data(){
       return{
         showModal: false,
@@ -60,12 +54,18 @@ import { mapState } from 'vuex'
         console.log(this.$route)
       },
       sendPost(){
+        if (this.tweetContent.length === 0){
+          this.showModal = true
+          return
+        }
         console.log('推文:', this.tweetContent)
+        this.tweetContent = ''
+        this.showModal = false
       }
     },
     computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
-  },
+      ...mapState(['currentUser', 'isAuthenticated'])
+    },
   }
 </script>
 
