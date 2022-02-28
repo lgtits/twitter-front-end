@@ -32,6 +32,7 @@
         console.log('推文:', this.tweetContent)
         this.tweetContent = ''
         this.showModal = false
+        console.log(this.$route)
       }
     },
     computed: {
