@@ -66,6 +66,12 @@ const routes = [
     name: 'main',
     component: Main
   },
+  // 推文回覆頁
+  {
+    path: '/tweet/:id',
+    name: 'tweet',
+    component: () => import('@/views/Reply.vue') 
+  },
   // user系列
   {
     path: '/user/:id',
