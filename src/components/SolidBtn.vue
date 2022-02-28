@@ -1,12 +1,12 @@
 <template>
-    <router-link 
+    <a 
     class="solid-btn" 
-    to="#"
+    href="#"
+    :class="['outlineBtn', {'sm': size === 'sm'}]"
     @click.stop.prevent="handlePublish"
-    :class="['outlineBtn', {'sm': size = 'sm'}]"
     >
         {{text}}
-    </router-link>
+    </a>
 </template>
 <script>
 export default {
@@ -28,6 +28,7 @@ export default {
     },
     methods: {
         handlePublish(){
+            console.log(1)
             this.$emit("after-create-tweet")
         }
     }

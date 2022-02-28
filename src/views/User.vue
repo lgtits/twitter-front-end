@@ -7,7 +7,7 @@
         <main>
           <div class="card-list">
             <div class="head">
-                <i>
+                <i @click="$router.back()">
                     <img src="../assets/image/back.svg" alt="">
                 </i>
                 <div class="userInfo">
@@ -77,7 +77,6 @@ export default {
   main{
     /* background-color: $border; */
     width: 100%;
-    height: 1200px;
     border: 1px solid $border;
     .card-list{
       .head{
@@ -85,12 +84,19 @@ export default {
           align-items: center;
           background-color: $white;
           padding: 5px 20px;
-          i{
-              padding-right: 43px;
+          >i{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              // 點擊區域
+              width: 44px;
+              height: 44px;
+              cursor: pointer;
           }
           .userInfo{
               display: flex;
               flex-direction: column;
+              padding-left: 43px;
               >h2{
                 @include font(18px, 1.4, normal, 700);
             }

@@ -39,6 +39,7 @@
         },
         methods:{
             afterCreateTweet(){
+                console.log(1)
                 // 阻擋空白/140字以上發文，並發出警示文字
                 if(!this.description.trim()){
                     return this.alertMessage = 'oh!你好像忘記輸入東西了'
