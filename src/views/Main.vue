@@ -91,7 +91,32 @@ export default {
     },
     async fetchTweets(){
       try{
-        const { data,statusText } = await tweetApis.getMainTweet()   
+        const { data,statusText } = await tweetApis.getMainTweet()
+        console.log('###',data)
+        // 資料類型
+        // User:{
+        //   account:"user1"
+        //   avatar:"https://loremflickr.com/320/240/people"
+        //   cover:"https://loremflickr.com/800/600/paris"
+        //   createdAt:"2022-02-26T07:25:46.000Z"
+        //   email:"user1@example.com"
+        //   followerCount:null
+        //   followingCount:null
+        //   id:2
+        //   introduction:"occaecati"
+        //   likedCount:null
+        //   name:"Wendell Russel MD"
+        //   password:"$2a$10$k5JQkXgf4hRLoelAxGrKlu.qsN2ZvIA6ETI4IF29VRegQyx67OsUO"
+        //   role:"user"
+        //   tweetCount:null
+        //   updatedAt:"2022-02-26T07:25:46.000Z"
+        // }
+        // UserId:2
+        // createdAt:"2022-02-26T12:28:53.000Z"
+        // description:"123456"
+        // id:74
+        // updatedAt:"2022-02-26T12:28:53.000Z"
+ 
         if(statusText !== 'OK'){
           throw new Error(statusText)
         }

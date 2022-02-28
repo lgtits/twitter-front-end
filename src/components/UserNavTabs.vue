@@ -1,8 +1,14 @@
 <template>
     <ul>
-        <li class="active"><a href="#">推文</a></li>
-        <li><a href="#">推文與回覆</a></li>
-        <li><a href="#">喜歡的內容</a></li>
+        <li>
+            <router-link :to="{name: 'user-tweets',params: {id: $route.params.id}}">推文</router-link>
+        </li>
+        <li>
+            <router-link :to="{name: 'user-replies',params: {id: $route.params.id}}">推文與回覆</router-link>
+        </li>
+        <li>
+            <router-link :to="{name: 'user-likes',params: {id: $route.params.id}}">喜歡的內容</router-link>
+        </li>
     </ul>
 </template>
 <style lang="scss" scoped>
@@ -13,16 +19,13 @@ ul{
     border-bottom: 1px solid $border;
     li{
         display: inline-block;
-        &.active{
-            color: $primary;
-            a{
-                border-bottom: 2px solid $primary;
-                color: $primary;
-            }
-        }
         >a{
             display: inline-block;
             padding: 13px 50px;
+            &.active{
+            color: $primary;
+            border-bottom: 2px solid $primary;
+        }
         }
     }
 }
