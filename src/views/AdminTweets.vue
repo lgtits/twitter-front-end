@@ -19,6 +19,7 @@
   </div>
 </template>
 
+
 <script>
 import AdminNavbar from "./../components/AdminNavbar";
 import AdminTweetsTable from "./../components/AdminTweetsTable";
@@ -44,14 +45,14 @@ export default {
       try{
         const {data} = await adminAPI.adminGetTweets()
 
-        console.log(data.data)
-        this.tweets = data.data
+        console.log(data.tweets)
+        this.tweets = data.tweets
 
       } catch(error){
         console.log('error', error)
         Toast.fire({
           icon: 'error',
-          title: '無法取得推文，請稍後再試'
+          title: `無法取得推文，請稍後再試: ${error.message}`
         })
       }
     },
