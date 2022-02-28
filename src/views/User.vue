@@ -15,6 +15,7 @@
                     <h4>25推文</h4>
                 </div>
             </div>
+            <PersonalCard :initUser="user"/>
             <router-view/>
           </div>
        </main>
@@ -28,20 +29,89 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import PopularUser from '../components/PopularUser.vue'
+import PersonalCard from '../components/PersonalCard.vue'
+import UsersApi from '../apis/user'
 
 export default {
   components: {
     Navbar,
     PopularUser,
     // Tweet,
-    // PersonalCard,
+    PersonalCard,
     // UserNavTabs
   },
   data(){
     return {
-
+      user: {
+          id: -1,
+          email: "",
+          password: "",
+          name: "",
+          account: "",
+          role: "",
+          avatar: "",
+          introduction: "",
+          cover: "",
+          tweetCount: null,
+          followingCount: null,
+          followerCount: null,
+          likedCount: null,
+          createdAt: "",
+          updatedAt: "",
+      }
     }
-  }
+  },
+  methods: {
+     async fetchUser(userId){
+            try{
+                const {data, statusText} = await UsersApi.getUser({userId})
+                console.log('$$',data)
+                const {
+                    id,
+                    email,
+                    name,
+                    account,
+                    role,
+                    avatar,
+                    introduction,
+                    cover,
+                    tweetCount,
+                    followingCount,
+                    followerCount,
+                    likedCount,
+                    createdAt,
+                    updatedAt,
+                } = data.userData
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.user= {
+                    ...this.user,
+                    id,
+                    email,
+                    name,
+                    account,
+                    role,
+                    avatar,
+                    introduction,
+                    cover,
+                    tweetCount,
+                    followingCount,
+                    followerCount,
+                    likedCount,
+                    createdAt,
+                    updatedAt,
+                }
+
+            }catch(error){
+                console.log('error',error)
+            }
+        },
+  },
+  created(){
+        const id = this.$route.params.id
+        this.fetchUser(id)
+    }
 }
 </script>
 

@@ -1,21 +1,24 @@
 <template>
     <div class="personalCard">
         <div class="userBackground">
+            <figure>
+                <img :src="user.cover" alt="封面">
+            </figure>
             <div class="avatar-box">
-                <Avatar/>
+                <Avatar :initImage="user.avatar"/>
             </div>
         </div>
         <div class="personalInfo">
-            <div class="name">John Doe</div>
-            <div class="accountName">heyjohn</div>
-            <div class="description">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</div>
+            <div class="name">{{user.name}}</div>
+            <div class="accountName">{{user.account}}</div>
+            <div class="description">{{user.introduction}}</div>
             <div class="popularStatus">
                 <div>
-                    <a href="#">34</a>
+                    <a href="#">{{user.followingCount || 0}}</a>
                     <span>個跟隨中</span>
                 </div>
                 <div>
-                    <a href="#">59</a>
+                    <a href="#">{{user.followerCount || 0}}</a>
                     <span>位跟隨者</span>
                 </div>
             </div>
@@ -29,9 +32,30 @@
 import Avatar from '../components/Avatar.vue'
 import OutlineBtn from '../components/OutlineBtn.vue'
 export default {
+    props: {
+        initUser: {
+            type: Object,
+            required: true
+        }
+    },
     components: {
         Avatar,
         OutlineBtn
+    },
+    data(){
+        return {
+            // watch問題
+            user: this.initUser
+        }
+    },
+    // 當props值須隨即監控時使用
+    watch:{
+        initUser(newValue){
+            this.user = {
+                ...this.user,
+                ...newValue
+            }
+        }
     }
 }
 </script>
@@ -43,7 +67,17 @@ export default {
         position: relative;
         width: 100%;
         height: 200px;
-        background-color: #999;
+        background-color: $white;
+        >figure{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            >img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
         .avatar-box{
             position: absolute;
             top: 100%;

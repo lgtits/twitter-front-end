@@ -7,13 +7,17 @@
                 <div class="account-name">{{tweet.accountName}}</div>
                 <div class="update-time">{{tweet.createdAt | fromNow }}</div>
             </div>
+            <div class="replyPerson" v-show="initTweet.replyPerson">
+                <span>回復</span>
+                <div class="account-name">{{tweet.replyPerson}}</div>
+            </div>
             <div class="tweet-content">{{tweet.description}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
                     <i><img src="../assets/image/message.svg" alt="評論符號"></i>
                     <p>{{tweetComments.length}}</p>
                 </a>
-                <a href="#" class="favorite">
+                <a href="#" class="favorite" @click.stop.prevent="handleAddLike(tweet.id)" >
                     <i><img src="../assets/image/favorite.svg" alt="最愛符號"></i>
                     <p>{{tweetLikes.length}}</p>
                 </a>
@@ -24,6 +28,8 @@
 <script>
 import Avatar from '../components/Avatar.vue'
 import moment from 'moment'
+import tweetApis from '../apis/tweet'
+import { Toast } from '../utils/helpers.js'
 
 export default {
     components: {
@@ -46,6 +52,8 @@ export default {
                 description: '',
                 createdAt: '',
                 isLiked: false,
+                // 暫時
+                replyPerson: ''
             },
             tweetLikes: [],
             tweetComments: [],
@@ -58,6 +66,8 @@ export default {
                 UserId: userId,       
                 description, 
                 createdAt,
+                // 暫時,
+                replyPerson,
                 User
             } = this.initTweet
             const {
@@ -73,21 +83,40 @@ export default {
                 accountName, 
                 image, 
                 description, 
-                createdAt, 
+                createdAt,
+                replyPerson
+            }
+        },
+        async handleAddLike(tweetId){
+            try{
+                const response = await tweetApis.addLike({tweetId})
+                console.log(response)
+                this.tweet = {
+                    ...this.tweet,
+                    isLike: true
+                }
+
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '加到喜歡失敗，請稍後在試'
+                })
             }
         }
     },
     created(){
         this.fetchTweetDate()
     },
-    // watch: {
-    //     initTweet(newValue){
-    //         this.tweet ={
-    //             ...this.tweet,
-    //             ...newValue
-    //         }
-    //     }
-    // },
+    watch: {
+        initTweet(newValue){
+            this.tweet ={
+                ...this.tweet,
+                ...newValue
+            }
+        }
+    },
     filters: {
         fromNow(datetime){
             if(!datetime){
@@ -118,7 +147,7 @@ export default {
             .tweet-name{
                 display: flex;
                 align-items: center;
-                margin-bottom: 5px;
+                /* margin-bottom: 3px; */
                 .name{
                     margin-right: 5px;
                     @include font(15px, 1.5, normal, 700);
@@ -141,6 +170,21 @@ export default {
                         display: inline-block;
                         position: absolute;
                         left: -5px;
+                    }
+                }
+            }
+            .replyPerson{
+                display: flex;
+                >span{
+                    margin-right: 5px;
+                    @include font (15px, 1.5, normal, 500);
+                    color: $dark-grey;
+                }
+                .account-name{
+                    @include font (15px, 1.5, normal, 500);
+                    color: $primary;
+                    &:before{
+                        content: '@',
                     }
                 }
             }
