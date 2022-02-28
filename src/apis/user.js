@@ -1,13 +1,31 @@
 import { apiHelper } from '../utils/helpers'
 
-const getToken = () =>{
-    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyb290QGV4YW1wbGUuY29tIiwibmFtZSI6InJvb3QiLCJhY2NvdW50Ijoicm9vdCIsInJvbGUiOiJhZG1pbiIsImF2YXRhciI6Imh0dHBzOi8vbG9yZW1mbGlja3IuY29tLzMyMC8yNDAvcGVvcGxlIiwiaW50cm9kdWN0aW9uIjoidXQiLCJjb3ZlciI6Imh0dHBzOi8vbG9yZW1mbGlja3IuY29tLzgwMC82MDAvcGFyaXMiLCJjcmVhdGVkQXQiOiIyMDIyLTAyLTI1VDE3OjAxOjU5LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTAyLTI1VDE3OjAxOjU5LjAwMFoiLCJpYXQiOjE2NDU4NTcwNTEsImV4cCI6MTY0ODQ0OTA1MX0.tiYQ2jzHIclyMWikYdTj6OY4vPwWt2TDLTNT4wsXiXo'
-}
+const getToken = () => localStorage.getItem('token')
 
 export default {
-    getUser({id}){
-        return apiHelper.get(`users/${id}`,{
-            headers: {Authorization: `Bearer ${getToken()}`}
+    getCurrentUser(){
+        return apiHelper.get('currentuser',{
+             headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
+    getUser({userId}){
+        return apiHelper.get(`users/${userId}`,{
+            headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
+    getUserTweets({userId}){
+        return apiHelper.get(`users/${userId}/tweets`,{
+            headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
+    getUserRepliesTweet({userId}){
+        return apiHelper.get(`users/${userId}/replies`,{
+            headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
+    getUserLikesTweet({userId}){
+        return apiHelper.get(`users/${userId}/likes`,{
+            headers: { Authorization: `Bearer ${getToken()}`}
         })
     }
 }
