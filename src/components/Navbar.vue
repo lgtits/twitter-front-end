@@ -3,17 +3,18 @@
     <img class="logo" src="../assets/image/Logo.png" alt="" />
     <ul class="nav">
       <li>
-        <router-link class="" to="/main">
+        <router-link class="" to="/main/">
           <img v-if="this.$route.name === 'main'" class="icon" src="../assets/image/icon_index2.png" alt="">
           <img v-else class="icon" src="../assets/image/icon_index.png" alt="">
           首頁
         </router-link>
       </li>
       <li>
-        <a class="" href="#">
-          <img class="icon"  src="../assets/image/icon_user.png" alt="">
+        <router-link class="" to="/user/tweets">
+          <img class="icon" v-if="this.$route.params.id === 'tweets' ||'likes'|| 'replies' " src="../assets/image/icon_user2.png" alt="">
+          <img v-else class="icon"  src="../assets/image/icon_user.png" alt="">
           個人資料
-          </a>
+          </router-link>
       </li>
       <li>
         <router-link class="" to="/setting">
@@ -24,6 +25,7 @@
       </li>
       <li>
         <NewTweet/>
+        <SelfEdit/>
       </li>
     </ul>
     <button class="sign-out" @click="logOut" >
@@ -37,10 +39,11 @@
 <script>
 import { mapState } from 'vuex'
 import NewTweet from "./../components/NewTweet";
+import SelfEdit from "./../components/SelfEdit";
 
   export default {
     components:{
-    NewTweet
+    NewTweet,SelfEdit
     },
     data(){
       return{
