@@ -14,11 +14,13 @@
             <div class="description">{{user.introduction}}</div>
             <div class="popularStatus">
                 <div>
-                    <a href="#">{{user.followingCount || 0}}</a>
+                    <router-link 
+                    :to="{name: 'user-followings', params: {id: $route.params.id}}">{{user.followingCount || 0}}</router-link>
                     <span>個跟隨中</span>
                 </div>
                 <div>
-                    <a href="#">{{user.followerCount || 0}}</a>
+                    <router-link 
+                    :to="{name: 'user-followers', params: {id: $route.params.id}}">{{user.followerCount || 0}}</router-link>
                     <span>位跟隨者</span>
                 </div>
             </div>
@@ -120,6 +122,7 @@ export default {
                 @include font(14px,1.2,normal,500);
                 >span{
                     color: $dark-grey;
+                    margin-left: 3px;
                 }
             }
         }

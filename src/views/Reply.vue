@@ -6,10 +6,16 @@
       </div>
       <main>
         <div class="card-list">
-          <h2>首頁</h2>
-          <UserCreateTweet @after-create-tweet="afterCreateTweet" />
-          <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
+          <div class="head">
+                <i @click="$router.back()">
+                    <img src="../assets/image/back.svg" alt="">
+                </i>
+                <div class="userInfo">
+                    <h2>推文</h2>
+                </div>
+            </div>
         </div>
+        <TweetDetail/>
       </main>
       <div class="popularList">
         <PopularUser />
@@ -20,9 +26,9 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Tweet from "../components/Tweet.vue";
+// import Tweet from "../components/Tweet.vue";
+import TweetDetail from '../components/TweetDetail.vue'
 import PopularUser from "../components/PopularUser.vue";
-import UserCreateTweet from "../components/UserCreateTweet.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 const dummyUser = {
@@ -44,12 +50,12 @@ const dummyUser = {
   }
 
 export default {
-  name: 'Main',
+  name: 'Reply',
   components: {
     Navbar,
-    UserCreateTweet,
     PopularUser,
-    Tweet,
+    TweetDetail,
+    // Tweet,
   },
   data() {
     return {
@@ -165,12 +171,29 @@ main {
   height: 1200px;
   border: 1px solid $border;
   .card-list {
-    > h2 {
-      padding: 15px;
-      border-bottom: 1px solid $border;
-      background-color: $white;
-      @include font(18px, 1.4, normal, 700);
-    }
+    .head{
+          display: flex;
+          align-items: center;
+          background-color: $white;
+          padding: 5px 20px;
+          >i{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              // 點擊區域
+              width: 44px;
+              height: 44px;
+              cursor: pointer;
+          }
+          .userInfo{
+              display: flex;
+              flex-direction: column;
+              padding-left: 43px;
+              >h2{
+                @include font(18px, 1.4, normal, 700);
+            }
+          }
+      }
   }
 }
 </style>
