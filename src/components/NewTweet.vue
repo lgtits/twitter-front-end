@@ -6,7 +6,7 @@
         <div class="user-photo-container">
           <img class="post-tweet-avatar"  :src="currentUser.avatar" alt="">
         </div>
-        <textarea name="" id="" cols="30" rows="10" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
+        <textarea name="" id="" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
       </div>
       <button class="post-tweet" @click="sendPost">推文</button>
     </Modal>
@@ -57,11 +57,13 @@
   .vm{
     .tweet-modal-content{
       display: flex;
+      height: 245px;
+
       .user-photo-container{
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        margin-right: 10px;
+        margin: 15px 10px auto 15px;
         .post-tweet-avatar{
           width: 100%;
           height: 100%;
@@ -72,6 +74,9 @@
       textarea {
         resize: none;
         border: none;
+        width: 510px;
+        height: 165px;
+        margin-top: 27px;
         font-size: 18px;
         font-weight: 500;
         font-family: Noto Sans TC;

@@ -37,5 +37,11 @@ export default {
         return apiHelper.get(`users/${userId}/followings`,{
             headers: { Authorization: `Bearer ${getToken()}`}
         })
-    }
+    },
+    //setting user
+    updateUser({ userId, formData }){
+        return apiHelper.post(`users/${userId}`, formData, {
+            headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
 }
