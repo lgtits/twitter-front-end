@@ -82,13 +82,23 @@ const routes = [
       {
         path: 'replies',
         name: 'user-replies',
-        component: () => import('@/components/ReplyContent')
+        component: () => import('@/components/ReplyContent.vue')
       },
       // 喜歡的內容
       {
         path: 'likes',
         name: 'user-likes',
-        component: () => import('@/components/LikeContent')
+        component: () => import('@/components/LikeContent.vue')
+      },
+      {
+        path: 'followings',
+        name: 'user-followings',
+        component: () => import('@/components/FollowingContent.vue')
+      },
+      {
+        path: 'followers',
+        name: 'user-followers',
+        component: () => import('@/components/FollowerContent.vue')
       }
   ]
   },
