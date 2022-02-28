@@ -59,10 +59,10 @@
         >
       </div>
       <div class="input-box">
-        <label for="passwordCheck">密碼確認</label>
+        <label for="checkPassword">密碼確認</label>
         <input
-          id="passwordCheck"
-          v-model="passwordCheck"
+          id="checkPassword"
+          v-model="checkPassword"
           name="passwordCheck"
           type="password"
           class="form-control"
@@ -85,6 +85,9 @@
 </template>
 
 <script>
+import authorizationAPI from './../apis/authorization'
+import { Toast } from './../utils/helpers'
+
 export default {
   data () {
     return {
@@ -92,17 +95,55 @@ export default {
       name: '',
       email: '',
       password: '',
-      passwordCheck: ''
+      checkPassword: ''
     }
   },
   methods: {
-    handleSubmit () {
-      const data = JSON.stringify({
-        email: this.account,
-        password: this.password
-      })
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log('data', data)
+    async handleSubmit () {
+      try {
+        if (
+          !this.account ||
+          !this.name ||
+          !this.email ||
+          !this.password ||
+          !this.checkPassword
+        ) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請確認已填寫所有欄位'
+          })
+          return
+        }
+        if (this.password !== this.checkPassword) {
+          Toast.fire({
+            icon: 'warning',
+            title: '兩次輸入的密碼不同'
+          })
+          this.checkPassword = ''
+          return
+        }
+        const { data } = await authorizationAPI.signUp({
+          account:this.account,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          checkPassword: this.checkPassword
+        })
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+        Toast.fire({
+          icon: 'success',
+          title: data.message
+        })
+        // 成功登入後轉址到登入頁
+        this.$router.push('/login')
+      } catch (error) {
+        Toast.fire({
+          icon: 'warning',
+          title: `無法註冊 - ${error.message}`
+        })
+      }
     }
   }
 }
@@ -145,7 +186,7 @@ export default {
           top: 5px;
         }
       }
-      #account, #name, #email, #password, #passwordCheck{
+      #account, #name, #email, #password, #checkPassword{
         padding: 20px 0 0 10px;
         height: 52px;
         background-color:#F5F8FA;

@@ -3,6 +3,8 @@ import VueModal from '@kouts/vue-modal'
 import '../assets/style/vue-modal.css'
 Vue.component('Modal', VueModal)
 
+import store from './../store'
+
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -119,5 +121,14 @@ const router = new VueRouter({
   linkExactActiveClass: 'active',
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  console.log('to', to)
+  console.log('from', from)
+  // 使用 dispatch 呼叫 Vuex 內的 actions
+  store.dispatch('fetchCurrentUser')
+  next()
+})
+
 
 export default router

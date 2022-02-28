@@ -7,7 +7,7 @@
       <div class="header">
         <h1>帳戶設定</h1>
       </div>
-      <form class="main-form">
+      <form class="main-form" @submit.prevent.stop="handleSubmit">
         <div class="input-box">
           <label for="account">帳號</label>
           <input
@@ -78,6 +78,9 @@
 
 <script>
 import Navbar from "./../components/Navbar";
+// import userAPI from './../apis/user'
+import { Toast } from './../utils/helpers'
+
 export default {
   components: {
     Navbar,
@@ -89,16 +92,28 @@ export default {
       email: "",
       password: "",
       passwordCheck: "",
+      isProcessing: false
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
-        email: this.account,
-        password: this.password,
-      });
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log("data", data);
+    async handleSubmit(e) {
+      console.log(e)
+      try{
+        //驗證不爲空值
+        if (!this.account || !this.name || !this.email || !this.password || !this.passwordCheck) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請確認填入所有資訊'
+          })
+          return
+        } 
+
+        this.isProcessing = true
+
+        
+      } catch(error){
+          console.log(error)
+        }
     },
   },
 };
