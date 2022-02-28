@@ -6,11 +6,16 @@
             class="say-content" 
             placeholder="有什麼新鮮事"
             v-model="description"
+            @blur="handleBlurTextarea"
+            
             ></textarea>
-            <SolidBtn 
-            initText="推文"
-            @after-create-tweet="afterCreateTweet"
-            />
+            <div>
+                <p class="alert-text" v-show="alertMessage">{{alertMessage}}</p>
+                <SolidBtn 
+                initText="推文"
+                @after-create-tweet="afterCreateTweet"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -20,23 +25,6 @@
     import uuid from 'uuid'
     import { mapState } from 'vuex'
 
-//     const dummyUser = {
-//     id: 1,
-//     email: "root@example.com",
-//     password: "12345678",
-//     name: "root",
-//     account: "root",
-//     role: "admin",
-//     avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
-//     introduction: "",
-//     cover: "",
-//     tweetCount: null,
-//     followingCount: null,
-//     followerCount: null,
-//     likedCount: null,
-//     createdAt: "",
-//     updatedAt: "",
-//   }
     export default {
         components: {
             Avatar,
@@ -46,17 +34,37 @@
             return {
                 description: '',
                 // avatar: currentUser.avatar
+                alertMessage: '',
             }
         },
         methods:{
             afterCreateTweet(){
-                // TODO:發布文章
+                // 阻擋空白/140字以上發文，並發出警示文字
+                if(!this.description.trim()){
+                    return this.alertMessage = 'oh!你好像忘記輸入東西了'
+                }
+                if(this.description.length > 140) {
+                    return this.alertMessage = 'oh!你輸入的文字太長了，最多140字'
+                }
                 this.$emit('after-create-tweet',{
                     id: uuid(),
                     description: this.description
                 })
+                
                 // 清空
                 this.description = ""
+            },
+            // 發文區塊若blur，則取消警示字
+            handleBlurTextarea(){
+                this.alertMessage = ''
+            },
+        },
+        // 監聽使用者如果重新輸入文字，取消alert文字
+        watch:{
+            description(newValue){
+                if(newValue.trim().length >= 0){
+                    this.alertMessage = ''
+                }
             }
         },
         computed: {
@@ -91,6 +99,15 @@
                 &::placeholder{
                     color: $middle-grey;
                     @include font(18px, 1.4, normal, 500);
+                }
+            }
+            >div{
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                .alert-text{
+                    margin-right: 10px;
+                    color: $warring;
                 }
             }
         }
