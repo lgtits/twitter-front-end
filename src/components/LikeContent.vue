@@ -1,5 +1,6 @@
 <template>
     <div>
+        <PersonalCard :initUser="user"/>
         <UserNavTabs/>
         <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
     </div>
@@ -8,6 +9,7 @@
 <script>
 import Tweet from '../components/Tweet.vue'
 import UserNavTabs from '../components/UserNavTabs.vue'
+import PersonalCard from '../components/PersonalCard.vue'
 import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 
@@ -50,11 +52,29 @@ export default {
     name: 'TweetContent',
     components: {
         Tweet,
+        PersonalCard,
         UserNavTabs
     },
     data(){
         return {
             tweets: [],
+            user: {
+                id: -1,
+                email: "",
+                password: "",
+                name: "",
+                account: "",
+                role: "",
+                avatar: "",
+                introduction: "",
+                cover: "",
+                tweetCount: null,
+                followingCount: null,
+                followerCount: null,
+                likedCount: null,
+                createdAt: "",
+                updatedAt: "",
+            }
         }
     },
     methods: {
@@ -89,10 +109,56 @@ export default {
                     title: '未能取得使用者推文，請稍後在試'
                 })
             }
-        }
+        },
+        async fetchUser(userId){
+            try{
+                const {data, statusText} = await UsersApi.getUser({userId})
+                console.log('$$',data)
+                const {
+                    id,
+                    email,
+                    name,
+                    account,
+                    role,
+                    avatar,
+                    introduction,
+                    cover,
+                    tweetCount,
+                    followingCount,
+                    followerCount,
+                    likedCount,
+                    createdAt,
+                    updatedAt,
+                } = data.userData
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.user= {
+                    ...this.user,
+                    id,
+                    email,
+                    name,
+                    account,
+                    role,
+                    avatar,
+                    introduction,
+                    cover,
+                    tweetCount,
+                    followingCount,
+                    followerCount,
+                    likedCount,
+                    createdAt,
+                    updatedAt,
+                }
+
+            }catch(error){
+                console.log('error',error)
+            }
+        },
     },
     created(){
         const id = this.$route.params.id
+        this.fetchUser(id)
         this.fetchTweets(id)
     }
 }

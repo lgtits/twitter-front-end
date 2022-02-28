@@ -1,11 +1,12 @@
 <template>
-    <a 
+    <router-link 
     class="solid-btn" 
-    href="#"
+    to="#"
     @click.stop.prevent="handlePublish"
+    :class="['outlineBtn', {'sm': size = 'sm'}]"
     >
         {{text}}
-    </a>
+    </router-link>
 </template>
 <script>
 export default {
@@ -13,11 +14,16 @@ export default {
         initText:{
             type: String,
             default: '追隨'
+        },
+        initSize: {
+            type: String,
+            default: 'md'
         }
     },
     data() {
         return{
-            text: this.initText
+            text: this.initText,
+            size: this.initSize
         }
     },
     methods: {
@@ -36,6 +42,12 @@ export default {
     background-color: $primary;
     border-radius: 500px;
     @include font(15px, 1.2, normal ,500);
+    &.md{
+        padding: 10px 15px;
+    }
+    &.sm{
+        padding: 5px 15px;
+    }
     &:hover{
         border: 1px solid $primary; 
         background-color: $white;
