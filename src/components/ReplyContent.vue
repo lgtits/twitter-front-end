@@ -52,6 +52,7 @@ export default {
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
+               // tweet接收的資料格式，務必照此格式tweet才能正常顯示
                this.tweets = data.map(tweet => {
                    return {
                         id: tweet.Tweet.id,

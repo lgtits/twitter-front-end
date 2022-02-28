@@ -8,6 +8,17 @@ export default {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
     },
+    getTweet({tweetId}){
+        return apiHelper.get(`/tweets/${tweetId}`,{
+            headers: { Authorization: `Bearer ${getToken()}` } 
+        })
+    }
+    ,
+    getTweetReply({tweetId}){
+        return apiHelper.get(`/tweets/${tweetId}/replies`,{
+            headers: { Authorization: `Bearer ${getToken()}` } 
+        })
+    },
     createTweet(tweetData){
         return apiHelper.post('/tweets', tweetData,{
             headers: { Authorization: `Bearer ${getToken()}` } 

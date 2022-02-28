@@ -16,6 +16,7 @@
             </div>
         </div>
         <TweetDetail/>
+        <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
       </main>
       <div class="popularList">
         <PopularUser />
@@ -26,28 +27,11 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-// import Tweet from "../components/Tweet.vue";
+import Tweet from "../components/Tweet.vue";
 import TweetDetail from '../components/TweetDetail.vue'
 import PopularUser from "../components/PopularUser.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
-const dummyUser = {
-    id: 1,
-    email: "root@example.com",
-    password: "12345678",
-    name: "是我",
-    account: "root",
-    role: "admin",
-    avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
-    introduction: "",
-    cover: "",
-    tweetCount: null,
-    followingCount: null,
-    followerCount: null,
-    likedCount: null,
-    createdAt: "",
-    updatedAt: "",
-  }
 
 export default {
   name: 'Reply',
@@ -55,78 +39,44 @@ export default {
     Navbar,
     PopularUser,
     TweetDetail,
-    // Tweet,
+    Tweet,
   },
   data() {
     return {
-      tweets: []
+      tweets: [],
     };
   },
   methods: {
-    async afterCreateTweet(payload) {
-      const {id, description} = payload
-      // 回傳tweet物件
-      const result = {
-          id,
-          UserId: 2,
-          description,
-          // TODO:優化
-          createdAt: new Date(),
-          User: {
-            name: dummyUser.name,
-            account: dummyUser.account,
-            avatar: dummyUser.avatar,
-          }
-      }
+    async fetchTweets(tweetId){
       try{
-        // 前端手動更新
-        this.tweets.unshift(result) 
-        // post請求
-        const {statusText} = await tweetApis.createTweet(result)
-        if(statusText !== 'OK'){
-          throw new Error(statusText)
-        }
-
-      }catch(error){
-        console.log('error', error)
-        Toast.fire({
-          icon: 'error',
-          title: '無法新增推文，請稍後在試'
-        })
-      }
-    },
-    async fetchTweets(){
-      try{
-        const { data,statusText } = await tweetApis.getMainTweet()
+        const { data,statusText } = await tweetApis.getTweetReply({tweetId})
         console.log('###',data)
-        // 資料類型
-        // User:{
-        //   account:"user1"
-        //   avatar:"https://loremflickr.com/320/240/people"
-        //   cover:"https://loremflickr.com/800/600/paris"
-        //   createdAt:"2022-02-26T07:25:46.000Z"
-        //   email:"user1@example.com"
-        //   followerCount:null
-        //   followingCount:null
-        //   id:2
-        //   introduction:"occaecati"
-        //   likedCount:null
-        //   name:"Wendell Russel MD"
-        //   password:"$2a$10$k5JQkXgf4hRLoelAxGrKlu.qsN2ZvIA6ETI4IF29VRegQyx67OsUO"
-        //   role:"user"
-        //   tweetCount:null
-        //   updatedAt:"2022-02-26T07:25:46.000Z"
-        // }
-        // UserId:2
-        // createdAt:"2022-02-26T12:28:53.000Z"
-        // description:"123456"
-        // id:74
-        // updatedAt:"2022-02-26T12:28:53.000Z"
- 
+        
         if(statusText !== 'OK'){
           throw new Error(statusText)
         }
-        this.tweets = data
+        // tweet接收的資料格式，務必照此格式tweet才能正常顯示
+
+        this.tweets = data.map(tweet => {
+          const {TweetId, comment, createdAt, updatedAt, id, User} = tweet
+          const {account, avatar, id:userId, name} = User
+          return {
+            id: id,
+            UserId: userId,
+            description: comment,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            userId: userId,
+            User: {
+                id: userId,
+                name,
+                account,
+                avatar,
+            },
+            replyPersonId: TweetId
+                   
+          }
+        })
       }catch(error){
         console.log('error', error)
         Toast.fire({
@@ -138,7 +88,8 @@ export default {
 
   },
   created(){
-    this.fetchTweets()
+    const id = this.$route.params.id
+    this.fetchTweets(id)
   }
 };
 </script>
