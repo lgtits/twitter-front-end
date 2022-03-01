@@ -177,6 +177,7 @@ export default {
     #password,
     #passwordCheck {
       padding: 20px 0 0 10px;
+      width: 540px;
       height: 52px;
       background-color: #f5f8fa;
       border: none;

@@ -159,6 +159,7 @@ export default {
       }
       #account, #password{
         padding: 20px 0 0 10px;
+        width: 540px;
         height: 52px;
         background-color:#F5F8FA;
         border: none;

@@ -19,6 +19,27 @@ import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
+//驗證是否爲管理者
+const authorizeIsAdmin = (to, from, next) => {
+  const currentUser = store.state.currentUser
+  if (currentUser && currentUser.role !== 'admin') {
+    next('/404')
+    return
+  }
+
+  next()
+}
+
+//驗證是否爲使用者ser
+const authorizeIsUser = (to, from, next) => {
+  const currentUser = store.state.currentUser
+  if (currentUser && currentUser.role !== 'user') {
+    next('/404')
+    return
+  }
+
+  next()
+}
 
 const routes = [
   // 根目錄
@@ -40,7 +61,8 @@ const routes = [
   {
     path: '/setting',
     name: 'setting',
-    component: Setting
+    component: Setting,
+    beforeEnter: authorizeIsUser
   },
   {
     path: '/admin',
@@ -50,29 +72,33 @@ const routes = [
   {
     path: '/adminlogin',
     name: 'adminlog-in',
-    component: AdminLogIn
+    component: AdminLogIn,
   },
   {
     path: '/admintweets',
     name: 'admintweets',
-    component: AdminTweets
+    component: AdminTweets,
+    beforeEnter: authorizeIsAdmin
+
   },
   {
     path: '/adminusers',
     name: 'adminusers',
-    component: AdminUsers
+    component: AdminUsers,
+    beforeEnter: authorizeIsAdmin
   },
   // 首頁
   {
     path: '/main',
     name: 'main',
-    component: Main
+    component: Main,
+    beforeEnter: authorizeIsUser
   },
   // 推文回覆頁
   {
     path: '/tweet/:id',
     name: 'tweet',
-    component: () => import('@/views/Reply.vue') 
+    component: () => import('@/views/Reply.vue')
   },
   // user系列
   {
@@ -107,7 +133,7 @@ const routes = [
         name: 'user-followers',
         component: () => import('@/components/FollowerContent.vue')
       }
-  ]
+    ]
   },
   {
     path: '*',
@@ -122,13 +148,43 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  console.log('to', to)
-  console.log('from', from)
-  // 使用 dispatch 呼叫 Vuex 內的 actions
-  store.dispatch('fetchCurrentUser')
+router.beforeEach(async (to, from, next) => {
+  const tokenInLocalStorage = localStorage.getItem('token')
+  const tokenInStore = store.state.token
+  // // 從 localStorage 取出 token
+  // const token = localStorage.getItem('token')
+
+  // // 預設是尚未驗證
+  // let isAuthenticated = false
+  let isAuthenticated = store.state.isAuthenticated
+
+  // // 如果有 token 的話才驗證
+  // if (token) {
+  //   // 取得驗證成功與否
+  //   isAuthenticated = await store.dispatch('fetchCurrentUser')
+  // }
+
+  // 比較 localStorage 和 store 中的 token 是否一樣
+  if (tokenInLocalStorage && tokenInLocalStorage !== tokenInStore) {
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
+  }
+
+  // 對於不需要驗證 token 的頁面
+  const pathsWithoutAuthentication = ['log-in', 'regist', 'adminlog-in']
+
+  // 如果 token 無效且進入需要驗證的頁面則轉址到登入頁
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
+    next('/login')
+    return
+  }
+
+  // 如果 token 有效且進入不需要驗證到頁面則轉址到首頁
+  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
+    next('/main')
+    return
+  }
   next()
 })
 
-
 export default router
+
