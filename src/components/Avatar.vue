@@ -1,7 +1,9 @@
 <template>
-    <figure>
-        <img :src="initImage" alt="大頭貼">
-    </figure>
+    <router-link :to="{name: 'user-tweets', params: {id: initUserId}}">
+        <figure>
+            <img :src="initImage" alt="大頭貼">
+        </figure>
+    </router-link>
 </template>
 
 <script>
@@ -10,8 +12,13 @@ export default {
         initImage:{
             type: String,
             default: 'https://fakeimg.pl/300/'
+        },
+        initUserId:{
+            type: Number,
+            // 暫時如此
+            required: true
         }
-    }
+    },
 }
 </script>
 

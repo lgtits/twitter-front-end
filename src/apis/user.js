@@ -38,6 +38,11 @@ export default {
             headers: { Authorization: `Bearer ${getToken()}`}
         })
     },
+    getUsersTop(){
+        return apiHelper.get('/users/top',{
+            headers: { Authorization: `Bearer ${getToken()}`}
+        })
+    },
     //setting user
     updateUser({ userId, formData }){
         return apiHelper.put(`users/${userId}`, formData, {

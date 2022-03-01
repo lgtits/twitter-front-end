@@ -1,8 +1,7 @@
 <template>
-    <a 
-    class="solid-btn" 
+    <a  
     href="#"
-    :class="['outlineBtn', {'sm': size === 'sm'}]"
+    :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
     @click.stop.prevent="handlePublish"
     >
         {{text}}

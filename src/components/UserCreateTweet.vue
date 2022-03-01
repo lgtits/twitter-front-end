@@ -1,6 +1,6 @@
 <template>
     <div class="create-tweet">
-        <Avatar :initImage="currentUser.avatar"/>
+        <Avatar :initImage="currentUser.avatar" :initUserId="currentUser.id"/>
         <div class="say">
             <textarea 
             class="say-content" 
@@ -25,6 +25,7 @@
     import uuid from 'uuid'
     import { mapState } from 'vuex'
 
+    
     export default {
         components: {
             Avatar,
@@ -39,7 +40,6 @@
         },
         methods:{
             afterCreateTweet(){
-                console.log(1)
                 // 阻擋空白/140字以上發文，並發出警示文字
                 if(!this.description.trim()){
                     return this.alertMessage = 'oh!你好像忘記輸入東西了'

@@ -1,6 +1,6 @@
 <template>
     <div class="tweet-wrapper">
-        <Avatar :init-image="tweet.image"/>
+        <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
         <div class="tweet-body">
             <div class="tweet-name">
                 <div class="name">{{tweet.name}}</div>

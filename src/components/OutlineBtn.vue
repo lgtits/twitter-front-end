@@ -1,7 +1,10 @@
 <template>
-    <router-link :class="['outlineBtn', {'sm': size = 'sm'}]" to="#">
+    <a 
+    :class="['outlineBtn', {'sm': size === 'sm'}, {'md': size === 'md'}]" 
+    href="#"
+    >
         {{text}}
-    </router-link>
+    </a>
 </template>
 <script>
 export default {
