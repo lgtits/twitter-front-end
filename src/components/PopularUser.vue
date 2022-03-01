@@ -3,14 +3,17 @@
         <h2>Popular</h2>
         <ul class="list">
             <li class="popular-card" v-for="user in users" :key="user.id">
-                <Avatar :initImage="user.image"/>
+                <Avatar 
+                :initImage="user.image"
+                :initUserId="user.id"
+                />
                 <div class="popular-name">
                     <div class="name">{{user.name}}</div>
                     <div class="account-name">{{user.accountName}}</div>
                 </div>
                 <OutlineBtn 
                 initText="追隨" 
-                v-if="user.isFollowing"
+                v-if="!user.isFollowed"
                 />
                 <SolidBtn 
                 initText="正在跟隨" 
@@ -25,23 +28,8 @@
 import OutlineBtn from './OutlineBtn.vue'
 import SolidBtn from './SolidBtn.vue'
 import Avatar from './Avatar.vue'
-
-const dummyData = {
-    users: [{
-        id: 1,
-        name: 'Pizza Hut',
-        accountName: 'pizzahut',
-        image: 'https://gravatar.com/avatar/59eef608fce338d03c39915b08c9ae51?s=400&d=wavatar&r=x',
-        isFollowing: false
-    },{
-        id: 2,
-        name: "L'Oréal",
-        accountName: 'Loreal',
-        image: 'https://gravatar.com/avatar/f35709965b81ef84b3a2f94addd372a2?s=400&d=wavatar&r=x',
-        isFollowing: true
-    }
-    ]
-}
+import userApi from '../apis/user'
+import { Toast } from '../utils/helpers.js'
 
 export default {
     components: {
@@ -52,21 +40,31 @@ export default {
     data(){
         return {
             users: []
-            //  {
-            //     id: -1,
-            //     name: '',
-            //     accountName: '',
-            //     image: '',
-            //     isFollowing: false
-            // }
         }
     },
     methods:{
-        fetchUsers(){
-        this.users = [
-            ...this.users,
-            ...dummyData.users
-            ]
+        async fetchUsers(){
+            try{
+                const {data, statusText} = await userApi.getUsersTop()
+                console.log('@@', data)
+
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.users = data.map(user => ({
+                    id: user.id,
+                    name: user.name,
+                    accountName: user.account,
+                    image: user.avatar,
+                    isFollowed: user.isFollowed
+                }))
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '載入人氣使用者失敗，請稍後在試'
+                })
+            }
         }
     },
     created(){
@@ -90,7 +88,7 @@ export default {
             gap: 10px;
             align-items: center;
             padding: 10px 15px;
-            border-bottom: 1px solid $border;
+            border-top: 1px solid $border;
         }
         .popular-name{
             .name{
@@ -107,7 +105,7 @@ export default {
         }
                    
         >h2{
-            border-bottom: 1px solid border;
+            /* border-bottom: 1px solid border; */
             padding: 0 15px;
             border-bottom: 1px solid $border;
             @include font(18px, 45px, normal, 700);
