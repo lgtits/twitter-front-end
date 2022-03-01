@@ -1,8 +1,16 @@
 <template>
-    <div>
+    <div class="wrapper">
         <PersonalCard :initUser="user"/>
         <UserNavTabs/>
-        <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
+        <NoTweet
+         v-if="!tweets.length"
+         initText="該用戶目前沒有回覆~"
+         />
+        <Tweet 
+        v-else 
+        v-for="tweet in tweets" 
+        :key="tweet.id" 
+        :initTweet="tweet"/>
     </div>
 </template>
 
@@ -13,12 +21,14 @@ import UsersApi from '../apis/user'
 import PersonalCard from '../components/PersonalCard.vue'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
+import NoTweet from '../components/NoTweet.vue'
 
 export default {
     name: 'ReplyContent',
     components: {
         PersonalCard,
         Tweet,
+        NoTweet,
         UserNavTabs
     },
     data(){
@@ -136,3 +146,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.wrapper{
+    height: 100%;
+}
+</style>

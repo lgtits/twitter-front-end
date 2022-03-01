@@ -1,7 +1,16 @@
 <template>
-    <div>
+    <div class="wrapper">
         <FollowNavTabs/>
-        <FollowUserTweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
+        <NoTweet
+         v-if="!tweets.length"
+         initText="該用戶目前沒有任何追蹤者~"
+         />
+        <FollowUserTweet 
+        v-else
+        v-for="tweet in tweets" 
+        :key="tweet.id" 
+        :initTweet="tweet"
+        />
     </div>
 </template>
 
@@ -11,12 +20,14 @@ import FollowUserTweet from './FollowUserTweet.vue'
 import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
+import NoTweet from '../components/NoTweet.vue'
 
 export default {
     name: 'FollowerContent',
     components: {
         FollowUserTweet,
-        FollowNavTabs
+        FollowNavTabs,
+        NoTweet,
     },
     data(){
         return {
@@ -69,3 +80,8 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.wrapper{
+    height: 100%;
+}
+</style>

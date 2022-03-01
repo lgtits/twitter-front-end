@@ -8,7 +8,15 @@
         <div class="card-list">
           <h2>首頁</h2>
           <UserCreateTweet @after-create-tweet="afterCreateTweet" />
-          <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
+          <NoTweet
+          v-if="!tweets.length"
+          initText="努力加載中~"
+          />
+          <Tweet 
+          v-else
+          v-for="tweet in tweets" 
+          :key="tweet.id" 
+          :initTweet="tweet"/>
         </div>
       </main>
       <div class="popularList">
@@ -25,23 +33,25 @@ import PopularUser from "../components/PopularUser.vue";
 import UserCreateTweet from "../components/UserCreateTweet.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
-const dummyUser = {
-    id: 1,
-    email: "root@example.com",
-    password: "12345678",
-    name: "是我",
-    account: "root",
-    role: "admin",
-    avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
-    introduction: "",
-    cover: "",
-    tweetCount: null,
-    followingCount: null,
-    followerCount: null,
-    likedCount: null,
-    createdAt: "",
-    updatedAt: "",
-  }
+import { mapState } from 'vuex'
+import NoTweet from '../components/NoTweet.vue'
+// const dummyUser = {
+//     id: 1,
+//     email: "root@example.com",
+//     password: "12345678",
+//     name: "是我",
+//     account: "root",
+//     role: "admin",
+//     avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
+//     introduction: "",
+//     cover: "",
+//     tweetCount: null,
+//     followingCount: null,
+//     followerCount: null,
+//     likedCount: null,
+//     createdAt: "",
+//     updatedAt: "",
+//   }
 
 export default {
   name: 'Main',
@@ -50,6 +60,7 @@ export default {
     UserCreateTweet,
     PopularUser,
     Tweet,
+    NoTweet
   },
   data() {
     return {
@@ -59,7 +70,7 @@ export default {
   methods: {
     async afterCreateTweet(payload) {
       const {id, description} = payload
-      // 回傳tweet物件
+      // 回傳前端假tweet物件
       const result = {
           id,
           UserId: 2,
@@ -67,9 +78,9 @@ export default {
           // TODO:優化
           createdAt: new Date(),
           User: {
-            name: dummyUser.name,
-            account: dummyUser.account,
-            avatar: dummyUser.avatar,
+            name: this.currentUser.name,
+            account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
+            avatar: this.currentUser.avatar,
           }
       }
       try{
@@ -133,7 +144,10 @@ export default {
   },
   created(){
     this.fetchTweets()
-  }
+  },
+  computed: {
+          ...mapState(['currentUser'])
+   }
 };
 </script>
 

@@ -186,5 +186,9 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 
+// 試著跳轉頁面回到頂部
+router.afterEach(() => {
+  window.scrollTo(0, 0)
+})
 export default router
 

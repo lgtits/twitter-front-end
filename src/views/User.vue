@@ -79,6 +79,7 @@ export default {
     width: 100%;
     border: 1px solid $border;
     .card-list{
+      height: 100%;
       .head{
           display: flex;
           align-items: center;

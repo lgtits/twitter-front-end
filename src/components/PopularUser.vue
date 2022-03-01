@@ -13,6 +13,7 @@
                 </div>
                 <OutlineBtn 
                 initText="追隨" 
+                @after-click-follow="afterClickFollow(user.id)"
                 v-if="!user.isFollowed"
                 />
                 <SolidBtn 
@@ -29,6 +30,7 @@ import OutlineBtn from './OutlineBtn.vue'
 import SolidBtn from './SolidBtn.vue'
 import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
+import FollowShipsApi from '../apis/Followships'
 import { Toast } from '../utils/helpers.js'
 
 export default {
@@ -63,6 +65,18 @@ export default {
                 Toast.fire({
                     icon: 'error',
                     title: '載入人氣使用者失敗，請稍後在試'
+                })
+            }
+        },
+        async afterClickFollow(userId){
+            try{
+                const response = await FollowShipsApi.followUser({userId})
+                console.log('^',response)
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後在試'
                 })
             }
         }
