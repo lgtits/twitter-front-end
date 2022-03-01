@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 // const baseURL = 'http://localhost:3000/api'
 
 // github pages
-const baseURL = 'https://sheltered-ravine-31386.herokuapp.com '
+const baseURL = 'https://sheltered-ravine-31386.herokuapp.com/api'
 
 export const apiHelper = axios.create({
     baseURL
