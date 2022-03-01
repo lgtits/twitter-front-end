@@ -16,7 +16,15 @@
             </div>
         </div>
         <TweetDetail/>
-        <Tweet v-for="tweet in tweets" :key="tweet.id" :initTweet="tweet"/>
+        <NoTweet
+          v-if="!tweets.length"
+          initText="尚沒有任何回復~"
+          />
+        <Tweet
+         v-else
+         v-for="tweet in tweets" 
+         :key="tweet.id" 
+         :initTweet="tweet"/>
       </main>
       <div class="popularList">
         <PopularUser />
@@ -32,6 +40,7 @@ import TweetDetail from '../components/TweetDetail.vue'
 import PopularUser from "../components/PopularUser.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
+import NoTweet from '../components/NoTweet.vue'
 
 export default {
   name: 'Reply',
@@ -40,6 +49,7 @@ export default {
     PopularUser,
     TweetDetail,
     Tweet,
+    NoTweet
   },
   data() {
     return {
@@ -58,7 +68,7 @@ export default {
         // tweet接收的資料格式，務必照此格式tweet才能正常顯示
 
         this.tweets = data.map(tweet => {
-          const {TweetId, comment, createdAt, updatedAt, id, User} = tweet
+          const {comment, createdAt, updatedAt, id, User} = tweet
           const {account, avatar, id:userId, name} = User
           return {
             id: id,
@@ -73,8 +83,7 @@ export default {
                 account,
                 avatar,
             },
-            replyPersonId: TweetId
-                   
+            replyPerson: name //錯          
           }
         })
       }catch(error){

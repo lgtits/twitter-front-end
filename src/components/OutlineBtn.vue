@@ -1,6 +1,7 @@
 <template>
     <a 
-    :class="['outlineBtn', {'sm': size === 'sm'}, {'md': size === 'md'}]" 
+    :class="['outlineBtn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
+    @click.stop.prevent="handleFollow"
     href="#"
     >
         {{text}}
@@ -23,6 +24,13 @@ export default {
             text: this.initText,
             size: this.initSize
         }
+    },
+    methods: {
+        handleFollow(){
+            if(this.text === '追隨'){
+                this.$emit("after-click-follow")
+            }
+        },
     }
 }
 </script>

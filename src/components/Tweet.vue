@@ -1,5 +1,5 @@
 <template>
-    <div class="tweet-wrapper">
+    <router-link :to="{name: 'tweet', params: {id: tweet.userId}}" class="tweet-wrapper">
         <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
         <div class="tweet-body">
             <div class="tweet-name">
@@ -23,7 +23,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 <script>
 import Avatar from '../components/Avatar.vue'

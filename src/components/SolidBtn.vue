@@ -27,9 +27,19 @@ export default {
     },
     methods: {
         handlePublish(){
-            console.log(1)
-            this.$emit("after-create-tweet")
-        }
+            if(this.text === '推文'){
+                this.$emit("after-create-tweet")
+            }else{
+                return
+            }
+        },
+        handleFollow(){
+            if(this.text === '追隨'){
+                this.$emit("after-click-follow")
+            }else{
+                return
+            }
+        },
     }
 }
 </script>

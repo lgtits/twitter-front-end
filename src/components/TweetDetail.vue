@@ -2,7 +2,7 @@
     <div class="tweet-detail">
         <div class="detail-user">
             <div class="avatar-wrapper">
-                <Avatar/>
+                <Avatar :initUserId="tweet.UserId"/>
             </div>
             <div class="detail-name">
                 <div class="name">{{tweet.User.name}}</div>
@@ -50,6 +50,7 @@ export default {
         async fetchTweetDetail(tweetId){
             try{
                 const {data, statusText} = await tweetsApi.getTweet({tweetId})
+                console.log('&&&',data)
                 //  User:
                         // account: "root"
                         // avatar: "https://loremflickr.com/320/320/people"
