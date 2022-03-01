@@ -2,13 +2,15 @@
   <button class="post" @click="showModal=true">
     推文
     <Modal class="light-box" v-model="showModal">
-      <div class="tweet-modal-content">
+      <form action="" @submit.prevent.stop="sendPost">
+        <div class="tweet-modal-content">
         <div class="user-photo-container">
           <img class="post-tweet-avatar"  :src="currentUser.avatar" alt="">
         </div>
         <textarea name="" id="" placeholder="有什麽新鮮事？" v-model="tweetContent"></textarea>
       </div>
-      <button class="post-tweet" @click="sendPost">推文</button>
+      <button class="post-tweet" type="submit" >推文</button>
+      </form>
     </Modal>
   </button>
 </template>

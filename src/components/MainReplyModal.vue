@@ -27,17 +27,19 @@
         <div class="straight-line">
           
         </div>
-        <div class="your-reply">
-          <div class="user-photo-container">
-            <img class="user-photo" :src="currentUser.avatar" alt="">
-          </div>
-          <textarea name="" id="" placeholder="推你的回覆">
+        <form action="" @submit.prevent.stop="submitPost">
+          <div class="your-reply">
+            <div class="user-photo-container">
+              <img class="user-photo" :src="currentUser.avatar" alt="">
+            </div>
+            <textarea v-model="replyTweetContent" name="" id="" placeholder="推你的回覆">
 
-          </textarea>
-          <button class="reply">
-            回覆
-          </button>
-        </div>
+            </textarea>
+            <button class="reply" type="submit">
+              回覆
+            </button>
+          </div>
+        </form>
       </div>
 
     </Modal>
@@ -56,6 +58,14 @@ import Avatar from '../components/Avatar.vue'
     data(){
       return{
         showMainReplyModal: false,
+        replyTweetContent: "",
+      }
+    },
+    methods:{
+      submitPost(){
+        console.log(this.replyTweetContent)
+        this.replyTweetContent = ""
+        this.showMainReplyModal = false
       }
     },
     computed: {

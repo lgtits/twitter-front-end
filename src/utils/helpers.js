@@ -1,7 +1,11 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const baseURL = 'http://localhost:3000/api'
+//本機串接api
+// const baseURL = 'http://localhost:3000/api'
+
+// github pages
+const baseURL = 'https://sheltered-ravine-31386.herokuapp.com '
 
 export const apiHelper = axios.create({
     baseURL
