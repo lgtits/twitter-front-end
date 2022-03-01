@@ -9,7 +9,7 @@
 <script>
 import Tweet from "../components/Tweet.vue";
 import UserNavTabs from "../components/UserNavTabs.vue";
-// import UsersApi from '../apis/user'
+import UsersApi from '../apis/user'
 import PersonalCard from "../components/PersonalCard.vue";
 import { Toast } from "../utils/helpers";
 

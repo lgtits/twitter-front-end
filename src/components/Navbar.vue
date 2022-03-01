@@ -58,7 +58,8 @@ import MainReplyModal from "./../components/MainReplyModal";
     methods: {
       logOut(){
         console.log('log out')
-        console.log(this.$route)
+        this.$store.commit('revokeAuthentication')
+        this.$router.push('/login')
       },
       sendPost(){
         if (this.tweetContent.length === 0){

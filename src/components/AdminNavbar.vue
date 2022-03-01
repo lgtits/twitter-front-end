@@ -44,7 +44,8 @@ export default {
   methods: {
     logOut() {
       console.log("log out admin");
-      console.log(this.$route.name);
+      this.$store.commit('revokeAuthentication')
+      this.$router.push('/adminlogin')
     },
   },
 };
