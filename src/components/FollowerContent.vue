@@ -12,35 +12,6 @@ import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 
-const dummyData = [
-    {
-        "id": 8,
-        "followingId": 5, //使用者本人
-        "followerId": 2,  //跟隨這個使用者的人
-        "createdAt": "2022-02-27T18:09:19.000Z",
-        "follower": { //跟隨的人的基本資訊
-            "id": 2,  
-            "account": "user1",
-            "name": "Chester Windler",
-            "avatar": "https://loremflickr.com/320/320/people",
-            "introduction": "Qui repellendus repellat laudantium minus aut.\nVeniam ea libero labore natus qui qui quisquam totam.\nA quasi eligendi commodi rerum."
-        }
-    },
-    {
-        "id": 6,
-        "followingId": 5, //使用者本人
-        "followerId": 1, //跟隨這個使用者的人
-        "createdAt": "2022-02-26T17:58:14.000Z",
-        "follower": { //跟隨的人的基本資訊
-            "id": 1,
-            "account": "root",
-            "name": "root",
-            "avatar": "https://loremflickr.com/320/320/people",
-            "introduction": "Placeat dicta dolores qui dolorem architecto et ab."
-        }
-    }
-]
-
 export default {
     name: 'FollowerContent',
     components: {
@@ -54,22 +25,23 @@ export default {
     },
     methods: {
         async fetchTweets(userId){
+            console.log(userId)
             try{
                 // 取得tweet資料
-            //    const {data, statusText} = await UsersApi.getUserFollowers({userId})
-            //    console.log('@@@@@',data)
-            //    if(statusText !== 'OK'){
-            //        throw new Error(statusText)
-            //    }
+               const {data, statusText} = await UsersApi.getUserFollowers({userId})
+               console.log('@@@@@',data)
+               if(statusText !== 'OK'){
+                   throw new Error(statusText)
+               }
 
-               // followUserTeet 卡牌前端整理資料
-               console.log('!@#',dummyData)
-               this.tweets = dummyData.map(tweet => {
+            //    followUserTeet 卡牌前端整理資料
+               this.tweets = data.map(tweet => {
                    return {
                         id: tweet.id, 
                         UserId: tweet.follower.id, 
                         createdAt: tweet.createdAt,
                         userId: tweet.follower.id,
+                        isFollowed: tweet.isFollowed,
                         User: {
                             id: tweet.follower.id,
                             name: tweet.follower.name,
