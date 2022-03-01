@@ -91,7 +91,7 @@ export default {
         console.log('response', response)
         
         if (data.status !== 'success') {
-          console.log('errpr', data)
+          console.log('error', data)
           throw new Error(data.message)
         }
 
