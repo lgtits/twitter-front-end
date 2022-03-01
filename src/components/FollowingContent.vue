@@ -8,7 +8,7 @@
 <script>
 import FollowUserTweet from './FollowUserTweet.vue'
 import FollowNavTabs from './FollowNavTabs.vue'
-import UsersApi from '../apis/user'
+// import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 
@@ -54,6 +54,7 @@ export default {
     },
     methods: {
         async fetchTweets(userId){
+            console.log(userId)
             try{
                 // 取得tweet資料
             //    const {data, statusText} = await UsersApi.getUserFollowings({userId})

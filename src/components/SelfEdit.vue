@@ -3,8 +3,8 @@
     編輯個人資料
     <Modal class="light-box " v-model="showEditModal" title="編輯個人資料">
       <div class="edit-board">
-        <form action="">
-            <button class="save-edit-profile">
+        <form action=""  @submit.prevent.stop="emitEdit">
+            <button type="submit" class="save-edit-profile" >
               儲存
             </button>
             <div class="edit-cover">
@@ -67,6 +67,12 @@ import { mapState } from 'vuex'
         personalAvatar:"",
         name:"",
         description:""
+      }
+    },
+    methods:{
+      emitEdit(){
+        console.log('emit edit')
+        this.showEditModal = false
       }
     },
     computed: {
