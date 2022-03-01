@@ -6,7 +6,7 @@
             <div class="account-name">{{tweet.accountName}}</div>
             <div class="tweet-introduce">{{tweet.introduction}}</div>
             <div class="buttonWrapper">
-                <OutlineBtn initText="跟隨" init-size="sm" v-if="!tweet.isFollowing"/>
+                <OutlineBtn initText="跟隨" init-size="sm" v-if="!tweet.isFollowed"/>
                 <SolidBtn initText="正在跟隨" init-size="sm" v-else/>
             </div>
         </div>
@@ -43,9 +43,7 @@ export default {
                 image: '',
                 description: '',
                 createdAt: '',
-                isLiked: false,
-                // 暫時
-                replyPerson: ''
+                isFollowed: false
             },
             tweetLikes: [],
             tweetComments: [],
@@ -62,6 +60,7 @@ export default {
         // createdAt:"2022-02-27T18:09:19.000Z"
         // id:8
         // userId:2
+        // isFollowed:true
     },
     methods: {
         fetchTweetDate(){
@@ -69,6 +68,7 @@ export default {
                 id, 
                 UserId: userId,       
                 createdAt,
+                isFollowed,
                 User
             } = this.initTweet
             const {
@@ -86,8 +86,7 @@ export default {
                 image, 
                 introduction, 
                 createdAt,
-                // 暫時，尚未處理
-                isFollowing: false
+                isFollowed
             }
         },
         async handleAddLike(tweetId){
