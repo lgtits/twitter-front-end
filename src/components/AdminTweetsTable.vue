@@ -11,7 +11,7 @@
             >@{{ tweet.account }}·{{ tweet.createdAt | fromNow }}</span
           >
           <div class="tweet-content">
-            {{ tweet.description }}
+            {{ Number(tweet.shortd_escription.length) === 50 ? tweet.shortd_escription +'...' : tweet.description}}
           </div>
         </div>
         <button class="destroy" @click="deleteTweet(tweet.id)">
