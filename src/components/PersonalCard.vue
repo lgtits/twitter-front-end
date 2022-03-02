@@ -5,7 +5,7 @@
                 <img :src="user.cover" alt="封面">
             </figure>
             <div class="avatar-box">
-                <Avatar :initImage="user.avatar"/>
+                <Avatar :initImage="user.avatar" :initUserId="user.id"/>
             </div>
         </div>
         <div class="personalInfo">
@@ -15,24 +15,25 @@
             <div class="popularStatus">
                 <div>
                     <router-link 
-                    :to="{name: 'user-followings', params: {id: $route.params.id}}">{{user.followingCount || 0}}</router-link>
+                    :to="{name: 'user-followings', params: {id: $route.params.id}}">{{user.followingCount}}</router-link>
                     <span>個跟隨中</span>
                 </div>
                 <div>
                     <router-link 
-                    :to="{name: 'user-followers', params: {id: $route.params.id}}">{{user.followerCount || 0}}</router-link>
+                    :to="{name: 'user-followers', params: {id: $route.params.id}}">{{user.followerCount}}</router-link>
                     <span>位跟隨者</span>
                 </div>
             </div>
              <div class="buttonWrapper">
-                <OutlineBtn initText="編輯個人資料"/>
+                <SelfEdit/>
             </div>
         </div>
     </div>
 </template>
 <script>
 import Avatar from '../components/Avatar.vue'
-import OutlineBtn from '../components/OutlineBtn.vue'
+import SelfEdit from '../components/SelfEdit.vue'
+
 export default {
     props: {
         initUser: {
@@ -42,7 +43,7 @@ export default {
     },
     components: {
         Avatar,
-        OutlineBtn
+        SelfEdit
     },
     data(){
         return {

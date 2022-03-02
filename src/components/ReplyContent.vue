@@ -58,7 +58,11 @@ export default {
             try{
                 // 取得tweet資料
                const {data, statusText} = await UsersApi.getUserRepliesTweet({userId})
-            //    console.log('@@@@@',data)
+               console.log('@@@@@',data)
+               // 無任何資料
+            //    if(state === 400){
+
+            //    }
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
@@ -85,7 +89,7 @@ export default {
                 console.log('error',error.message)
                 Toast.fire({
                     icon: 'error',
-                    title: '未能取得使用者推文，請稍後在試'
+                    title: '未能取得使用者推文，請稍後再試'
                 })
             }
         },

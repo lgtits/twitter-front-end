@@ -14,12 +14,13 @@
             <div class="tweet-content">{{tweet.description}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
-                    <i><img src="../assets/image/message.svg" alt="評論符號"></i>
-                    <p>{{tweetComments.length}}</p>
+                    <i><MainReplyModal/></i>
+                    <p>{{tweet.replyCount}}</p>
                 </a>
                 <a href="#" class="favorite" @click.stop.prevent="handleAddLike(tweet.id)" >
-                    <i><img src="../assets/image/favorite.svg" alt="最愛符號"></i>
-                    <p>{{tweetLikes.length}}</p>
+                    <i><img src="../assets/image/favorite.svg" alt="尚未加入最愛"></i>
+                    <i><img src="../assets/image/favorite-active.svg" alt="加入最愛中"></i>
+                    <p>{{tweet.likeCount}}</p>
                 </a>
             </div>
         </div>
@@ -30,10 +31,12 @@ import Avatar from '../components/Avatar.vue'
 import moment from 'moment'
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
+import MainReplyModal from '../components/MainReplyModal.vue'
 
 export default {
     components: {
-        Avatar
+        Avatar,
+        MainReplyModal
     },
     props:{
         initTweet: {
@@ -52,6 +55,8 @@ export default {
                 description: '',
                 createdAt: '',
                 isLiked: false,
+                likeCount: -1,
+                replyCount: -1,
                 // 暫時
                 replyPerson: ''
             },
@@ -66,6 +71,8 @@ export default {
                 UserId: userId,       
                 description, 
                 createdAt,
+                likeCount,
+                replyCount,
                 // 暫時,
                 replyPerson,
                 User
@@ -84,13 +91,17 @@ export default {
                 image, 
                 description, 
                 createdAt,
+                likeCount,
+                replyCount,
                 replyPerson
             }
         },
         async handleAddLike(tweetId){
             try{
-                const response = await tweetApis.addLike({tweetId})
-                console.log(response)
+                const {statusText} = await tweetApis.addLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
                 this.tweet = {
                     ...this.tweet,
                     isLike: true
@@ -101,7 +112,7 @@ export default {
 
                 Toast.fire({
                     icon: 'error',
-                    title: '加到喜歡失敗，請稍後在試'
+                    title: '加到喜歡失敗，請稍後再試'
                 })
             }
         }
@@ -203,6 +214,11 @@ export default {
                     color: $dark-grey;
                     @include font (13px, 1, normal, 500);
                 }
+                >i{
+                    width: 13px;
+                    height: 13px;
+                    margin-right: 10px;
+                }
             }
             .favorite{
                 display: flex;
@@ -211,9 +227,9 @@ export default {
                     color: $dark-grey;
                     @include font (13px, 1, normal, 500);
                 }
-            }
-            i{
-                margin-right: 10px;
+                i{
+                    margin-right: 10px;
+                }
             }
         }
     }

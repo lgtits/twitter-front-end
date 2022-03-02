@@ -2,7 +2,7 @@
     <a  
     href="#"
     :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
-    @click.stop.prevent="handleFollow"
+    @click.stop.prevent="handleUnFollow"
     >
         {{text}}
     </a>
@@ -26,8 +26,8 @@ export default {
         }
     },
     methods: {
-        handleFollow(){
-            this.$emit("after-click-follow")
+        handleUnFollow(){
+            this.$emit("after-click-unfollow")
         },
     }
 }

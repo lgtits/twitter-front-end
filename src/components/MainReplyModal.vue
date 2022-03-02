@@ -1,6 +1,6 @@
 <template>
-  <button @click="showMainReplyModal=true">
-    <img src="../assets/image/icon_tweet.png" alt="">
+  <button class="icon-button" @click.stop.prevent="showMainReplyModal=true">
+    <img class="img" src="../assets/image/icon_tweet.png" alt="">
     <Modal class="light-box" v-model="showMainReplyModal">
       <div class="reply-modal">
         <div class="tweet-wrapper">
@@ -79,11 +79,29 @@ import Avatar from '../components/Avatar.vue'
     @import '../assets/style/_reset.scss';
     @import '../assets/style/_base.scss';
     @import '../assets/style/_mixin.scss';
+
+    .icon-button{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      .img{
+        display: block;
+        height: 100%;
+        width: 100%;
+        min-height: 13px;
+        min-width: 13px;
+      }
+    }
+
     .tweet-wrapper{
       display: grid;
       grid-template-columns: 50px 1fr;
       grid-template-rows: 1fr;
       gap: 10px;
+      /* width: 100%;
+      height: 100%; */
       padding: 15px;
       background-color: $white;
         .tweet-body{

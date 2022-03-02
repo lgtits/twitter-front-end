@@ -71,7 +71,7 @@ export default {
                 console.log('error', error.message)
                 Toast.fire({
                     icon: 'error',
-                    title: '獲取貼文資料失敗，請稍後在試'
+                    title: '獲取貼文資料失敗，請稍後再試'
                 })
             }
         }

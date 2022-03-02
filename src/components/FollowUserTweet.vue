@@ -1,13 +1,23 @@
 <template>
     <div class="tweet-wrapper">
-        <Avatar :init-image="tweet.image"/>
+        <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
         <div class="tweet-body">
             <div class="name">{{tweet.name}}</div>
             <div class="account-name">{{tweet.accountName}}</div>
             <div class="tweet-introduce">{{tweet.introduction}}</div>
             <div class="buttonWrapper">
-                <FollowshipOutlineBtn initText="跟隨" init-size="sm" v-if="!tweet.isFollowed"/>
-                <FollowshipSolidBtn initText="正在跟隨" init-size="sm" v-else/>
+                <FollowshipOutlineBtn 
+                initText="跟隨" 
+                init-size="sm" 
+                v-if="!tweet.isFollowed"
+                @after-click-follow="afterClickFollow(tweet.userId)"
+                />
+                <FollowshipSolidBtn 
+                initText="正在跟隨" 
+                init-size="sm" 
+                v-else
+                @after-click-unfollow="afterClickUnFollow(tweet.userId)"
+                />
             </div>
         </div>
     </div>
@@ -20,6 +30,7 @@ import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../components//FollowshipOutlineBtn.vue'
+import {TweetsFollowshipMethods} from '../utils/mixins'
 
 export default {
     components: {
@@ -103,7 +114,7 @@ export default {
 
                 Toast.fire({
                     icon: 'error',
-                    title: '加到喜歡失敗，請稍後在試'
+                    title: '加到喜歡失敗，請稍後再試'
                 })
             }
         }
@@ -127,7 +138,8 @@ export default {
             // 使用moment 提供的fromNow 方法
             return moment(datetime).fromNow()
         }
-    }
+    },
+    mixins: [TweetsFollowshipMethods]
 }
 </script>
 
