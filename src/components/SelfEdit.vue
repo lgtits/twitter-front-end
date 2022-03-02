@@ -35,6 +35,7 @@
                   autocomplete="username"
                   required
                   autofocus
+                  :placeholder="currentUser.name"
                 >
               </div>
               <div class="input-box description">
@@ -44,7 +45,9 @@
                   id="description" 
                   v-model="description" 
                   required 
-                  utofocus>
+                  utofocus
+                  :placeholder="currentUser.introduction"
+                >
                 </textarea>
               </div>
             </div>
@@ -172,6 +175,9 @@ import { mapState } from 'vuex'
           background-color:#F5F8FA;
           border: none;
           font-size: 19px;
+          font-weight: 500;
+          font-family: Noto Sans TC;
+          font-style: normal;
           line-height: 28px;
           &:focus {
             outline: none;

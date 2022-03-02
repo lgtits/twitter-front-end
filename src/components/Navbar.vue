@@ -10,8 +10,8 @@
         </router-link>
       </li>
       <li>
-        <router-link class="" to="/user/tweets">
-          <img class="icon" v-if="this.$route.params.id === 'tweets' ||'likes'|| 'replies' " src="../assets/image/icon_user2.png" alt="">
+        <router-link class="" :to="{ name: 'user-tweets', params: { userId: currentUser.id }}">
+          <img class="icon" v-if="this.$route.name === 'user-tweets' ||this.$route.name === 'user-likes'|| this.$route.name === 'user-replies' " src="../assets/image/icon_user2.png" alt="">
           <img v-else class="icon"  src="../assets/image/icon_user.png" alt="">
           個人資料
           </router-link>
@@ -61,15 +61,6 @@ import MainReplyModal from "./../components/MainReplyModal";
         this.$store.commit('revokeAuthentication')
         this.$router.push('/login')
       },
-      sendPost(){
-        if (this.tweetContent.length === 0){
-          this.showModal = true
-          return
-        }
-        console.log('推文:', this.tweetContent)
-        this.tweetContent = ''
-        this.showModal = false
-      }
     },
     computed: {
       ...mapState(['currentUser', 'isAuthenticated'])

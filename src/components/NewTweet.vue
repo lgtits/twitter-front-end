@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     async sendPost() {
+      console.log(this.$route)
       try {
         console.log("送出推文:", this.tweetContent);
         // 阻擋空白/140字以上發文，並發出警示文字
