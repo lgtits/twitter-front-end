@@ -16,18 +16,18 @@
       <span class="account">@{{ user.account }}</span>
       <div class="counts">
         <div class="count tweets">
-          <img class="icon icon-tweet" src="../assets/image/icon_tweet.png" />
-          <span class="count-number"> 1.5k </span>
+          <img class="icon icon-tweet" src="../assets/image/message.svg" />
+          <span class="count-number">{{user.tweetCount}} </span>
         </div>
         <div class="count likes">
-          <img class="icon icon-like" src="../assets/image/icon_like.png" />
-          <span class="count-number"> 1.5k </span>
+          <img class="icon icon-like" src="../assets/image/favorite.svg" />
+          <span class="count-number">{{user.likedCount}} </span>
         </div>
       </div>
       <div class="follow">
-        <span class="following-count">34 個</span>
+        <span class="following-count">{{user.followingCount}} 個</span>
         <span class="following">跟隨中</span>
-        <span class="followed-count">59 位</span>
+        <span class="followed-count">{{user.followerCount}} 位</span>
         <span class="followed">跟隨者</span>
       </div>
     </div>
@@ -126,6 +126,7 @@ export default {
           vertical-align: middle;
           width: 24px;
           height: 24px;
+          margin-right: 5px;
         }
       }
     }
