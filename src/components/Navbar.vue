@@ -10,7 +10,7 @@
         </router-link>
       </li>
       <li>
-        <router-link class="" :to="{ name: 'user-tweets', params: { userId: currentUser.id }}">
+        <router-link class="" :to="{ name: 'user-tweets', params: { id: currentUser.id }}">
           <img class="icon" v-if="this.$route.name === 'user-tweets' ||this.$route.name === 'user-likes'|| this.$route.name === 'user-replies' " src="../assets/image/icon_user2.png" alt="">
           <img v-else class="icon"  src="../assets/image/icon_user.png" alt="">
           個人資料
