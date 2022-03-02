@@ -1,5 +1,5 @@
 <template>
-  <button class="post" @click="showModal = true">
+  <button class="post" @click="showModal = true, clearTweetContent()" >
     推文
     <Modal class="light-box" v-model="showModal">
       <form action="" @submit.prevent.stop="sendPost">
@@ -30,7 +30,6 @@ export default {
   data() {
     return {
       showModal: false,
-
       tweetContent: "",
       alertMessage: "",
       isProcessing: false,
@@ -75,6 +74,10 @@ export default {
         this.isProcessing = false;
       }
     },
+    clearTweetContent(){
+      this.tweetContent = "";
+      this.alertMessage = ""
+    }
   },
   computed: {
     ...mapState(["currentUser", "isAuthenticated"]),

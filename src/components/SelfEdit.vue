@@ -42,6 +42,8 @@
                   autofocus
                   :placeholder="currentUser.name"
                 >
+                <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
+                <p class="name-count">{{this.name.length}}/50</p>
               </div>
               <div class="input-box description">
                 <label for="description">自我介紹</label>
@@ -54,6 +56,8 @@
                   :placeholder="currentUser.introduction"
                 >
                 </textarea>
+                <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
+                <p class="description-count" >{{this.description.length}}/160</p>
               </div>
             </div>
         </form>
@@ -74,7 +78,8 @@ import { mapState } from 'vuex'
         cover:"",
         personalAvatar:"",
         name:"",
-        description:""
+        description:"",
+        alertMessage:"",
       }
     },
     methods:{
@@ -239,8 +244,16 @@ import { mapState } from 'vuex'
           left: 10px;
           top: 5px;
         }
+        .name-count{
+          position: absolute;
+          right: 0;
+          bottom: -20px;
+          font-size: 15px;
+          font-weight: 500;
+        }
         input{
           padding: 20px 0 0 10px;
+          width: 570px;
           height: 54px;
           background-color:#F5F8FA;
           border: none;
@@ -270,6 +283,13 @@ import { mapState } from 'vuex'
           font-weight: 500;
           font-family: Noto Sans TC;
           font-style: normal;
+        }
+        .description-count{
+          position: absolute;
+          right: 5px;
+          bottom: -20px;
+          font-size: 15px;
+          font-weight: 500;
         }
       }
 
