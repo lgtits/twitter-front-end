@@ -96,7 +96,7 @@ export default {
         console.log('error', error)
         Toast.fire({
           icon: 'error',
-          title: '無法新增推文，請稍後在試'
+          title: '無法新增推文，請稍後再試'
         })
       }
     },
@@ -108,24 +108,15 @@ export default {
         // User:{
         //   account:"user1"
         //   avatar:"https://loremflickr.com/320/240/people"
-        //   cover:"https://loremflickr.com/800/600/paris"
-        //   createdAt:"2022-02-26T07:25:46.000Z"
-        //   email:"user1@example.com"
-        //   followerCount:null
-        //   followingCount:null
         //   id:2
-        //   introduction:"occaecati"
-        //   likedCount:null
         //   name:"Wendell Russel MD"
-        //   password:"$2a$10$k5JQkXgf4hRLoelAxGrKlu.qsN2ZvIA6ETI4IF29VRegQyx67OsUO"
-        //   role:"user"
-        //   tweetCount:null
-        //   updatedAt:"2022-02-26T07:25:46.000Z"
         // }
         // UserId:2
         // createdAt:"2022-02-26T12:28:53.000Z"
         // description:"123456"
         // id:74
+        // likedCount:null
+        // replyCount: 3
         // updatedAt:"2022-02-26T12:28:53.000Z"
  
         if(statusText !== 'OK'){
@@ -136,7 +127,7 @@ export default {
         console.log('error', error)
         Toast.fire({
           icon: 'error',
-          title: '無取取得餐廳資料，請稍後在試'
+          title: '無取取得餐廳資料，請稍後再試'
         })
       }
     }

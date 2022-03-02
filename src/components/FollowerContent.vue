@@ -66,7 +66,7 @@ export default {
                 console.log('error',error.message)
                 Toast.fire({
                     icon: 'error',
-                    title: '未能取得使用者推文，請稍後在試'
+                    title: '未能取得使用者推文，請稍後再試'
                 })
             }
         },

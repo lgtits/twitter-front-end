@@ -17,7 +17,7 @@
                 v-if="!user.isFollowed"
                 />
                 <FollowshipSolidBtn
-                @after-click-follow="afterClickFollow(user.id)"
+                @after-click-unfollow="afterClickUnFollow(user.id)"
                 initText="正在跟隨" 
                 v-else
                 />
@@ -31,7 +31,7 @@ import FollowshipOutlineBtn from './FollowshipOutlineBtn.vue'
 import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
 import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
-import FollowShipsApi from '../apis/Followships'
+import {FollowshipMethods} from '../utils/mixins'
 import { Toast } from '../utils/helpers.js'
 
 export default {
@@ -65,26 +65,15 @@ export default {
                 console.log('error', error.message)
                 Toast.fire({
                     icon: 'error',
-                    title: '載入人氣使用者失敗，請稍後在試'
+                    title: '載入人氣使用者失敗，請稍後再試'
                 })
             }
         },
-        async afterClickFollow(userId){
-            try{
-                const response = await FollowShipsApi.followUser({userId})
-                console.log('^',response)
-            }catch(error){
-                console.log('error', error.message)
-                Toast.fire({
-                    icon: 'error',
-                    title: '追蹤使用者失敗，請稍後在試'
-                })
-            }
-        }
     },
     created(){
         this.fetchUsers()
-    }
+    },
+    mixins: [FollowshipMethods]
 }
 </script>
 <style lang="scss" scoped>
