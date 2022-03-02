@@ -4,7 +4,7 @@
     <Modal class="light-box " v-model="showEditModal" title="編輯個人資料">
       <div class="edit-board">
         <form action=""  @submit.prevent.stop="emitEdit">
-            <button type="submit" class="save-edit-profile" >
+            <button type="submit" class="save-edit-profile" :disabled="isProcessing">
               儲存
             </button>
             <div class="edit-cover">
@@ -45,19 +45,19 @@
                 <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
                 <p class="name-count">{{this.name.length}}/50</p>
               </div>
-              <div class="input-box description">
-                <label for="description">自我介紹</label>
+              <div class="input-box introduction">
+                <label for="introduction">自我介紹</label>
                 <textarea 
-                  name="description" 
-                  id="description" 
-                  v-model="description" 
+                  name="introduction" 
+                  id="introduction" 
+                  v-model="introduction" 
                   required 
                   utofocus
                   :placeholder="currentUser.introduction"
                 >
                 </textarea>
                 <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
-                <p class="description-count" >{{this.description.length}}/160</p>
+                <p class="introduction-count" >{{this.introduction.length}}/160</p>
               </div>
             </div>
         </form>
@@ -70,22 +70,55 @@
 
 <script>
 import { mapState } from 'vuex'
+import userAPI from './../apis/user'
+import { Toast } from './../utils/helpers'
+
 
   export default {
     data(){
       return{
         showEditModal: false,
-        cover:"",
-        personalAvatar:"",
         name:"",
-        description:"",
+        introduction:"",
         alertMessage:"",
       }
     },
     methods:{
-      emitEdit(){
-        console.log('emit edit')
-        this.showEditModal = false
+      async emitEdit(e) {
+        try{
+          //驗證不爲空值
+        if (!this.name || !this.introduction) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請確認填入所有資訊'
+          })
+          return
+        } 
+          const form = e.target  // <form></form>
+          const formData = new FormData(form)
+
+          this.isProcessing = true
+
+          const {data} = await userAPI.updateUser({
+            userId: this.currentUser.id,
+            formData
+          })
+          console.log(data)
+
+
+
+          if (data.status !== 'success') {
+            throw new Error(data.message)
+          }
+          this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+          this.showEditModal = false
+        } catch(error){
+          this.isProcessing = false
+          Toast.fire({
+            icon: 'error',
+            title: '無法更新餐廳資料，請稍後再試'
+          })
+        }
       },
       deleteCover(){
         console.log('delete cover')
@@ -207,6 +240,7 @@ import { mapState } from 'vuex'
           position: absolute;
           left: 45px;
           top: 45px;
+          cursor: pointer;
           img{
             width: 24px;
             height: 24px;
@@ -266,7 +300,7 @@ import { mapState } from 'vuex'
             outline: none;
           }
         }
-        &.description{
+        &.introduction{
           height: 150px;
           margin-bottom: 72px;
           border-bottom: solid 2px #657786;
@@ -284,7 +318,7 @@ import { mapState } from 'vuex'
           font-family: Noto Sans TC;
           font-style: normal;
         }
-        .description-count{
+        .introduction-count{
           position: absolute;
           right: 5px;
           bottom: -20px;
