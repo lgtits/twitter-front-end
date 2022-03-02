@@ -135,6 +135,10 @@ export default {
 
             }catch(error){
                 console.log('error',error)
+                Toast.fire({
+                    icon: 'error',
+                    title: '取得使用者資料失敗，請稍後再試'
+                })
             }
         },
     },
