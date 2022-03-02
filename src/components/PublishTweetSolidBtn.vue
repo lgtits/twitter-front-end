@@ -1,7 +1,8 @@
 <template>
-    <a 
-    :class="['outlineBtn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
+    <a  
     href="#"
+    :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
+    @click.stop.prevent="handlePublish"
     >
         {{text}}
     </a>
@@ -25,30 +26,31 @@ export default {
         }
     },
     methods: {
+        handlePublish(){
+            this.$emit("after-create-tweet")
+        },
     }
 }
 </script>
 <style lang="scss" scoped>
- .outlineBtn{
+ .solid-btn{
     height: fit-content;
-    width: fit-content;
-    color: $primary;
+    padding: 10px 15px;
+    color: $white;
     border: 1px solid $primary; 
+    background-color: $primary;
     border-radius: 500px;
-    @include font(15px, 1.2, normal ,700);
+    @include font(15px, 1.2, normal ,500);
     &.md{
         padding: 10px 15px;
     }
     &.sm{
         padding: 5px 15px;
     }
-    &.focus{
-        background-color: $primary;
-        color: $white;
-    }
     &:hover{
-        background-color: $primary;
-        color: $white;
+        border: 1px solid $primary; 
+        background-color: $white;
+        color: $primary;
     }
   }
 </style>
