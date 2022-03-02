@@ -15,7 +15,7 @@ export default new Vuex.Store({
       role: "",
       avatar: "https://upload.wikimedia.org/wikipedia/zh/4/49/Nobi_Nobita.png",
       introduction: "無内容",
-      cover: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Google_logo_%282010-2013%29.svg",
+      cover: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Romance_of_the_Western_Chamber_poster.jpg",
       tweetCount: null,
       followingCount: null,
       followerCount: null,

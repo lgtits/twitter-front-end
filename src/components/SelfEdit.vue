@@ -11,16 +11,21 @@
               <div class="cover-container">
                 <img :src="currentUser.cover" alt="">
               </div>
-              <button class="select-picture">
-                <img src="" alt="">
-              </button>
-              <button class="delete-picrue">
-                <img src="" alt="">
+              <label class="select-cover" for="cover">
+                <img src="../assets/image/icon_uploadPhoto.svg" alt="">
+              </label>
+              <input id="cover" type="file" name="cover" accept="image/*">
+              <button class="delete-cover" type="button" @click="deleteCover">
+                <img src="../assets/image/icon_delete.svg" alt="">
               </button>
             </div>
             <div class="edit-personal-photo">
               <div class="personal-photo-container">
                 <img class="photo" :src="currentUser.avatar" alt="">
+              <label class="upload-avatar" for="avatar">
+                <img src="../assets/image/icon_uploadPhoto.svg" alt="">
+              </label>
+              <input id="avatar" type="file" name="avatar" accept="image/*">
               </div>
             </div>
             <div class="edit-personal-info">
@@ -76,6 +81,9 @@ import { mapState } from 'vuex'
       emitEdit(){
         console.log('emit edit')
         this.showEditModal = false
+      },
+      deleteCover(){
+        console.log('delete cover')
       }
     },
     computed: {
@@ -128,6 +136,45 @@ import { mapState } from 'vuex'
           width: 100%;
           height: 100%;
           object-fit: cover;
+          opacity: 0.7;
+        }
+      }
+      .select-cover{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 147px;
+        left: 261px;
+        cursor: pointer;
+        img{
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          margin: auto;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+      }
+      input{
+        display: none;
+      }
+      .delete-cover{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 147px;
+        left: 315px;
+        img{
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          margin: auto;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
         }
       }
     }
@@ -140,11 +187,34 @@ import { mapState } from 'vuex'
         width: 120px;
         border-radius: 50%;
         border: 4px solid #ffffff;
+        position: relative;
+        background:#ffffff;
         .photo{
           width: 100%;
           height: 100%;
           object-fit: cover;
           border-radius: 50%;
+          opacity: 0.7;
+        }
+        .upload-avatar{
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          left: 45px;
+          top: 45px;
+          img{
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+        }
+        input{
+          display: none;
         }
       }
     }
