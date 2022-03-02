@@ -164,6 +164,9 @@ export default {
         background-color:#F5F8FA;
         border: none;
         font-size: 19px;
+        font-size: 500;
+        font-family: Noto Sans TC;
+        font-style: normal;
         line-height: 28px;
         &:focus {
           outline: none;

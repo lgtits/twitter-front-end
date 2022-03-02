@@ -13,9 +13,9 @@ export default new Vuex.Store({
       name: "",
       account: "",
       role: "",
-      avatar: "",
-      introduction: "",
-      cover: "",
+      avatar: "https://upload.wikimedia.org/wikipedia/zh/4/49/Nobi_Nobita.png",
+      introduction: "無内容",
+      cover: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Google_logo_%282010-2013%29.svg",
       tweetCount: null,
       followingCount: null,
       followerCount: null,
@@ -28,13 +28,13 @@ export default new Vuex.Store({
     token: ''
   },
   mutations: {
-    setCurrentUser(state, currentUser){
+    setCurrentUser(state, currentUser) {
       state.currentUser = {
         ...state.currentUser,
         ...currentUser
       },
-      // 將使用者驗證用的 token 儲存在 state 中
-      state.token = localStorage.getItem('token')
+        // 將使用者驗證用的 token 儲存在 state 中
+        state.token = localStorage.getItem('token')
       state.isAuthenticated = true
     },
     revokeAuthentication(state) {
@@ -45,18 +45,18 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
     }
   },
-   actions: {
-    async fetchCurrentUser ({ commit }) {
+  actions: {
+    async fetchCurrentUser({ commit }) {
       try {
         const { data } = await usersAPI.getCurrentUser()
         console.log(data)
-        const { id, name, email, avatar, role } = data.user
+        const { account, id, name, email, role } = data.user
 
         commit('setCurrentUser', {
+          account,
           id,
           name,
           email,
-          avatar,
           role
         })
         return true

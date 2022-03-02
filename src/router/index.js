@@ -143,7 +143,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  linkActiveClass: 'active',
+  linkActiveClass: 'part-active',
   linkExactActiveClass: 'active',
   routes,
 })
