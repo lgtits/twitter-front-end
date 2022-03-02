@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <Head :initUser="user"/>
         <PersonalCard :initUser="user"/>
         <UserNavTabs/>
         <NoTweet
@@ -22,6 +23,7 @@ import PersonalCard from '../components/PersonalCard.vue'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 import NoTweet from '../components/NoTweet.vue'
+import Head from '../components/Head.vue'
 
 export default {
     name: 'ReplyContent',
@@ -29,7 +31,8 @@ export default {
         PersonalCard,
         Tweet,
         NoTweet,
-        UserNavTabs
+        UserNavTabs,
+        Head
     },
     data(){
         return {
@@ -50,7 +53,7 @@ export default {
                 likedCount: null,
                 createdAt: "",
                 updatedAt: "",
-            }
+            },
         }
     },
     methods: {

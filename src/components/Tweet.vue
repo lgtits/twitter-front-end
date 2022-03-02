@@ -14,7 +14,7 @@
             <div class="tweet-content">{{tweet.description}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
-                    <i><MainReplyModal/></i>
+                    <i><MainReplyModal :initTweet="tweet"/></i>
                     <p>{{tweet.replyCount}}</p>
                 </a>
                 <a href="#" class="favorite" @click.stop.prevent="handleAddLike(tweet.id)" >

@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <Head :initUser="user"/>
         <PersonalCard :initUser="user"/>
         <UserNavTabs/>
         <NoTweet
@@ -21,6 +22,7 @@ import PersonalCard from '../components/PersonalCard.vue'
 import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import NoTweet from '../components/NoTweet.vue'
+import Head from '../components/Head.vue'
 
 export default {
     name: 'TweetContent',
@@ -28,7 +30,8 @@ export default {
         Tweet,
         NoTweet,
         PersonalCard,
-        UserNavTabs
+        UserNavTabs,
+        Head
     },
     data(){
         return {
@@ -85,7 +88,7 @@ export default {
                 console.log('error',error.message)
                 Toast.fire({
                     icon: 'error',
-                    title: '未能取得使用者推文，請稍後在試'
+                    title: '未能取得使用者推文，請稍後再試'
                 })
             }
         },
