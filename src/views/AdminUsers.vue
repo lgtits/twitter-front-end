@@ -49,7 +49,7 @@ export default {
     //   followerCount: user.FollowerCount,
     //   isFollowed: user.isFollowed
     // }))
-    this.users = data.data
+    this.users = data
   } catch (error) {
     console.log(error)
     Toast.fire({
