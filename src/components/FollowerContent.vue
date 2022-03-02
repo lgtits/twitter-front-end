@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <Head :initUser="user"/>
+        <Header :initUser="user"/>
         <FollowNavTabs/>
         <NoTweet
          v-if="!tweets.length"
@@ -22,7 +22,7 @@ import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 import NoTweet from '../components/NoTweet.vue'
-import Head from '../components/Head.vue'
+import Header from '../components/Header.vue'
 
 export default {
     name: 'FollowerContent',
@@ -30,7 +30,7 @@ export default {
         FollowUserTweet,
         FollowNavTabs,
         NoTweet,
-        Head
+        Header
     },
     data(){
         return {
