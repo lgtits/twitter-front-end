@@ -4,7 +4,11 @@
     <Modal class="light-box" v-model="showMainReplyModal">
       <div class="reply-modal">
         <div class="tweet-wrapper">
-          <Avatar/>
+          <Avatar 
+          :initUserId="initTweet.userId"
+          :initImage="initTweet.image"
+          />  
+          <!-- :initUserId="" -->
           <div class="tweet-body">
             <div class="tweet-name">
                 <div class="name">name</div>
@@ -54,6 +58,12 @@ import Avatar from '../components/Avatar.vue'
   export default {
     components: {
         Avatar
+    },
+    props: {
+      initTweet:{
+        type: Object,
+        require: true
+      }
     },
     data(){
       return{

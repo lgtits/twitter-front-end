@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <Head :initUser="user"/>
     <PersonalCard :initUser="user" />
     <UserNavTabs />
     <NoTweet
@@ -21,6 +22,7 @@ import UsersApi from '../apis/user'
 import PersonalCard from "../components/PersonalCard.vue";
 import { Toast } from "../utils/helpers";
 import NoTweet from '../components/NoTweet.vue'
+import Head from '../components/Head.vue'
 
 export default {
   name: "TweetContent",
@@ -29,6 +31,7 @@ export default {
     PersonalCard,
     NoTweet,
     UserNavTabs,
+    Head
   },
   data() {
     return {

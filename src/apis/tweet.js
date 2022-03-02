@@ -34,5 +34,8 @@ export default {
         return apiHelper.post(`/tweets/${tweetId}/unlike`,null, {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
+    },
+    replyTweet(){
+        return apiHelper.post(``)
     }
 }

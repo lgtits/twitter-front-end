@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <Head :initUser="user"/>
         <FollowNavTabs/>
         <NoTweet
          v-if="!tweets.length"
@@ -21,6 +22,7 @@ import UsersApi from '../apis/user'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 import NoTweet from '../components/NoTweet.vue'
+import Head from '../components/Head.vue'
 
 export default {
     name: 'FollowerContent',
@@ -28,10 +30,15 @@ export default {
         FollowUserTweet,
         FollowNavTabs,
         NoTweet,
+        Head
     },
     data(){
         return {
             tweets: [],
+            user: {
+                name: '',
+                tweetCount: 0
+            }
         }
     },
     methods: {
@@ -70,10 +77,37 @@ export default {
                 })
             }
         },
+        // 打這個api可以再優化，僅為了取得名字與貼文
+        async fetchUser(userId){
+            try{
+                const {data, statusText} = await UsersApi.getUser({userId})
+                console.log('$$',data)
+                const {
+                    name,
+                    tweetCount,
+                } = data.userData
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.user= {
+                    ...this.user,
+                    name,
+                    tweetCount,
+                }
+
+            }catch(error){
+                console.log('error',error)
+                Toast.fire({
+                    icon: 'error',
+                    title: '取得使用者資料失敗，請稍後再試'
+                })
+            }
+        },
     },
     created(){
         const id = this.$route.params.id
         this.fetchTweets(id)
+        this.fetchUser(id)
     },
     computed: {
         ...mapState(['currentUser'])
