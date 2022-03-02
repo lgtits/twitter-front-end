@@ -7,7 +7,7 @@
       <div class="header">
         <h1>帳戶設定</h1>
       </div>
-      <form class="main-form" @submit.prevent.stop="handleSubmit">
+      <form class="main-form" @submit.stop.prevent="setUserInfo">
         <div class="input-box">
           <label for="account">帳號</label>
           <input
@@ -19,6 +19,7 @@
             autocomplete="username"
             required
             autofocus
+            :placeholder="currentUser.account"
           />
         </div>
         <div class="input-box">
@@ -32,6 +33,7 @@
             autocomplete="name"
             required
             autofocus
+            :placeholder="currentUser.name"
           />
         </div>
         <div class="input-box">
@@ -45,6 +47,7 @@
             autocomplete="email"
             required
             autofocus
+            :placeholder="currentUser.email"
           />
         </div>
         <div class="input-box">
@@ -60,17 +63,17 @@
           />
         </div>
         <div class="input-box">
-          <label for="passwordCheck">密碼確認</label>
+          <label for="checkPassword">密碼確認</label>
           <input
-            id="passwordCheck"
-            v-model="passwordCheck"
-            name="passwordCheck"
+            id="checkPassword"
+            v-model="checkPassword"
+            name="checkPassword"
             type="password"
             class="form-control"
             required
           />
         </div>
-        <button class="save" type="submit">儲存</button>
+        <button class="save" type="submit" :disabled="isProcessing">儲存</button>
       </form>
     </main>
   </div>
@@ -78,8 +81,9 @@
 
 <script>
 import Navbar from "./../components/Navbar";
-// import userAPI from './../apis/user'
+import userAPI from './../apis/user'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -91,30 +95,50 @@ export default {
       name: "",
       email: "",
       password: "",
-      passwordCheck: "",
+      checkPassword: "",
       isProcessing: false
     };
   },
   methods: {
-    async handleSubmit(e) {
-      console.log(e)
+    async setUserInfo(e) {
       try{
         //驗證不爲空值
-        if (!this.account || !this.name || !this.email || !this.password || !this.passwordCheck) {
+        if (!this.account || !this.name || !this.email || !this.password || !this.checkPassword) {
           Toast.fire({
             icon: 'warning',
             title: '請確認填入所有資訊'
           })
           return
         } 
+        const form = e.target  // <form></form>
+        const formData = new FormData(form)
 
         this.isProcessing = true
 
+        const {data} = await userAPI.updateUser({
+          userId: this.currentUser.id,
+          formData
+        })
+        console.log(data)
+
+
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+        this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
         
       } catch(error){
-          console.log(error)
-        }
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法更新餐廳資料，請稍後再試'
+        })
+      }
     },
+  },
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
   },
 };
 </script>
@@ -175,7 +199,7 @@ export default {
     #name,
     #email,
     #password,
-    #passwordCheck {
+    #checkPassword {
       padding: 20px 0 0 10px;
       width: 540px;
       height: 52px;
