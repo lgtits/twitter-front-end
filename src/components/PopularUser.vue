@@ -11,12 +11,13 @@
                     <div class="name">{{user.name}}</div>
                     <div class="account-name">{{user.accountName}}</div>
                 </div>
-                <OutlineBtn 
+                <FollowshipOutlineBtn 
                 initText="追隨" 
                 @after-click-follow="afterClickFollow(user.id)"
                 v-if="!user.isFollowed"
                 />
-                <SolidBtn 
+                <FollowshipSolidBtn
+                @after-click-follow="afterClickFollow(user.id)"
                 initText="正在跟隨" 
                 v-else
                 />
@@ -26,8 +27,8 @@
 </template>
 
 <script>
-import OutlineBtn from './OutlineBtn.vue'
-import SolidBtn from './SolidBtn.vue'
+import FollowshipOutlineBtn from './FollowshipOutlineBtn.vue'
+import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
 import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
 import FollowShipsApi from '../apis/Followships'
@@ -35,9 +36,9 @@ import { Toast } from '../utils/helpers.js'
 
 export default {
     components: {
-        OutlineBtn,
+        FollowshipOutlineBtn,
         Avatar,
-        SolidBtn
+        FollowshipSolidBtn
     },
     data(){
         return {

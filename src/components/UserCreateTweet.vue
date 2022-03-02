@@ -11,7 +11,7 @@
             ></textarea>
             <div>
                 <p class="alert-text" v-show="alertMessage">{{alertMessage}}</p>
-                <SolidBtn 
+                <PublishTweetSolidBtn 
                 initText="推文"
                 @after-create-tweet="afterCreateTweet"
                 />
@@ -21,7 +21,7 @@
 </template>
 <script>
     import Avatar from './Avatar.vue'
-    import SolidBtn from './SolidBtn.vue'
+    import PublishTweetSolidBtn from './PublishTweetSolidBtn.vue'
     import uuid from 'uuid'
     import { mapState } from 'vuex'
 
@@ -29,7 +29,7 @@
     export default {
         components: {
             Avatar,
-            SolidBtn
+            PublishTweetSolidBtn
         },
         data(){
             return {

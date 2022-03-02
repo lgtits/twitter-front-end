@@ -2,7 +2,7 @@
     <a  
     href="#"
     :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
-    @click.stop.prevent="handlePublish"
+    @click.stop.prevent="handleFollow"
     >
         {{text}}
     </a>
@@ -10,14 +10,14 @@
 <script>
 export default {
     props: {
+        initSize: {
+            type: String,
+            default: 'md'
+        },
         initText:{
             type: String,
             default: '追隨'
         },
-        initSize: {
-            type: String,
-            default: 'md'
-        }
     },
     data() {
         return{
@@ -26,19 +26,8 @@ export default {
         }
     },
     methods: {
-        handlePublish(){
-            if(this.text === '推文'){
-                this.$emit("after-create-tweet")
-            }else{
-                return
-            }
-        },
         handleFollow(){
-            if(this.text === '追隨'){
-                this.$emit("after-click-follow")
-            }else{
-                return
-            }
+            this.$emit("after-click-follow")
         },
     }
 }

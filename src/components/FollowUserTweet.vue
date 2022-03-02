@@ -6,8 +6,8 @@
             <div class="account-name">{{tweet.accountName}}</div>
             <div class="tweet-introduce">{{tweet.introduction}}</div>
             <div class="buttonWrapper">
-                <OutlineBtn initText="跟隨" init-size="sm" v-if="!tweet.isFollowed"/>
-                <SolidBtn initText="正在跟隨" init-size="sm" v-else/>
+                <FollowshipOutlineBtn initText="跟隨" init-size="sm" v-if="!tweet.isFollowed"/>
+                <FollowshipSolidBtn initText="正在跟隨" init-size="sm" v-else/>
             </div>
         </div>
     </div>
@@ -18,14 +18,14 @@ import Avatar from '../components/Avatar.vue'
 import moment from 'moment'
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
-import SolidBtn from '../components/SolidBtn.vue'
-import OutlineBtn from '../components/OutlineBtn.vue'
+import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
+import FollowshipOutlineBtn from '../components//FollowshipOutlineBtn.vue'
 
 export default {
     components: {
         Avatar,
-        SolidBtn,
-        OutlineBtn
+        FollowshipSolidBtn,
+        FollowshipOutlineBtn
     },
     props:{
         initTweet: {
