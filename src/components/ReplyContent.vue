@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <Head :initUser="user"/>
+        <Header :initUser="user"/>
         <PersonalCard :initUser="user"/>
         <UserNavTabs/>
         <NoTweet
@@ -23,7 +23,7 @@ import PersonalCard from '../components/PersonalCard.vue'
 import { Toast } from '../utils/helpers'
 import { mapState } from 'vuex'
 import NoTweet from '../components/NoTweet.vue'
-import Head from '../components/Head.vue'
+import Header from '../components/Header.vue'
 
 export default {
     name: 'ReplyContent',
@@ -32,7 +32,7 @@ export default {
         Tweet,
         NoTweet,
         UserNavTabs,
-        Head
+        Header
     },
     data(){
         return {
