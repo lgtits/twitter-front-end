@@ -61,10 +61,16 @@ export default {
           console.log("error", data);
           throw new Error(data.message);
         }
-
+        //送出内容到外層
+       this.$emit('after-create-tweet-from-modal',{
+          id: this.currentUser.id,
+          description: this.tweetContent
+        })
+        ///////////////////////
         this.tweetContent = "";
         this.showModal = false;
         this.$router.push('/main')
+ 
       } catch (error) {
         console.log("error", error);
         Toast.fire({

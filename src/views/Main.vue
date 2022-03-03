@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="gridWrapper">
       <div class="navbarWrapper">
-        <Navbar />
+        <Navbar @after-create-tweet-from-navbar="afterCreateTweetFromNavbar"/>
       </div>
       <main>
         <div class="card-list">
@@ -14,7 +14,7 @@
           />
           <Tweet 
           v-else
-          v-for="tweet in tweets" 
+          v-for="tweet in tweets" g
           :key="tweet.id" 
           :initTweet="tweet"/>
         </div>
@@ -101,6 +101,25 @@ export default {
         })
       }
     },
+    // 接收navbar推文資料///
+    afterCreateTweetFromNavbar(fromNavbar){
+      console.log('receive from navbar', fromNavbar)
+      const {id, description} = fromNavbar.content
+      const result2 = {
+          id,
+          UserId: 2,
+          description,
+          // TODO:優化
+          createdAt: new Date(),
+          User: {
+            name: this.currentUser.name,
+            account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
+            avatar: this.currentUser.avatar,
+          }
+      }
+      this.tweets.unshift(result2)
+    },
+    // 接收navbar推文資料///
     async fetchTweets(){
       try{
         const { data,statusText } = await tweetApis.getMainTweet()
@@ -128,7 +147,7 @@ export default {
         console.log('error', error)
         Toast.fire({
           icon: 'error',
-          title: '無取取得餐廳資料，請稍後再試'
+          title: '無取取得資料，請稍後再試'
         })
       }
     }
