@@ -57,6 +57,7 @@ import Avatar from '../components/Avatar.vue'
 import tweetsApi from '../apis/tweet'
 import { Toast } from '../utils/helpers'
 import moment from 'moment'
+import uuid from 'uuid'
 
   export default {
     components: {
@@ -105,10 +106,14 @@ import moment from 'moment'
           if(statusText !== 'OK'){
             throw new Error(statusText)
           }
+           // 發送至tweet，請他+1評論/並傳出可製作的假卡片資料
+           this.$emit("after-reply-tweet",{
+             description: this.replyTweetContent,
+             id: uuid()
+           })
+           // 清空
            this.replyTweetContent = ""
            this.showMainReplyModal = false
-           // 發送至tweet，請他+1評論
-           this.$emit("after-reply-tweet")
         }catch(error){
           console.log('error',error.message)
           Toast.fire({

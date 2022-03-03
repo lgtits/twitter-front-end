@@ -15,7 +15,8 @@
                 </div>
             </div>
         </div>
-        <TweetDetail/>
+        <TweetDetail
+        @after-reply-tweet="afterReplyTweet"/>
         <NoTweet
           v-if="!tweets.length"
           initText="尚沒有任何回復~"
@@ -43,6 +44,7 @@ import PopularUser from "../components/PopularUser.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 import NoTweet from '../components/Tweet/NoTweet.vue'
+import {mapState} from 'vuex'
 
 export default {
   name: 'Reply',
@@ -95,13 +97,35 @@ export default {
           title: '無取取得餐廳資料，請稍後再試'
         })
       }
+    },
+    afterReplyTweet(payload){
+      const {id, description} = payload
+      // 回傳前端假tweet物件
+      const result = {
+          id,
+          UserId: this.currentUser.id,
+          description,
+          // TODO:優化
+          createdAt: new Date(),
+          User: {
+            name: this.currentUser.name,
+            account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
+            avatar: this.currentUser.avatar,
+          }
+      }
+      console.log('@@#',result)
+      // 推進陣列
+      this.tweets.unshift(result)
     }
 
   },
   created(){
     const id = this.$route.params.id
     this.fetchTweets(id)
-  }
+  },
+  computed: {
+       ...mapState(['currentUser'])
+   }
 };
 </script>
 

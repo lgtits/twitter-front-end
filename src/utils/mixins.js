@@ -1,4 +1,5 @@
 import FollowShipsApi from '../apis/Followships'
+import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 // import moment from 'moment'
 
@@ -110,7 +111,52 @@ export const TweetsFollowshipMethods = {
     }
 }
 
+export const Like = {
+    methods: {
+        async handleAddLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.addLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount + 1,
+                    isLiked: true
+                }
 
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '加到喜歡失敗，請稍後再試'
+                })
+            }
+        },
+        async handleUnLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.unLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount - 1,
+                    isLiked: false
+                }
+
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '收回喜歡失敗，請稍後再試'
+                })
+            }
+        },
+    }
+}
 // export const fromNowFilters = {
 //     filters: {
 //         fromNow(datetime){

@@ -31,7 +31,16 @@
                 @after-reply-tweet="afterReplyTweet"
                 />
                 </a>
-            <a href="#"><img src="../assets/image/favorite.svg" alt=""></a>
+            <a href="#" class="favorite">
+                <i 
+                v-if="!tweet.isLiked"
+                @click.stop.prevent="handleAddLike(tweet.id)"
+                ><img src="../assets/image/favorite.svg" alt="尚未加入最愛"></i>
+                <i 
+                v-else
+                @click.stop.prevent="handleUnLike(tweet.id)"
+                ><img src="../assets/image/favorite-active.svg" alt="加入最愛中"></i>
+            </a>
         </div>
     </div>
 </template>
@@ -41,6 +50,7 @@ import tweetsApi from '../apis/tweet'
 import { Toast } from '../utils/helpers'
 import moment from 'moment'
 import MainReplyModal from '../components/MainReplyModal.vue'
+import {Like} from '../utils/mixins'
 
 export default {
     name: 'tweetDetail',
@@ -108,11 +118,9 @@ export default {
                 })
             }
         },
-        afterReplyTweet(){
-            this.tweet = {
-                ...this.tweet,
-                replyCount: this.tweet.replyCount + 1
-            }
+        afterReplyTweet(payload){
+            console.log('payload',payload)
+            this.$emit('after-reply-tweet', payload)
         }
     },
     created(){
@@ -130,7 +138,8 @@ export default {
             // TODO:AM換成中文
             return moment(datetime).format('A HH:mm•YYYY年MM月DD日')
         }
-    }
+    },
+    mixins: [Like]
 }
 </script>
 <style lang="scss" scoped>
