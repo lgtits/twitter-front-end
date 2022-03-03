@@ -30,12 +30,14 @@ export default {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
     },
-     removeLike({tweetId}){
+     unLike({tweetId}){
         return apiHelper.post(`/tweets/${tweetId}/unlike`,null, {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
     },
-    replyTweet(){
-        return apiHelper.post(``)
+    replyTweet({tweetId}){
+        return apiHelper.post(`/tweets/${tweetId}/replies`, {id, UserId, TweetId, comment, createdAt, updatedAt},{
+            headers: { Authorization: `Bearer ${getToken()}` } 
+        })
     }
 }

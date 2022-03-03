@@ -35,12 +35,12 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Tweet from "../components/Tweet.vue";
+import Tweet from "../components/Tweet/Tweet.vue";
 import TweetDetail from '../components/TweetDetail.vue'
 import PopularUser from "../components/PopularUser.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
-import NoTweet from '../components/NoTweet.vue'
+import NoTweet from '../components/Tweet/NoTweet.vue'
 
 export default {
   name: 'Reply',

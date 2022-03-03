@@ -5,10 +5,10 @@
         <UserNavTabs/>
         <NoTweet
          v-if="!tweets.length"
-         initText="該用戶目前沒有任何喜歡~"
+         initText="該用戶目前沒有回覆~"
          />
         <Tweet 
-        v-else
+        v-else 
         v-for="tweet in tweets" 
         :key="tweet.id" 
         :initTweet="tweet"/>
@@ -16,20 +16,21 @@
 </template>
 
 <script>
-import Tweet from '../components/Tweet.vue'
-import UserNavTabs from '../components/UserNavTabs.vue'
-import PersonalCard from '../components/PersonalCard.vue'
-import UsersApi from '../apis/user'
-import { Toast } from '../utils/helpers'
-import NoTweet from '../components/NoTweet.vue'
-import Header from '../components/Header.vue'
+import Tweet from '../Tweet/Tweet.vue'
+import UserNavTabs from '../UserNavTabs.vue'
+import UsersApi from '../../apis/user'
+import PersonalCard from '../PersonalCard.vue'
+import { Toast } from '../../utils/helpers'
+import { mapState } from 'vuex'
+import NoTweet from '../Tweet/NoTweet.vue'
+import Header from '../Header.vue'
 
 export default {
-    name: 'TweetContent',
+    name: 'ReplyContent',
     components: {
+        PersonalCard,
         Tweet,
         NoTweet,
-        PersonalCard,
         UserNavTabs,
         Header
     },
@@ -52,38 +53,41 @@ export default {
                 likedCount: null,
                 createdAt: "",
                 updatedAt: "",
-            }
+            },
         }
     },
     methods: {
         async fetchTweets(userId){
             try{
-               const {data, statusText} = await UsersApi.getUserLikesTweet({userId})
-               console.log('!@###',data)
+                // 取得tweet資料
+               const {data, statusText} = await UsersApi.getUserRepliesTweet({userId})
+               console.log('@@@@@',data)
+               // 無任何資料
+            //    if(state === 400){
+
+            //    }
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
-               // 先排除沒有tweet的資料
-                this.tweets = data.filter(tweet => {
-                    return tweet.Tweet
-                }).map(tweet => {
-                    console.log('123',tweet.Tweet)
-                    return {
-                        id: tweet.id,
-                        UserId: tweet.Tweet.User.id, //
-                        description: tweet.Tweet.description, //貼文內容
+               // tweet接收的資料格式，務必照此格式tweet才能正常顯示
+               this.tweets = data.map(tweet => {
+                   return {
+                        id: tweet.Tweet.id,
+                        UserId: tweet.User.id,
+                        description: tweet.comment,
                         createdAt: tweet.createdAt,
                         updatedAt: tweet.updatedAt,
-                        userId: tweet.Tweet.User.id,
+                        userId: tweet.User.id,
                         User: {
-                            id: tweet.Tweet.User.id, //
-                            name: tweet.Tweet.User.name, // 貼文發表者
-                            account: tweet.Tweet.User.account,
-                            avatar: tweet.Tweet.User.acatar, // 貼文偷貼
+                            id: tweet.User.id,
+                            name: tweet.User.name,
+                            account: tweet.User.account,
+                            avatar: tweet.User.acatar,
                         },
+                        // 若卡牌有回復加上這條
+                        replyPerson: tweet.User.account
                    }
-                })
-               
+               })
             }catch(error){
                 console.log('error',error.message)
                 Toast.fire({
@@ -111,7 +115,7 @@ export default {
                     likedCount,
                     createdAt,
                     updatedAt,
-                } = data.userData
+                } = data
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
                 }
@@ -135,10 +139,6 @@ export default {
 
             }catch(error){
                 console.log('error',error)
-                Toast.fire({
-                    icon: 'error',
-                    title: '取得使用者資料失敗，請稍後再試'
-                })
             }
         },
     },
@@ -146,6 +146,10 @@ export default {
         const id = this.$route.params.id
         this.fetchUser(id)
         this.fetchTweets(id)
+
+    },
+    computed: {
+        ...mapState(['currentUser'])
     }
 }
 </script>

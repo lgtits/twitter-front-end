@@ -21,7 +21,7 @@
 </template>
 <script>
     import Avatar from './Avatar.vue'
-    import PublishTweetSolidBtn from './PublishTweetSolidBtn.vue'
+    import PublishTweetSolidBtn from './Button/PublishTweetSolidBtn.vue'
     import uuid from 'uuid'
     import { mapState } from 'vuex'
 
@@ -36,6 +36,7 @@
                 description: '',
                 // avatar: currentUser.avatar
                 alertMessage: '',
+                isLoading: false
             }
         },
         methods:{

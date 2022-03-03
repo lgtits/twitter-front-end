@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import Tweet from "../components/Tweet.vue";
-import UserNavTabs from "../components/UserNavTabs.vue";
-import UsersApi from '../apis/user'
-import PersonalCard from "../components/PersonalCard.vue";
-import { Toast } from "../utils/helpers";
-import NoTweet from '../components/NoTweet.vue'
-import Header from '../components/Header.vue'
+import Tweet from "../Tweet/Tweet.vue";
+import UserNavTabs from "../UserNavTabs.vue";
+import UsersApi from '../../apis/user'
+import PersonalCard from "../PersonalCard.vue";
+import { Toast } from "../../utils/helpers";
+import NoTweet from '../Tweet/NoTweet.vue'
+import Header from '../Header.vue'
 
 export default {
   name: "TweetContent",
@@ -60,11 +60,11 @@ export default {
       console.log(userId);
       try {
         const { data, statusText } = await UsersApi.getUserTweets({ userId });
-        //    console.log('**',data.data)
+           console.log('**',data)
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
-        this.tweets = data.data;
+        this.tweets = data;
       } catch (error) {
         console.log("error", error.message);
         Toast.fire({
@@ -92,7 +92,7 @@ export default {
           likedCount,
           createdAt,
           updatedAt,
-        } = data.userData;
+        } = data
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
@@ -112,7 +112,7 @@ export default {
           likedCount,
           createdAt,
           updatedAt,
-        };
+        }
       } catch (error) {
         console.log("error", error);
       }

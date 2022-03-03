@@ -17,9 +17,15 @@
                     <i><MainReplyModal :initTweet="tweet"/></i>
                     <p>{{tweet.replyCount}}</p>
                 </a>
-                <a href="#" class="favorite" @click.stop.prevent="handleAddLike(tweet.id)" >
-                    <i><img src="../assets/image/favorite.svg" alt="尚未加入最愛"></i>
-                    <i><img src="../assets/image/favorite-active.svg" alt="加入最愛中"></i>
+                <a href="#" class="favorite">
+                    <i 
+                    v-if="!tweet.isLiked"
+                    @click.stop.prevent="handleAddLike(tweet.id)"
+                    ><img src="../../assets/image/favorite.svg" alt="尚未加入最愛"></i>
+                    <i 
+                    v-else
+                    @click.stop.prevent="handleUnLike(tweet.id)"
+                    ><img src="../../assets/image/favorite-active.svg" alt="加入最愛中"></i>
                     <p>{{tweet.likeCount}}</p>
                 </a>
             </div>
@@ -27,11 +33,11 @@
     </router-link>
 </template>
 <script>
-import Avatar from '../components/Avatar.vue'
+import Avatar from '../Avatar.vue'
 import moment from 'moment'
-import tweetApis from '../apis/tweet'
-import { Toast } from '../utils/helpers.js'
-import MainReplyModal from '../components/MainReplyModal.vue'
+import tweetApis from '../../apis/tweet'
+import { Toast } from '../../utils/helpers.js'
+import MainReplyModal from '../MainReplyModal.vue'
 
 export default {
     components: {
@@ -75,6 +81,7 @@ export default {
                 replyCount,
                 // 暫時,
                 replyPerson,
+                isLiked,
                 User
             } = this.initTweet
             const {
@@ -93,6 +100,7 @@ export default {
                 createdAt,
                 likeCount,
                 replyCount,
+                isLiked,
                 replyPerson
             }
         },
@@ -104,7 +112,8 @@ export default {
                 }
                 this.tweet = {
                     ...this.tweet,
-                    isLike: true
+                    likeCount: this.tweet.likeCount + 1,
+                    isLiked: true
                 }
 
             }catch(error){
@@ -113,6 +122,27 @@ export default {
                 Toast.fire({
                     icon: 'error',
                     title: '加到喜歡失敗，請稍後再試'
+                })
+            }
+        },
+        async handleUnLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.unLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount - 1,
+                    isLiked: false
+                }
+
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '收回喜歡失敗，請稍後再試'
                 })
             }
         }
@@ -140,10 +170,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    @import '../assets/style/_variables.scss';
-    @import '../assets/style/_reset.scss';
-    @import '../assets/style/_base.scss';
-    @import '../assets/style/_mixin.scss';
+    @import '../../assets/style/_variables.scss';
+    @import '../../assets/style/_reset.scss';
+    @import '../../assets/style/_base.scss';
+    @import '../../assets/style/_mixin.scss';
     .tweet-wrapper{
         display: grid;
         grid-template-columns: 50px 1fr;

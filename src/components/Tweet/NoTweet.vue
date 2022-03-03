@@ -14,10 +14,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    @import '../assets/style/_variables.scss';
-    @import '../assets/style/_reset.scss';
-    @import '../assets/style/_base.scss';
-    @import '../assets/style/_mixin.scss';
+    @import '../../assets/style/_variables.scss';
+    @import '../../assets/style/_reset.scss';
+    @import '../../assets/style/_base.scss';
+    @import '../../assets/style/_mixin.scss';
     .noTweet{
         width: 100%;
         height: 100%;
