@@ -82,31 +82,25 @@ import uuid from 'uuid'
         },
         showMainReplyModal: false,
         replyTweetContent: "",
+        isLoading: false,
       }
     },
     methods:{
-      // submitPost(e){
-      //   console.log(e)
-      //   const form = e.target
-      //   const formData = new FormData(form)
-      //   console.log(formData)
-      //   // for(let [name, value] of formData.entries()){
-      //   //   console.log(name + ':' + value)
-      //   // }
-      //   this.replyTweetContent = ""
-      //   this.showMainReplyModal = false
-      // }
       async createReply(tweetId){
+        // 若loading則不執行
+        if(this.isLoading === true) return
         try{
-          const {data, statusText} = await tweetsApi.replyTweet({
+          // 發送前為處理中
+          this.isLoading = true
+          const {statusText} = await tweetsApi.replyTweet({
             comment: this.replyTweetContent,
             tweetId
           })
-          console.log('@@#', data)
+          // console.log('@@#', data)
           if(statusText !== 'OK'){
             throw new Error(statusText)
           }
-           // 發送至tweet，請他+1評論/並傳出可製作的假卡片資料
+           // 發送至tweet，首頁功能:請他+1評論/詳細推文頁:可立即產生的假卡片資料
            this.$emit("after-reply-tweet",{
              description: this.replyTweetContent,
              id: uuid()
@@ -114,6 +108,8 @@ import uuid from 'uuid'
            // 清空
            this.replyTweetContent = ""
            this.showMainReplyModal = false
+           // 發送後，關閉光箱 處理完成
+          this.isLoading = false
         }catch(error){
           console.log('error',error.message)
           Toast.fire({

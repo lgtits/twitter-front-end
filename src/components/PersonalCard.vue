@@ -25,7 +25,15 @@
                 </div>
             </div>
              <div class="buttonWrapper">
-                <SelfEdit @after-change-profile="afterChangeProfile"/>
+                <SelfEdit
+                v-if="user.id === this.currentUser.id"
+                @after-change-profile="afterChangeProfile"
+                />
+                <template v-else>
+                    <FollowshipSolidBtn initText="正在跟隨"/>
+                    <FollowshipOutlineBtn initText="跟隨"/>
+                </template>
+
             </div>
         </div>
     </div>
@@ -34,6 +42,9 @@
 import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
+import FollowshipSolidBtn from '../components/Button/FollowshipSolidBtn.vue'
+import FollowshipOutlineBtn from '../components/Button/FollowshipOutlineBtn.vue'
+import {mapState} from 'vuex'
 
 export default {
     props: {
@@ -44,7 +55,9 @@ export default {
     },
     components: {
         Avatar,
-        SelfEdit
+        SelfEdit,
+        FollowshipSolidBtn,
+        FollowshipOutlineBtn
     },
     data(){
         return {
