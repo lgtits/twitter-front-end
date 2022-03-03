@@ -128,12 +128,12 @@ export default {
         })
         console.log(data)
 
-
-
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
+        // this.$router.go(0)
         this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+        // this.$router.push('login')
         
       } catch(error){
         this.isProcessing = false

@@ -129,8 +129,10 @@ import { Toast } from './../utils/helpers'
           if (data.status !== 'success') {
             throw new Error(data.message)
           }
-          this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+          
           this.showEditModal = false
+          this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+          // this.$route.go(0)
         } catch(error){
           this.isProcessing = false
           Toast.fire({
