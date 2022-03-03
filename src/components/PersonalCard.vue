@@ -25,16 +25,21 @@
                 </div>
             </div>
              <div class="buttonWrapper">
-                <SelfEdit v-if="user.id === this.currentUser.id"/>
+                <SelfEdit
+                v-if="user.id === this.currentUser.id"
+                @after-change-profile="afterChangeProfile"
+                />
                 <template v-else>
                     <FollowshipSolidBtn initText="正在跟隨"/>
                     <FollowshipOutlineBtn initText="跟隨"/>
                 </template>
+
             </div>
         </div>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
 import FollowshipSolidBtn from '../components/Button/FollowshipSolidBtn.vue'
@@ -60,6 +65,18 @@ export default {
             user: this.initUser
         }
     },
+    methods:{
+        afterChangeProfile(profile){
+            const{name, introduction, avatar, cover} = profile
+            this.user = {
+                ...this.user,
+                name,
+                introduction,
+                avatar,
+                cover
+            }
+        }
+    },
     // 當props值須隨即監控時使用
     watch:{
         initUser(newValue){
@@ -70,8 +87,8 @@ export default {
         }
     },
     computed: {
-        ...mapState(['currentUser'])
-    }
+      ...mapState(['currentUser', 'isAuthenticated'])
+    },
 }
 </script>
 
