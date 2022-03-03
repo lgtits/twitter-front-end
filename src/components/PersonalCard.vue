@@ -25,12 +25,13 @@
                 </div>
             </div>
              <div class="buttonWrapper">
-                <SelfEdit/>
+                <SelfEdit @after-change-profile="afterChangeProfile"/>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
 
@@ -51,6 +52,18 @@ export default {
             user: this.initUser
         }
     },
+    methods:{
+        afterChangeProfile(profile){
+            const{name, introduction, avatar, cover} = profile
+            this.user = {
+                ...this.user,
+                name,
+                introduction,
+                avatar,
+                cover
+            }
+        }
+    },
     // 當props值須隨即監控時使用
     watch:{
         initUser(newValue){
@@ -59,7 +72,10 @@ export default {
                 ...newValue
             }
         }
-    }
+    },
+    computed: {
+      ...mapState(['currentUser', 'isAuthenticated'])
+    },
 }
 </script>
 
