@@ -62,6 +62,9 @@ export default {
                 avatar,
                 cover
             }
+            this.$emit('after-receiver-profile-change',{
+                user: this.user
+            })
         }
     },
     // 當props值須隨即監控時使用
