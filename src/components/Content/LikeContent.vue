@@ -52,6 +52,7 @@ export default {
                 likedCount: null,
                 createdAt: "",
                 updatedAt: "",
+                isFollowed: false
             }
         }
     },
@@ -111,6 +112,7 @@ export default {
                     likedCount,
                     createdAt,
                     updatedAt,
+                    isFollowed
                 } = data
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
@@ -131,6 +133,7 @@ export default {
                     likedCount,
                     createdAt,
                     updatedAt,
+                    isFollowed
                 }
 
             }catch(error){

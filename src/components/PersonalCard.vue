@@ -30,8 +30,16 @@
                 @after-change-profile="afterChangeProfile"
                 />
                 <template v-else>
-                    <FollowshipSolidBtn initText="正在跟隨"/>
-                    <FollowshipOutlineBtn initText="跟隨"/>
+                    <FollowshipSolidBtn 
+                    v-if="user.isFollowed" 
+                    @after-click-unfollow="afterClickUnFollow(user.id)"
+                    initText="正在跟隨"
+                    />
+                    <FollowshipOutlineBtn 
+                    v-else 
+                    initText="跟隨"
+                    @after-click-follow="afterClickFollow(user.id)"
+                    />
                 </template>
 
             </div>
@@ -44,6 +52,8 @@ import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
 import FollowshipSolidBtn from '../components/Button/FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../components/Button/FollowshipOutlineBtn.vue'
+import FollowShipsApi from '../apis/Followships'
+import {Toast} from '../utils/helpers'
 
 export default {
     props: {
@@ -61,7 +71,8 @@ export default {
     data(){
         return {
             // watch問題
-            user: this.initUser
+            user: this.initUser,
+            idLoading: false
         }
     },
     methods:{
@@ -75,11 +86,62 @@ export default {
                 cover
             }
         },
+        async afterClickFollow(userId){
+            // 若loading則返回
+            if(this.isLoading === true) return
+            try{
+                // 發送api前改為等待中
+                this.isLoading = true
+                const {statusText} = await FollowShipsApi.followUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.user = {
+                    ...this.user,
+                    isFollowed: true,
+                    followerCount: this.user.followerCount + 1
+                }
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }
+        },
+        async afterClickUnFollow(userId){
+             // 若loading則返回
+            if(this.isLoading === true) return
+            try{
+                 // 發送api前改為等待中
+                this.isLoading = true
+                const {statusText} = await FollowShipsApi.unFollowUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                 this.user = {
+                    ...this.user,
+                    isFollowed: false,
+                    followerCount: this.user.followerCount - 1
+                }
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }
+        },
     },
-    // created(){
-    //     const id = this.$route.params.id
-    //     this.fetchIsFollowed(id)
-    // },
+    
     // 當props值須隨即監控時使用
     watch:{
         initUser(newValue){

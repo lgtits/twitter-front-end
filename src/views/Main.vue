@@ -67,8 +67,6 @@ export default {
             account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
             avatar: this.currentUser.avatar,
           },
-          likeCount: 0,
-          replyCount: 0,
       }
       try{
         // 前端手動更新
