@@ -42,9 +42,9 @@ import Tweet from "../components/Tweet/Tweet.vue";
 import TweetDetail from '../components/TweetDetail.vue'
 import PopularUser from "../components/PopularUser.vue";
 import tweetApis from '../apis/tweet'
-import { Toast } from '../utils/helpers.js'
+import { Toast } from '../utils/helpers'
 import NoTweet from '../components/Tweet/NoTweet.vue'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Reply',
@@ -113,7 +113,7 @@ export default {
             avatar: this.currentUser.avatar,
           }
       }
-      console.log('@@#',result)
+      // console.log('@@#',result)
       // 推進陣列
       this.tweets.unshift(result)
     }
