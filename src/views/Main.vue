@@ -14,7 +14,7 @@
           />
           <Tweet 
           v-else
-          v-for="tweet in tweets" g
+          v-for="tweet in tweets"
           :key="tweet.id" 
           :initTweet="tweet"/>
         </div>
