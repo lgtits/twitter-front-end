@@ -120,7 +120,7 @@ export default {
             }
         },
         afterReplyTweet(payload){
-            console.log('payload',payload)
+            // console.log('payload',payload)
             this.$emit('after-reply-tweet', payload)
         },
         async handleAddLike(tweetId){

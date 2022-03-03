@@ -88,18 +88,18 @@ export default {
         })
 
         const { data } = response
-        console.log('response', response)
+        // console.log('response', response)
         
         if (data.status !== 'success') {
-          console.log('error', data)
+          // console.log('error', data)
           throw new Error(data.message)
         }
 
-        console.log('token',data.data.token)
+        // console.log('token',data.data.token)
         localStorage.setItem('token', data.data.token)
       
         //將資料傳入vuex
-        console.log('data to veux',data.data.user)
+        // console.log('data to veux',data.data.user)
         this.$store.commit('setCurrentUser', data.data.user)
 
         //成功後轉到首頁
