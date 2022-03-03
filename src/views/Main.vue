@@ -163,7 +163,7 @@ export default {
   display: block;
   /* border: 1px solid #000; */
   height: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 .popularList {
   /* border: 1px solid #000; */

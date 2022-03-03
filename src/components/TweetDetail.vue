@@ -46,11 +46,11 @@
 </template>
 <script>
 import Avatar from '../components/Avatar.vue'
-import tweetsApi from '../apis/tweet'
+import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers'
 import moment from 'moment'
 import MainReplyModal from '../components/MainReplyModal.vue'
-import {Like} from '../utils/mixins'
+// import {Like} from '../utils/mixins'
 
 export default {
     name: 'tweetDetail',
@@ -78,7 +78,7 @@ export default {
     methods:{
         async fetchTweetDetail(tweetId){
             try{
-                const {data, statusText} = await tweetsApi.getTweet({tweetId})
+                const {data, statusText} = await tweetApis.getTweet({tweetId})
                 console.log('&&&',data)
                 //  User:
                         // account: "root"
@@ -121,7 +121,47 @@ export default {
         afterReplyTweet(payload){
             console.log('payload',payload)
             this.$emit('after-reply-tweet', payload)
-        }
+        },
+        async handleAddLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.addLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount + 1,
+                    isLiked: true
+                }
+            }catch(error){
+                console.log('error',error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '加到喜歡失敗，請稍後再試'
+                })
+            }
+        },
+        async handleUnLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.unLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount - 1,
+                    isLiked: false
+                }
+
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '收回喜歡失敗，請稍後再試'
+                })
+            }
+        },
     },
     created(){
         const id = this.$route.params.id
@@ -139,7 +179,7 @@ export default {
             return moment(datetime).format('A HH:mm•YYYY年MM月DD日')
         }
     },
-    mixins: [Like]
+    // mixins: [Like]
 }
 </script>
 <style lang="scss" scoped>
