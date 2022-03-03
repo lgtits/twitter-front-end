@@ -30,7 +30,7 @@ import tweetApis from '../../apis/tweet'
 import { Toast } from '../../utils/helpers.js'
 import FollowshipSolidBtn from '../Button/FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../Button/FollowshipOutlineBtn.vue'
-import {TweetsFollowshipMethods} from '../../utils/mixins'
+import FollowShipsApi from '../../apis/Followships'
 
 export default {
     components: {
@@ -117,7 +117,43 @@ export default {
                     title: '加到喜歡失敗，請稍後再試'
                 })
             }
-        }
+        },
+        async afterClickFollow(userId){
+            try{
+                const {statusText} = await FollowShipsApi.followUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    isFollowed: true
+                }
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+            }
+        },
+        async afterClickUnFollow(userId){
+            try{
+                const {statusText} = await FollowShipsApi.unFollowUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    isFollowed: false
+                }
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+            }
+        },
     },
     created(){
         this.fetchTweetDate()
@@ -139,7 +175,6 @@ export default {
             return moment(datetime).fromNow()
         }
     },
-    mixins: [TweetsFollowshipMethods]
 }
 </script>
 

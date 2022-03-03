@@ -31,7 +31,8 @@ import FollowshipOutlineBtn from './Button/FollowshipOutlineBtn.vue'
 import FollowshipSolidBtn from './Button/FollowshipSolidBtn.vue'
 import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
-import {FollowshipMethods} from '../utils/mixins'
+// import {FollowshipMethods} from '../utils/mixins'
+import FollowShipsApi from '../apis/Followships'
 import { Toast } from '../utils/helpers.js'
 import { mapState } from 'vuex'
 
@@ -43,7 +44,8 @@ export default {
     },
     data(){
         return {
-            users: []
+            users: [],
+            isLoading: false
         }
     },
     methods:{
@@ -71,11 +73,75 @@ export default {
                 })
             }
         },
+        async afterClickFollow(userId){
+            // 若loading則返回
+            if(this.isLoading === true) return
+            try{
+                // 發送api前改為等待中
+                this.isLoading = true
+                const {statusText} = await FollowShipsApi.followUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                // 這裡為users
+                this.users = this.users.map(user => {
+                    if(user.id === userId){
+                        return {
+                            ...user,
+                            isFollowed: !user.isFollowed
+                        }
+                    }else{
+                        return user
+                    }
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }
+        },
+        async afterClickUnFollow(userId){
+             // 若loading則返回
+            if(this.isLoading === true) return
+            try{
+                 // 發送api前改為等待中
+                this.isLoading = true
+                const {statusText} = await FollowShipsApi.unFollowUser({userId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.users = this.users.map(user => {
+                    if(user.id === userId){
+                        return {
+                            ...user,
+                            isFollowed: !user.isFollowed
+                        }
+                    }else{
+                        return user
+                    }
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }catch(error){
+                console.log('error', error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '追蹤使用者失敗，請稍後再試'
+                })
+                // 發送api並更改完狀態後，改成不再等待模式
+                this.isLoading = false
+            }
+        },
     },
     created(){
         this.fetchUsers()
     },
-    mixins: [FollowshipMethods],
     computed: {
         ...mapState(['currentUser'])
     }

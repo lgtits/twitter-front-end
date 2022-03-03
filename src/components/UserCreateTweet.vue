@@ -1,6 +1,8 @@
 <template>
     <div class="create-tweet">
-        <Avatar :initImage="currentUser.avatar" :initUserId="currentUser.id"/>
+        <div class="avatar-box">
+            <Avatar :initImage="currentUser.avatar" :initUserId="currentUser.id"/>
+        </div>
         <div class="say">
             <textarea 
             class="say-content" 
@@ -85,6 +87,9 @@
         margin-bottom: 10px;
         background-color: $white;
         border-bottom: 1px solid $border;
+        .avatar-box{
+            height: 50px;
+        }
         .say{
             display: flex;
             flex-direction: column;

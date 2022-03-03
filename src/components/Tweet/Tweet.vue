@@ -1,6 +1,8 @@
 <template>
     <router-link :to="{name: 'tweet', params: {id: tweet.id}}" class="tweet-wrapper">
-        <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
+        <div class="avatar-box">
+            <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
+        </div>
         <div class="tweet-body">
             <div class="tweet-name">
                 <div class="name">{{tweet.name}}</div>
@@ -38,10 +40,10 @@
 <script>
 import Avatar from '../Avatar.vue'
 import moment from 'moment'
-// import tweetApis from '../../apis/tweet'
-// import { Toast } from '../../utils/helpers.js'
+import tweetApis from '../../apis/tweet'
+import { Toast } from '../../utils/helpers.js'
 import MainReplyModal from '../MainReplyModal.vue'
-import {Like} from '../../utils/mixins'
+// import {Like} from '../../utils/mixins'
 
 
 export default {
@@ -118,7 +120,47 @@ export default {
                 ...this.tweet,
                 replyCount: this.tweet.replyCount + 1
             }
-        }
+        },
+        async handleAddLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.addLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount + 1,
+                    isLiked: true
+                }
+            }catch(error){
+                console.log('error',error.message)
+                Toast.fire({
+                    icon: 'error',
+                    title: '加到喜歡失敗，請稍後再試'
+                })
+            }
+        },
+        async handleUnLike(tweetId){
+            try{
+                const {statusText} = await tweetApis.unLike({tweetId})
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
+                this.tweet = {
+                    ...this.tweet,
+                    likeCount: this.tweet.likeCount - 1,
+                    isLiked: false
+                }
+
+            }catch(error){
+                console.log('error',error.message)
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '收回喜歡失敗，請稍後再試'
+                })
+            }
+        },
     },
     created(){
         this.fetchTweetDate()
@@ -140,7 +182,7 @@ export default {
             return moment(datetime).fromNow()
         }
     },
-    mixins: [Like]
+    // mixins: [Like]
 }
 </script>
 <style lang="scss" scoped>
@@ -156,6 +198,9 @@ export default {
         padding: 15px;
         background-color: $white;
         border-bottom: 1px solid $border;
+        .avatar-box{
+            height: 50px;
+        }
         .tweet-body{
             display: flex;
             flex-direction: column;
