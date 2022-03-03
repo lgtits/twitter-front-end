@@ -24,7 +24,9 @@
          v-else
          v-for="tweet in tweets" 
          :key="tweet.id" 
-         :initTweet="tweet"/>
+         :initTweet="tweet"
+         :initLikesAndReplies = false
+         />
       </main>
       <div class="popularList">
         <PopularUser />
@@ -68,7 +70,7 @@ export default {
         // tweet接收的資料格式，務必照此格式tweet才能正常顯示
 
         this.tweets = data.map(tweet => {
-          const {comment, createdAt, updatedAt, id, User} = tweet
+          const {comment, createdAt, updatedAt, id, User, Tweet} = tweet
           const {account, avatar, id:userId, name} = User
           return {
             id: id,
@@ -83,7 +85,7 @@ export default {
                 account,
                 avatar,
             },
-            replyPerson: name //錯          
+            replyPerson: Tweet.User.name      
           }
         })
       }catch(error){

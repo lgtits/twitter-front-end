@@ -11,17 +11,17 @@
           <!-- :initUserId="" -->
           <div class="tweet-body">
             <div class="tweet-name">
-                <div class="name">name</div>
-                <div class="account-name">accountName</div>
-                <div class="update-time">TIME</div>
+                <div class="name">{{replyObject.name}}</div>
+                <div class="account-name">{{replyObject.account}}</div>
+                <div class="update-time">{{ replyObject.createdAt | fromNow }}</div>
             </div>
             <div class="tweet-content">
-              REPLY
+              {{replyObject.description}}
             </div>
             <div class="replyPerson" >
                 <span>回覆給</span>
                 <div class="account-name">
-                  ACCOUNT
+                  {{replyObject.account}}
                 </div>
             </div>
             <div class="reaction">
@@ -56,6 +56,7 @@ import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
 import tweetsApi from '../apis/tweet'
 import { Toast } from '../utils/helpers'
+import moment from 'moment'
 
   export default {
     components: {
@@ -70,6 +71,14 @@ import { Toast } from '../utils/helpers'
     },
     data(){
       return{
+        replyObject: {
+          uerId: this.initTweet.userId,
+          name: this.initTweet.name,
+          account: this.initTweet.accountName,
+          image: this.initTweet.image,
+          createdAt: this.initTweet.createdAt,
+          description: this.initTweet.description
+        },
         showMainReplyModal: false,
         replyTweetContent: "",
       }
@@ -112,6 +121,15 @@ import { Toast } from '../utils/helpers'
     computed: {
       ...mapState(['currentUser', 'isAuthenticated'])
     },
+    filters: {
+        fromNow(datetime){
+            if(!datetime){
+                return '-'
+            }
+            // 使用moment 提供的fromNow 方法
+            return moment(datetime).fromNow()
+        }
+    }
   }
 </script>
 
@@ -127,12 +145,11 @@ import { Toast } from '../utils/helpers'
       justify-content: center;
       width: 100%;
       height: 100%;
+      padding: 0;
       .img{
         display: block;
         height: 100%;
-        width: 100%;
-        min-height: 13px;
-        min-width: 13px;
+        width: auto;
       }
     }
 
@@ -206,11 +223,11 @@ import { Toast } from '../utils/helpers'
   }
   .straight-line{
     width: 2px;
-    height: 80px;
+    height: 65px;
     background-color: #CCD6DD;
     position: absolute;
     left: 40px;
-    top: 73px;
+    top: 90px;
   }
   .your-reply{
     .user-photo-container{

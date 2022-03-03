@@ -25,7 +25,12 @@
             </div>
         </div>
         <div class="icon-group">
-            <a href="#"><img src="../assets/image/message.svg" alt=""></a>
+            <a href="#">
+                <MainReplyModal
+                :initTweet="modelData"
+                @after-reply-tweet="afterReplyTweet"
+                />
+                </a>
             <a href="#"><img src="../assets/image/favorite.svg" alt=""></a>
         </div>
     </div>
@@ -35,15 +40,29 @@ import Avatar from '../components/Avatar.vue'
 import tweetsApi from '../apis/tweet'
 import { Toast } from '../utils/helpers'
 import moment from 'moment'
+import MainReplyModal from '../components/MainReplyModal.vue'
 
 export default {
     name: 'tweetDetail',
     components: {
         Avatar,
+        MainReplyModal
     },
     data(){
         return {
-            tweet: {}
+            tweet: {},
+            modelData: {
+                accountName: '',
+                createdAt: '',
+                description: '',
+                id: -1,
+                image: '',
+                isLiked: false,
+                likeCount: 0,
+                name: '',
+                replyCount: 0,
+                userId: -1
+            }
         }
     },
     methods:{
@@ -65,6 +84,20 @@ export default {
                     throw new Error(statusText)
                 }
                 this.tweet = data
+                const {createdAt, description, id, isLiked, likeCount, replyCount, UserId, User} = data
+                const {account, name, avatar} = User
+                this.modelData = {
+                    accountName: account,
+                    createdAt,
+                    description,
+                    id,
+                    image: avatar,
+                    isLiked,
+                    likeCount,
+                    name,
+                    replyCount,
+                    userId: UserId
+                }
                
 
             }catch(error){
@@ -73,6 +106,12 @@ export default {
                     icon: 'error',
                     title: '獲取貼文資料失敗，請稍後再試'
                 })
+            }
+        },
+        afterReplyTweet(){
+            this.tweet = {
+                ...this.tweet,
+                replyCount: this.tweet.replyCount + 1
             }
         }
     },
@@ -156,8 +195,8 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
+            width: 25px;
+            height: 25px;
             &:not(:last-child){
                 margin-right: 155px;
             }

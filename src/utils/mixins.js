@@ -1,5 +1,6 @@
 import FollowShipsApi from '../apis/Followships'
 import { Toast } from '../utils/helpers.js'
+// import moment from 'moment'
 
 export const FollowshipMethods = {
     methods: {
@@ -108,3 +109,16 @@ export const TweetsFollowshipMethods = {
         },
     }
 }
+
+
+// export const fromNowFilters = {
+//     filters: {
+//         fromNow(datetime){
+//             if(!datetime){
+//                 return '-'
+//             }
+//             // 使用moment 提供的fromNow 方法
+//             return datetime ? moment(datetime).fromNow() : '-'
+//         }
+//     }
+// }
