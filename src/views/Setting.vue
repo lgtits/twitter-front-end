@@ -110,6 +110,13 @@ export default {
           })
           return
         } 
+        if (this.name.length > 50) {
+          Toast.fire({
+            icon: 'warning',
+            title: '昵稱不可大於50字'
+          })
+          return
+        } 
         const form = e.target  // <form></form>
         const formData = new FormData(form)
 
