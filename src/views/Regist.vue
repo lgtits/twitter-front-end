@@ -129,6 +129,7 @@ export default {
           password: this.password,
           checkPassword: this.checkPassword
         })
+        console.log(data)
         if (data.status === 'error') {
           throw new Error(data.message)
         }
@@ -139,6 +140,8 @@ export default {
         // 成功登入後轉址到登入頁
         this.$router.push('/login')
       } catch (error) {
+        
+        console.log(error)
         Toast.fire({
           icon: 'warning',
           title: `無法註冊 - ${error.message}`
