@@ -60,6 +60,8 @@ export default {
           description,
           // TODO:優化
           createdAt: new Date(),
+          likeCount: 0,
+          replyCount: 0,
           User: {
             name: this.currentUser.name,
             account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
