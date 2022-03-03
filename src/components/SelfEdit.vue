@@ -135,8 +135,8 @@ import { Toast } from './../utils/helpers'
           this.$emit('after-change-profile',{
             name: this.name,
             introduction: this.introduction,
-            avatar: this.avatarImage,
-            cover: this.coverImage,
+            avatar: this.avatarImage || this.currentUser.avatar,
+            cover: this.coverImage || this.currentUser.cover,
           })
           this.isProcessing = false
           this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <Header :initUser="user"/>
-    <PersonalCard :initUser="user"/>
+    <PersonalCard :initUser="user" @after-receiver-profile-change="afterReceiveProfileChange"/>
     <UserNavTabs />
     <NoTweet
     v-if="!tweets.length"
@@ -71,6 +71,17 @@ export default {
           icon: "error",
           title: "未能取得使用者推文，請稍後再試",
         });
+      }
+    },
+    //更改推文名稱、圖片
+    afterReceiveProfileChange(dataFromPersonalCard){
+      const data = dataFromPersonalCard
+      console.log('data', data)
+      this.user = {
+        ...this.user,
+        avatar: data.user.avatar,
+        name: data.user.name
+
       }
     },
     async fetchUser(userId) {
