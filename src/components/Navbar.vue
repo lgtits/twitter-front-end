@@ -24,7 +24,7 @@
         </router-link>
       </li>
       <li>
-        <NewTweet/>
+        <NewTweet @after-create-tweet-from-modal="afterCreateTweetFromModal"/>
         <!-- 以完成可移除 -->
         <!-- <SelfEdit/>
         <MainReplyModal/> -->
@@ -61,6 +61,12 @@ import NewTweet from "./../components/NewTweet";
         console.log('log out')
         this.$store.commit('revokeAuthentication')
         this.$router.push('/login')
+      },
+      afterCreateTweetFromModal(content){
+        console.log('content', content)
+      this.$emit('after-create-tweet-from-navbar',{
+          content
+        })
       },
     },
     computed: {
