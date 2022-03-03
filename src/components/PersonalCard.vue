@@ -44,7 +44,6 @@ import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
 import FollowshipSolidBtn from '../components/Button/FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../components/Button/FollowshipOutlineBtn.vue'
-import {mapState} from 'vuex'
 
 export default {
     props: {
@@ -75,9 +74,9 @@ export default {
                 avatar,
                 cover
             }
-            this.$emit('after-receiver-profile-change',{
-                user: this.user
-            })
+            // this.$emit('after-receiver-profile-change',{
+            //     user: this.user
+            // })
         }
     },
     // 當props值須隨即監控時使用

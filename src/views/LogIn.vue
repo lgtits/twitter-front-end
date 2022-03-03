@@ -95,11 +95,11 @@ export default {
           throw new Error(data.message)
         }
 
+        console.log('token',data.data.token)
         localStorage.setItem('token', data.data.token)
-        
-
+      
         //將資料傳入vuex
-        console.log(data.data.user)
+        console.log('data to veux',data.data.user)
         this.$store.commit('setCurrentUser', data.data.user)
 
         //成功後轉到首頁

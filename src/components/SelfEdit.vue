@@ -54,7 +54,7 @@
                   id="introduction" 
                   v-model="introduction" 
                   required 
-                  utofocus
+                  autofocus
                   :placeholder="currentUser.introduction"
                 >
                 </textarea>
@@ -103,7 +103,7 @@ import { Toast } from './../utils/helpers'
         if (this.name.length > 50) {
           Toast.fire({
             icon: 'warning',
-            title: '昵稱最多50字'
+            title: '暱稱最多50字'
           })
           return
         } 
@@ -124,8 +124,10 @@ import { Toast } from './../utils/helpers'
             userId: this.currentUser.id,
             formData
           })
-          console.log(data)
-
+          console.log('data', data)
+          console.log('set current user on change page')
+          console.log(formData)
+          this.$store.commit('setCurrentUser', data.updateduser)
           if (data.status !== 'success') {
             throw new Error(data.message)
           }
@@ -139,6 +141,7 @@ import { Toast } from './../utils/helpers'
             cover: this.coverImage || this.currentUser.cover,
           })
           this.isProcessing = false
+          
           this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
           // this.$route.go(0)
         } catch(error){
