@@ -63,7 +63,7 @@ export default {
             try{
                 // 取得tweet資料
                const {data, statusText} = await UsersApi.getUserRepliesTweet({userId})
-               console.log('@@@@@',data)
+            //    console.log('@@@@@',data)
                // 無任何資料
             //    if(state === 400){
 
@@ -101,7 +101,7 @@ export default {
         async fetchUser(userId){
             try{
                 const {data, statusText} = await UsersApi.getUser({userId})
-                console.log('$$',data)
+                // console.log('$$',data)
                 const {
                     id,
                     email,

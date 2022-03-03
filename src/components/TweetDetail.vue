@@ -80,7 +80,7 @@ export default {
         async fetchTweetDetail(tweetId){
             try{
                 const {data, statusText} = await tweetApis.getTweet({tweetId})
-                console.log('&&&',data)
+                // console.log('&&&',data)
                 //  User:
                         // account: "root"
                         // avatar: "https://loremflickr.com/320/320/people"

@@ -66,7 +66,7 @@ export default {
   methods: {
     async handleSubmit (e) {
       try {
-        console.log(e)
+        // console.log(e)
         // 如果 email 或 password 為空，則使用 Toast 提示
         // 然後 return 不繼續往後執行
         if (!this.adminAccount || !this.password) {
@@ -85,10 +85,10 @@ export default {
         })
 
         const { data } = response
-        console.log('response', response)
+        // console.log('response', response)
         
         if (data.status !== 'success') {
-          console.log('errpr', data)
+          // console.log('errpr', data)
           throw new Error(data.message)
         }
 
@@ -96,7 +96,7 @@ export default {
         
 
         //將資料傳入vuex
-        console.log(data.data.user)
+        // console.log(data.data.user)
         this.$store.commit('setCurrentUser', data.data.user)
 
         //成功後轉到首頁

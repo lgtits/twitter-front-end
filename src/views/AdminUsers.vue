@@ -41,7 +41,7 @@ export default {
     async fetchUsers () {
   try {
     const { data } = await adminAPI.adminGetUsers()
-    console.log(data)
+    // console.log(data)
     // this.test = data.map(user => ({
     //   id: user.id,
     //   name: user.name,

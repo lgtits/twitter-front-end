@@ -58,12 +58,12 @@ import NewTweet from "./../components/NewTweet";
     },
     methods: {
       logOut(){
-        console.log('log out')
+        // console.log('log out')
         this.$store.commit('revokeAuthentication')
         this.$router.push('/login')
       },
       afterCreateTweetFromModal(content){
-        console.log('content', content)
+        // console.log('content', content)
       this.$emit('after-create-tweet-from-navbar',{
           content
         })
