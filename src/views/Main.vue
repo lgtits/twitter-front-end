@@ -64,7 +64,9 @@ export default {
             name: this.currentUser.name,
             account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
             avatar: this.currentUser.avatar,
-          }
+          },
+          likeCount: 0,
+          replyCount: 0,
       }
       try{
         // 前端手動更新
@@ -89,7 +91,7 @@ export default {
       const {id, description} = fromNavbar.content
       const result2 = {
           id,
-          UserId: 2,
+          UserId: this.currentUser.id,
           description,
           // TODO:優化
           createdAt: new Date(),
@@ -97,7 +99,9 @@ export default {
             name: this.currentUser.name,
             account: this.currentUser.account ? this.currentUser.account : '找不到帳戶',
             avatar: this.currentUser.avatar,
-          }
+          },
+          likeCount: 0,
+          replyCount: 0,
       }
       this.tweets.unshift(result2)
     },

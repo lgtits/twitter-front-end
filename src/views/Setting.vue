@@ -19,7 +19,6 @@
             autocomplete="username"
             required
             autofocus
-            :placeholder="currentUser.account"
           />
         </div>
         <div class="input-box">
@@ -33,7 +32,6 @@
             autocomplete="name"
             required
             autofocus
-            :placeholder="currentUser.name"
           />
         </div>
         <div class="input-box">
@@ -47,7 +45,6 @@
             autocomplete="email"
             required
             autofocus
-            :placeholder="currentUser.email"
           />
         </div>
         <div class="input-box">
@@ -58,7 +55,6 @@
             name="password"
             type="password"
             class="form-control"
-            autocomplete="current-password"
             required
           />
         </div>
@@ -113,7 +109,7 @@ export default {
         if (this.name.length > 50) {
           Toast.fire({
             icon: 'warning',
-            title: '昵稱不可大於50字'
+            title: '暱稱不可大於50字'
           })
           return
         } 
@@ -139,7 +135,7 @@ export default {
         this.isProcessing = false
         Toast.fire({
           icon: 'error',
-          title: '無法更新餐廳資料，請稍後再試'
+          title: '無法更新資料，請稍後再試'
         })
       }
     },

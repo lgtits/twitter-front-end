@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <Header :initUser="user"/>
-    <PersonalCard :initUser="user" @after-receiver-profile-change="afterReceiveProfileChange"/>
+    <PersonalCard :initUser="user"/>
     <UserNavTabs />
     <NoTweet
     v-if="!tweets.length"
@@ -74,16 +74,16 @@ export default {
       }
     },
     //更改推文名稱、圖片
-    afterReceiveProfileChange(dataFromPersonalCard){
-      const data = dataFromPersonalCard
-      console.log('data', data)
-      this.user = {
-        ...this.user,
-        avatar: data.user.avatar,
-        name: data.user.name
+    // afterReceiveProfileChange(dataFromPersonalCard){
+    //   const data = dataFromPersonalCard
+    //   console.log('data', data)
+    //   this.user = {
+    //     ...this.user,
+    //     avatar: data.user.avatar,
+    //     name: data.user.name
 
-      }
-    },
+    //   }
+    // },
     async fetchUser(userId) {
       try {
         const { data, statusText } = await UsersApi.getUser({ userId });

@@ -44,8 +44,6 @@ import Avatar from '../components/Avatar.vue'
 import SelfEdit from '../components/SelfEdit.vue'
 import FollowshipSolidBtn from '../components/Button/FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../components/Button/FollowshipOutlineBtn.vue'
-// import usersApi from '../apis/user'
-// import {Toast} from '../utils/helpers' 
 
 export default {
     props: {
@@ -76,26 +74,7 @@ export default {
                 avatar,
                 cover
             }
-            this.$emit('after-receiver-profile-change',{
-                user: this.user
-            })
         },
-        // 暫時再打一支api，之後優化
-        // async fetchIsFollowed(userId){
-        //     try{
-        //         const {data, statusText} = await usersApi.getUserFollowings({userId})
-        //         console.log('$$$', data)
-        //         if(statusText !== "OK"){
-        //             throw new Error(statusText)
-        //         }
-        //     }catch(error){
-        //         console.log('error', error.message)
-        //         Toast.fire({
-        //             icon: 'error',
-        //             title: '取得追蹤資料失敗，請稍後在試'
-        //         })
-        //     }
-        // }
     },
     // created(){
     //     const id = this.$route.params.id
