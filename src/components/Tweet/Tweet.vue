@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{name: 'tweet', params: {id: tweet.userId}}" class="tweet-wrapper">
+    <router-link :to="{name: 'tweet', params: {id: tweet.id}}" class="tweet-wrapper">
         <Avatar :init-image="tweet.image" :initUserId="tweet.userId"/>
         <div class="tweet-body">
             <div class="tweet-name">
@@ -14,7 +14,10 @@
             <div class="tweet-content">{{tweet.description}}</div>
             <div class="reaction">
                 <a href="#" class="comments">
-                    <i><MainReplyModal :initTweet="tweet"/></i>
+                    <i><MainReplyModal 
+                    :initTweet="tweet"
+                    @after-reply-tweet="afterReplyTweet"
+                    /></i>
                     <p>{{tweet.replyCount}}</p>
                 </a>
                 <a href="#" class="favorite">
@@ -144,6 +147,13 @@ export default {
                     icon: 'error',
                     title: '收回喜歡失敗，請稍後再試'
                 })
+            }
+        },
+        afterReplyTweet(){
+            console.log('go')
+            this.tweet = {
+                ...this.tweet,
+                replyCount: this.tweet.replyCount + 1
             }
         }
     },

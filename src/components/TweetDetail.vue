@@ -2,7 +2,7 @@
     <div class="tweet-detail">
         <div class="detail-user">
             <div class="avatar-wrapper">
-                <Avatar :initUserId="tweet.UserId"/>
+                <Avatar :initUserId="tweet.UserId" :initImage="tweet.User.avatar"/>
             </div>
             <div class="detail-name">
                 <div class="name">{{tweet.User.name}}</div>
@@ -16,11 +16,11 @@
         </div>
         <div class="reactions">
             <div class="reaction">
-                <a href="#">808</a>
+                <a href="#">{{tweet.likeCount}}</a>
                 <span>喜歡次數</span>
             </div>
             <div class="reaction">
-                <a href="#">33</a>
+                <a href="#">{{tweet.replyCount}}</a>
                 <span>回覆</span>
             </div>
         </div>

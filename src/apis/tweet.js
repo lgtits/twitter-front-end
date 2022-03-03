@@ -35,8 +35,9 @@ export default {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
     },
-    replyTweet({tweetId}){
-        return apiHelper.post(`/tweets/${tweetId}/replies`, {id, UserId, TweetId, comment, createdAt, updatedAt},{
+    replyTweet({tweetId, comment}){
+        return apiHelper.post(`/tweets/${tweetId}/replies`,{TweetId: tweetId, comment},
+         {
             headers: { Authorization: `Bearer ${getToken()}` } 
         })
     }

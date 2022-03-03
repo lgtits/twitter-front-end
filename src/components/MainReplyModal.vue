@@ -39,7 +39,7 @@
             <textarea v-model="replyTweetContent" name="" id="" placeholder="推你的回覆">
 
             </textarea>
-            <button @click.stop.prevent="getReplyValue" class="reply" type="submit">
+            <button @click.stop.prevent="createReply(initTweet.id)" class="reply" type="submit">
               回覆
             </button>
           </div>
@@ -55,7 +55,7 @@
 import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
 import tweetsApi from '../apis/tweet'
-import { Toast } from '../../utils/helpers.js'
+import { Toast } from '../utils/helpers'
 
   export default {
     components: {
@@ -86,12 +86,20 @@ import { Toast } from '../../utils/helpers.js'
       //   this.replyTweetContent = ""
       //   this.showMainReplyModal = false
       // }
-      async replyTweet(){
+      async createReply(tweetId){
         try{
-          const response = await tweetsApi.replyTweet({
-            comment: this.replyTweetContent
+          const {data, statusText} = await tweetsApi.replyTweet({
+            comment: this.replyTweetContent,
+            tweetId
           })
-          console.log('@@#', response)
+          console.log('@@#', data)
+          if(statusText !== 'OK'){
+            throw new Error(statusText)
+          }
+           this.replyTweetContent = ""
+           this.showMainReplyModal = false
+           // 發送至tweet，請他+1評論
+           this.$emit("after-reply-tweet")
         }catch(error){
           console.log('error',error.message)
           Toast.fire({
@@ -99,7 +107,6 @@ import { Toast } from '../../utils/helpers.js'
               title: '回覆失敗，請稍後再試'
           })
         }
-replyTweet
       }
     },
     computed: {
