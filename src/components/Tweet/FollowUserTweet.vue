@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import Avatar from '../components/Avatar.vue'
+import Avatar from '../Avatar.vue'
 import moment from 'moment'
-import tweetApis from '../apis/tweet'
-import { Toast } from '../utils/helpers.js'
-import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
-import FollowshipOutlineBtn from '../components//FollowshipOutlineBtn.vue'
-import {TweetsFollowshipMethods} from '../utils/mixins'
+import tweetApis from '../../apis/tweet'
+import { Toast } from '../../utils/helpers.js'
+import FollowshipSolidBtn from '../Button/FollowshipSolidBtn.vue'
+import FollowshipOutlineBtn from '../Button/FollowshipOutlineBtn.vue'
+import {TweetsFollowshipMethods} from '../../utils/mixins'
 
 export default {
     components: {
@@ -144,10 +144,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../assets/style/_variables.scss';
-    @import '../assets/style/_reset.scss';
-    @import '../assets/style/_base.scss';
-    @import '../assets/style/_mixin.scss';
+    @import '../../assets/style/_variables.scss';
+    @import '../../assets/style/_reset.scss';
+    @import '../../assets/style/_base.scss';
+    @import '../../assets/style/_mixin.scss';
+
     .tweet-wrapper{
         position: relative;
         display: grid;

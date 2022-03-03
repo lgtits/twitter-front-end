@@ -31,7 +31,7 @@
         <div class="straight-line">
           
         </div>
-        <div class="form">
+        <form action="" @submit.prevent.stop="submitPost">
           <div class="your-reply">
             <div class="user-photo-container">
               <img class="user-photo" :src="currentUser.avatar" alt="">
@@ -39,11 +39,11 @@
             <textarea v-model="replyTweetContent" name="" id="" placeholder="推你的回覆">
 
             </textarea>
-            <button @click.stop.prevent="getReplyValue" class="reply" type="submit">
+            <button class="reply" type="submit">
               回覆
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
     </Modal>
@@ -54,15 +54,12 @@
 <script>
 import { mapState } from 'vuex'
 import Avatar from '../components/Avatar.vue'
-import tweetsApi from '../apis/tweet'
-import { Toast } from '../../utils/helpers.js'
 
   export default {
     components: {
         Avatar
     },
     props: {
-      // 被回覆的人的資料
       initTweet:{
         type: Object,
         require: true
@@ -75,31 +72,16 @@ import { Toast } from '../../utils/helpers.js'
       }
     },
     methods:{
-      // submitPost(e){
-      //   console.log(e)
-      //   const form = e.target
-      //   const formData = new FormData(form)
-      //   console.log(formData)
-      //   // for(let [name, value] of formData.entries()){
-      //   //   console.log(name + ':' + value)
-      //   // }
-      //   this.replyTweetContent = ""
-      //   this.showMainReplyModal = false
-      // }
-      async replyTweet(){
-        try{
-          const response = await tweetsApi.replyTweet({
-            comment: this.replyTweetContent
-          })
-          console.log('@@#', response)
-        }catch(error){
-          console.log('error',error.message)
-          Toast.fire({
-              icon: 'error',
-              title: '回覆失敗，請稍後再試'
-          })
-        }
-replyTweet
+      submitPost(e){
+        console.log(e)
+        const form = e.target
+        const formData = new FormData(form)
+        console.log(formData)
+        // for(let [name, value] of formData.entries()){
+        //   console.log(name + ':' + value)
+        // }
+        this.replyTweetContent = ""
+        this.showMainReplyModal = false
       }
     },
     computed: {

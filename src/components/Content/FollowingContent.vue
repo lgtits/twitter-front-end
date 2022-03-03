@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import FollowUserTweet from './FollowUserTweet.vue'
-import FollowNavTabs from './FollowNavTabs.vue'
-import UsersApi from '../apis/user'
-import { Toast } from '../utils/helpers'
+import FollowUserTweet from '../Tweet/FollowUserTweet.vue'
+import FollowNavTabs from '../FollowNavTabs.vue'
+import UsersApi from '../../apis/user'
+import { Toast } from '../../utils/helpers'
 import { mapState } from 'vuex'
-import NoTweet from '../components/NoTweet.vue'
-import Header from '../components/Header.vue'
+import NoTweet from '../Tweet/NoTweet.vue'
+import Header from '../Header.vue'
 
 export default {
     name: 'FollowingConetent',
@@ -80,7 +80,7 @@ export default {
                 const {
                     name,
                     tweetCount,
-                } = data.userData
+                } = data
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
                 }

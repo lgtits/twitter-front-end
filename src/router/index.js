@@ -109,29 +109,29 @@ const routes = [
       {
         path: 'tweets',
         name: 'user-tweets',
-        component: () => import('@/components/TweetContent.vue')
+        component: () => import('@/components/Content/TweetContent.vue')
       },
       // 推文與回覆
       {
         path: 'replies',
         name: 'user-replies',
-        component: () => import('@/components/ReplyContent.vue')
+        component: () => import('@/components/Content/ReplyContent.vue')
       },
       // 喜歡的內容
       {
         path: 'likes',
         name: 'user-likes',
-        component: () => import('@/components/LikeContent.vue')
+        component: () => import('@/components/Content/LikeContent.vue')
       },
       {
         path: 'followings',
         name: 'user-followings',
-        component: () => import('@/components/FollowingContent.vue')
+        component: () => import('@/components/Content/FollowingContent.vue')
       },
       {
         path: 'followers',
         name: 'user-followers',
-        component: () => import('@/components/FollowerContent.vue')
+        component: () => import('@/components/Content/FollowerContent.vue')
       }
     ]
   },
@@ -187,8 +187,8 @@ router.beforeEach(async (to, from, next) => {
 })
 
 // 試著跳轉頁面回到頂部
-// router.afterEach(() => {
-//   window.scrollTo(0, 0)
-// })
+router.afterEach(() => {
+  window.scrollTo(0, 0)
+})
 export default router
 

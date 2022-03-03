@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import FollowshipOutlineBtn from './FollowshipOutlineBtn.vue'
-import FollowshipSolidBtn from './FollowshipSolidBtn.vue'
+import FollowshipOutlineBtn from './Button/FollowshipOutlineBtn.vue'
+import FollowshipSolidBtn from './Button/FollowshipSolidBtn.vue'
 import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
 import {FollowshipMethods} from '../utils/mixins'

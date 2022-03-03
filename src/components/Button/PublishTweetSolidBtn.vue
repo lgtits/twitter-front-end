@@ -1,7 +1,7 @@
 <template>
     <a  
     href="#"
-    :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'}]"
+    :class="['solid-btn', {'sm': size === 'sm'}, {'md': size === 'md'},{'loading': isLoading}]"
     @click.stop.prevent="handlePublish"
     >
         {{text}}
@@ -17,18 +17,27 @@ export default {
         initSize: {
             type: String,
             default: 'md'
+        },
+        initIsLoading: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return{
             text: this.initText,
-            size: this.initSize
+            size: this.initSize,
         }
     },
     methods: {
         handlePublish(){
             this.$emit("after-create-tweet")
         },
+    },
+    computed: {
+        isLoading(){
+            return this.initIsLoading
+        }
     }
 }
 </script>
@@ -46,6 +55,10 @@ export default {
     }
     &.sm{
         padding: 5px 15px;
+    }
+    &.loading{
+        border: lighten($primary, 10%);
+        background-color: lighten($primary, 10%);
     }
     &:hover{
         border: 1px solid $primary; 

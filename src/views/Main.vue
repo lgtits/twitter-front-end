@@ -28,13 +28,13 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Tweet from "../components/Tweet.vue";
+import Tweet from "../components/Tweet/Tweet.vue";
 import PopularUser from "../components/PopularUser.vue";
 import UserCreateTweet from "../components/UserCreateTweet.vue";
 import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 import { mapState } from 'vuex'
-import NoTweet from '../components/NoTweet.vue'
+import NoTweet from '../components/Tweet/NoTweet.vue'
 // const dummyUser = {
 //     id: 1,
 //     email: "root@example.com",
@@ -49,6 +49,7 @@ import NoTweet from '../components/NoTweet.vue'
 //     followingCount: null,
 //     followerCount: null,
 //     likedCount: null,
+//     repliedCount: null,
 //     createdAt: "",
 //     updatedAt: "",
 //   }
