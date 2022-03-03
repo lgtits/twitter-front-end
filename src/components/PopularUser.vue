@@ -33,6 +33,7 @@ import Avatar from './Avatar.vue'
 import userApi from '../apis/user'
 import {FollowshipMethods} from '../utils/mixins'
 import { Toast } from '../utils/helpers.js'
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -60,7 +61,8 @@ export default {
                     accountName: user.account,
                     image: user.avatar,
                     isFollowed: user.isFollowed
-                }))
+                })).filter(user => user.id !== this.currentUser.id)
+                // 排除自己，自己不能追蹤自己
             }catch(error){
                 console.log('error', error.message)
                 Toast.fire({
@@ -73,7 +75,10 @@ export default {
     created(){
         this.fetchUsers()
     },
-    mixins: [FollowshipMethods]
+    mixins: [FollowshipMethods],
+    computed: {
+        ...mapState(['currentUser'])
+    }
 }
 </script>
 <style lang="scss" scoped>
