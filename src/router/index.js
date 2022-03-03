@@ -20,26 +20,26 @@ import Main from '../views/Main.vue'
 Vue.use(VueRouter)
 
 //驗證是否爲管理者
-const authorizeIsAdmin = (to, from, next) => {
-  const currentUser = store.state.currentUser
-  if (currentUser && currentUser.role !== 'admin') {
-    next('/404')
-    return
-  }
+// const authorizeIsAdmin = (to, from, next) => {
+//   const currentUser = store.state.currentUser
+//   if (currentUser && currentUser.role !== 'admin') {
+//     next('/404')
+//     return
+//   }
 
-  next()
-}
+//   next()
+// }
 
 //驗證是否爲使用者ser
-const authorizeIsUser = (to, from, next) => {
-  const currentUser = store.state.currentUser
-  if (currentUser && currentUser.role !== 'user') {
-    next('/404')
-    return
-  }
+// const authorizeIsUser = (to, from, next) => {
+//   const currentUser = store.state.currentUser
+//   if (currentUser && currentUser.role !== 'user') {
+//     next('/404')
+//     return
+//   }
 
-  next()
-}
+//   next()
+// }
 
 const routes = [
   // 根目錄
@@ -62,7 +62,7 @@ const routes = [
     path: '/setting',
     name: 'setting',
     component: Setting,
-    beforeEnter: authorizeIsUser
+    // beforeEnter: authorizeIsUser
   },
   {
     path: '/admin',
@@ -78,21 +78,21 @@ const routes = [
     path: '/admintweets',
     name: 'admintweets',
     component: AdminTweets,
-    beforeEnter: authorizeIsAdmin
+    // beforeEnter: authorizeIsAdmin
 
   },
   {
     path: '/adminusers',
     name: 'adminusers',
     component: AdminUsers,
-    beforeEnter: authorizeIsAdmin
+    // beforeEnter: authorizeIsAdmin
   },
   // 首頁
   {
     path: '/main',
     name: 'main',
     component: Main,
-    beforeEnter: authorizeIsUser
+    // beforeEnter: authorizeIsUser
   },
   // 推文回覆頁
   {

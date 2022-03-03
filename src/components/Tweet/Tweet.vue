@@ -12,7 +12,7 @@
                 <div class="account-name">{{tweet.replyPerson}}</div>
             </div>
             <div class="tweet-content">{{tweet.description}}</div>
-            <div class="reaction">
+            <div class="reaction" v-show="initLikesAndReplies">
                 <a href="#" class="comments">
                     <i><MainReplyModal 
                     :initTweet="tweet"
@@ -42,6 +42,7 @@ import tweetApis from '../../apis/tweet'
 import { Toast } from '../../utils/helpers.js'
 import MainReplyModal from '../MainReplyModal.vue'
 
+
 export default {
     components: {
         Avatar,
@@ -51,6 +52,10 @@ export default {
         initTweet: {
             type: Object,
             required: true
+        },
+        initLikesAndReplies: {
+            type: Boolean,
+            default: true
         }
     },
     data(){
@@ -150,7 +155,6 @@ export default {
             }
         },
         afterReplyTweet(){
-            console.log('go')
             this.tweet = {
                 ...this.tweet,
                 replyCount: this.tweet.replyCount + 1
