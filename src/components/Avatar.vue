@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{name: 'user-tweets', params: {id: initUserId}}">
+    <router-link class="avatar" :to="{name: 'user-tweets', params: {id: initUserId}}">
         <figure>
             <img :src="initImage" alt="大頭貼">
         </figure>
@@ -23,6 +23,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
 // 該組件永遠為圓形，寬度為父層寬度
 figure{
     position: relative;
