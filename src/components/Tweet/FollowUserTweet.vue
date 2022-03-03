@@ -102,16 +102,17 @@ export default {
         },
         async handleAddLike(tweetId){
             try{
-                const response = await tweetApis.addLike({tweetId})
-                console.log(response)
+                const {statusText} = await tweetApis.addLike({tweetId})
+                // console.log(response)
+                if(statusText !== 'OK'){
+                    throw new Error(statusText)
+                }
                 this.tweet = {
                     ...this.tweet,
                     isLike: true
                 }
-
             }catch(error){
                 console.log('error',error.message)
-
                 Toast.fire({
                     icon: 'error',
                     title: '加到喜歡失敗，請稍後再試'

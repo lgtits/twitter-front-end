@@ -122,7 +122,7 @@ export default {
           userId: this.currentUser.id,
           formData
         })
-        console.log(data)
+        // console.log(data)
 
         if (data.status !== 'success') {
           throw new Error(data.message)

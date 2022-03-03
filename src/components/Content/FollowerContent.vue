@@ -43,11 +43,11 @@ export default {
     },
     methods: {
         async fetchTweets(userId){
-            console.log(userId)
+            // console.log(userId)
             try{
                 // 取得tweet資料
                const {data, statusText} = await UsersApi.getUserFollowers({userId})
-               console.log('@@@@@',data)
+            //    console.log('@@@@@',data)
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
@@ -81,7 +81,7 @@ export default {
         async fetchUser(userId){
             try{
                 const {data, statusText} = await UsersApi.getUser({userId})
-                console.log('$$',data)
+                // console.log('$$',data)
                 const {
                     name,
                     tweetCount,

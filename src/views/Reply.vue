@@ -64,7 +64,7 @@ export default {
     async fetchTweets(tweetId){
       try{
         const { data,statusText } = await tweetApis.getTweetReply({tweetId})
-        console.log('###',data)
+        // console.log('###',data)
         
         if(statusText !== 'OK'){
           throw new Error(statusText)

@@ -44,7 +44,7 @@ export default {
   created() {},
   methods: {
     deleteTweet(TweetID){
-      console.log('emit delete tweet id:', TweetID)
+      // console.log('emit delete tweet id:', TweetID)
       this.$emit('after-delete-tweet', TweetID)
     }
   },

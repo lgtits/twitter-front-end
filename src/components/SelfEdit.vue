@@ -124,9 +124,9 @@ import { Toast } from './../utils/helpers'
             userId: this.currentUser.id,
             formData
           })
-          console.log('data', data)
-          console.log('set current user on change page')
-          console.log(formData)
+          // console.log('data', data)
+          // console.log('set current user on change page')
+          // console.log(formData)
           this.$store.commit('setCurrentUser', data.updateduser)
           if (data.status !== 'success') {
             throw new Error(data.message)
@@ -153,15 +153,15 @@ import { Toast } from './../utils/helpers'
         }
       },
       deleteCover(){
-        console.log('delete cover')
+        // console.log('delete cover')
         this.coverImage = this.currentUser.cover
-        console.log(document.getElementById('cover').value)
+        // console.log(document.getElementById('cover').value)
         document.getElementById('cover').value = ""
-        console.log(document.getElementById('cover').value)
+        // console.log(document.getElementById('cover').value)
       },
       handleCoverChange(e){
         const coverFiles = e.target.files
-        console.log('cover files', coverFiles)
+        // console.log('cover files', coverFiles)
         if(coverFiles.length === 0) {
           this.coverImage = ''
         } else {
@@ -171,7 +171,7 @@ import { Toast } from './../utils/helpers'
       },
       handleAvatarChange(e){
         const avatarFiles = e.target.files
-        console.log('avatar files', avatarFiles)
+        // console.log('avatar files', avatarFiles)
         if(avatarFiles.length === 0) {
           this.avatarImage = ''
         } else {
