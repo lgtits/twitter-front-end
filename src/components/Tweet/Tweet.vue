@@ -79,6 +79,7 @@ export default {
             },
             tweetLikes: [],
             tweetComments: [],
+            isLoading: false
         }
     },
     methods: {
@@ -122,7 +123,11 @@ export default {
             }
         },
         async handleAddLike(tweetId){
+            // 若還在處理中則不受理
+            if(this.isLoading === true) return
             try{
+                // call api 前改狀態為處理中
+                this.isLoading = true 
                 const {statusText} = await tweetApis.addLike({tweetId})
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
@@ -132,16 +137,24 @@ export default {
                     likeCount: this.tweet.likeCount + 1,
                     isLiked: true
                 }
+                // call api 後並且畫面改變 狀態為處理完成
+                this.isLoading = false 
             }catch(error){
                 console.log('error',error.message)
                 Toast.fire({
                     icon: 'error',
                     title: '加到喜歡失敗，請稍後再試'
                 })
+                 // call api 失敗後 狀態為處理完成
+                this.isLoading = false 
             }
         },
         async handleUnLike(tweetId){
+            // 若還在處理中則不受理
+            if(this.isLoading === true) return
             try{
+                // call api 前改狀態為處理中
+                this.isLoading = true 
                 const {statusText} = await tweetApis.unLike({tweetId})
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
@@ -151,14 +164,16 @@ export default {
                     likeCount: this.tweet.likeCount - 1,
                     isLiked: false
                 }
-
+                 // call api 後並且畫面改變 狀態為處理完成
+                this.isLoading = false 
             }catch(error){
                 console.log('error',error.message)
-
                 Toast.fire({
                     icon: 'error',
                     title: '收回喜歡失敗，請稍後再試'
                 })
+                 // call api 失敗後 狀態為處理完成
+                this.isLoading = false 
             }
         },
     },
