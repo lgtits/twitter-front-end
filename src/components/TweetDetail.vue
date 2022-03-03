@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="icon-group">
-            <a href="#">
+            <a href="#" >
                 <MainReplyModal
                 :initTweet="modelData"
                 @after-reply-tweet="afterReplyTweet"
@@ -206,12 +206,21 @@ export default {
             justify-content: center;
             width: 25px;
             height: 25px;
+            >i{
+                width: 100%;
+                height: 100%;
+                >img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
             &:not(:last-child){
                 margin-right: 155px;
             }
             >img{
                 width: 25px;
             }
+            
         }
         }
     }
