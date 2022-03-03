@@ -140,7 +140,7 @@ export default {
                     title: '取得使用者資料失敗，請稍後再試'
                 })
             }
-        },
+        }
     },
     created(){
         const id = this.$route.params.id

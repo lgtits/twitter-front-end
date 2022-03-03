@@ -120,7 +120,13 @@ import uuid from 'uuid'
       }
     },
     computed: {
-      ...mapState(['currentUser', 'isAuthenticated'])
+      ...mapState(['currentUser', 'isAuthenticated']),
+    },
+    // 若光箱開關，則清空資料
+    watch:{
+        showMainReplyModal(){
+            this.replyTweetContent= ""
+        }
     },
     filters: {
         fromNow(datetime){

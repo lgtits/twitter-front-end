@@ -10,7 +10,8 @@
         <Tweet 
         v-else 
         v-for="tweet in tweets" 
-        :key="tweet.id" 
+        :key="tweet.id"
+        :initLikesAndReplies = false 
         :initTweet="tweet"/>
     </div>
 </template>
@@ -82,10 +83,10 @@ export default {
                             id: tweet.User.id,
                             name: tweet.User.name,
                             account: tweet.User.account,
-                            avatar: tweet.User.acatar,
+                            avatar: tweet.User.avatar,
                         },
                         // 若卡牌有回復加上這條
-                        replyPerson: tweet.User.account
+                        replyPerson: tweet.Tweet.User.account
                    }
                })
             }catch(error){
@@ -139,6 +140,10 @@ export default {
 
             }catch(error){
                 console.log('error',error)
+                Toast.fire({
+                    icon: 'error',
+                    title: '未能取得使用者資料，請稍後再試'
+                })
             }
         },
     },
