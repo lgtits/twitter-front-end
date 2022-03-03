@@ -38,9 +38,10 @@
 <script>
 import Avatar from '../Avatar.vue'
 import moment from 'moment'
-import tweetApis from '../../apis/tweet'
-import { Toast } from '../../utils/helpers.js'
+// import tweetApis from '../../apis/tweet'
+// import { Toast } from '../../utils/helpers.js'
 import MainReplyModal from '../MainReplyModal.vue'
+import {Like} from '../../utils/mixins'
 
 
 export default {
@@ -112,48 +113,6 @@ export default {
                 replyPerson
             }
         },
-        async handleAddLike(tweetId){
-            try{
-                const {statusText} = await tweetApis.addLike({tweetId})
-                if(statusText !== 'OK'){
-                    throw new Error(statusText)
-                }
-                this.tweet = {
-                    ...this.tweet,
-                    likeCount: this.tweet.likeCount + 1,
-                    isLiked: true
-                }
-
-            }catch(error){
-                console.log('error',error.message)
-
-                Toast.fire({
-                    icon: 'error',
-                    title: '加到喜歡失敗，請稍後再試'
-                })
-            }
-        },
-        async handleUnLike(tweetId){
-            try{
-                const {statusText} = await tweetApis.unLike({tweetId})
-                if(statusText !== 'OK'){
-                    throw new Error(statusText)
-                }
-                this.tweet = {
-                    ...this.tweet,
-                    likeCount: this.tweet.likeCount - 1,
-                    isLiked: false
-                }
-
-            }catch(error){
-                console.log('error',error.message)
-
-                Toast.fire({
-                    icon: 'error',
-                    title: '收回喜歡失敗，請稍後再試'
-                })
-            }
-        },
         afterReplyTweet(){
             this.tweet = {
                 ...this.tweet,
@@ -180,7 +139,8 @@ export default {
             // 使用moment 提供的fromNow 方法
             return moment(datetime).fromNow()
         }
-    }
+    },
+    mixins: [Like]
 }
 </script>
 <style lang="scss" scoped>

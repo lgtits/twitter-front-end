@@ -35,24 +35,6 @@ import tweetApis from '../apis/tweet'
 import { Toast } from '../utils/helpers.js'
 import { mapState } from 'vuex'
 import NoTweet from '../components/Tweet/NoTweet.vue'
-// const dummyUser = {
-//     id: 1,
-//     email: "root@example.com",
-//     password: "12345678",
-//     name: "是我",
-//     account: "root",
-//     role: "admin",
-//     avatar: "https://gravatar.com/avatar/992ba14216a3e429e1b6c3bd498cfabe?s=400&d=wavatar&r=x",
-//     introduction: "",
-//     cover: "",
-//     tweetCount: null,
-//     followingCount: null,
-//     followerCount: null,
-//     likedCount: null,
-//     repliedCount: null,
-//     createdAt: "",
-//     updatedAt: "",
-//   }
 
 export default {
   name: 'Main',
@@ -74,7 +56,7 @@ export default {
       // 回傳前端假tweet物件
       const result = {
           id,
-          UserId: 2,
+          UserId: this.currentUser.id,
           description,
           // TODO:優化
           createdAt: new Date(),
