@@ -9,19 +9,21 @@
             </button>
             <div class="edit-cover">
               <div class="cover-container">
-                <img :src="currentUser.cover" alt="">
+                <img v-if="this.coverImage" :src="this.coverImage" alt="">
+                <img v-else :src="currentUser.cover" alt="">
               </div>
               <label class="select-cover" for="cover" >
                 <img src="../assets/image/icon_uploadPhoto.svg" alt="">
               </label>
               <input id="cover" type="file" name="cover" accept="image/*" @change="handleCoverChange">
-              <button class="delete-cover" type="button" @click="deleteCover">
+              <button class="delete-cover"  type="button" @click="deleteCover">
                 <img src="../assets/image/icon_delete.svg" alt="">
               </button>
             </div>
             <div class="edit-personal-photo">
               <div class="personal-photo-container">
-                <img class="photo" :src="currentUser.avatar" alt="">
+                <img v-if="this.avatarImage" class="photo" :src="this.avatarImage" alt="">
+                <img v-else class="photo" :src="currentUser.avatar" alt="">
               <label class="upload-avatar" for="avatar">
                 <img src="../assets/image/icon_uploadPhoto.svg" alt="">
               </label>
@@ -78,6 +80,7 @@ import { Toast } from './../utils/helpers'
     data(){
       return{
         showEditModal: false,
+        isProcessing: false,
         name:"",
         introduction:"",
         alertMessage:"",
@@ -96,6 +99,22 @@ import { Toast } from './../utils/helpers'
           })
           return
         } 
+
+        if (this.name.length > 50) {
+          Toast.fire({
+            icon: 'warning',
+            title: '昵稱最多50字'
+          })
+          return
+        } 
+
+        if (this.introduction.length > 160) {
+          Toast.fire({
+            icon: 'warning',
+            title: '自我介紹最多160字'
+          })
+          return
+        } 
           const form = e.target  // <form></form>
           const formData = new FormData(form)
 
@@ -107,23 +126,27 @@ import { Toast } from './../utils/helpers'
           })
           console.log(data)
 
-
-
           if (data.status !== 'success') {
             throw new Error(data.message)
           }
-          this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+          
           this.showEditModal = false
+          this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
+          // this.$route.go(0)
         } catch(error){
           this.isProcessing = false
           Toast.fire({
             icon: 'error',
-            title: '無法更新餐廳資料，請稍後再試'
+            title: '無法更新資料，請稍後再試'
           })
         }
       },
       deleteCover(){
         console.log('delete cover')
+        this.coverImage = this.currentUser.cover
+        console.log(document.getElementById('cover').value)
+        document.getElementById('cover').value = ""
+        console.log(document.getElementById('cover').value)
       },
       handleCoverChange(e){
         const coverFiles = e.target.files
@@ -139,10 +162,10 @@ import { Toast } from './../utils/helpers'
         const avatarFiles = e.target.files
         console.log('avatar files', avatarFiles)
         if(avatarFiles.length === 0) {
-          this.avatarFiles = ''
+          this.avatarImage = ''
         } else {
           const avatarURL = window.URL.createObjectURL(avatarFiles[0])
-          this.avatarFiles = avatarURL
+          this.avatarImage = avatarURL
         }
       }
     },

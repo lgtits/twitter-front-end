@@ -1,3 +1,5 @@
+
+
 // ./src/router/index.js
 import VueModal from '@kouts/vue-modal'
 import '../assets/style/vue-modal.css'
@@ -29,6 +31,12 @@ Vue.use(VueRouter)
 
 //   next()
 // }
+
+// 解决重复点击路由报错的BUG
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 
 //驗證是否爲使用者ser
 // const authorizeIsUser = (to, from, next) => {
