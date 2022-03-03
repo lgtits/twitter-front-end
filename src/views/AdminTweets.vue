@@ -59,8 +59,8 @@ export default {
     async afterDeleteTweet(TweetID){
       try{
         const result = await adminAPI.adminDeleteTweet(TweetID)
-        // console.log(result)
-        // console.log('receive request delete ',TweetID)
+        console.log(result)
+        console.log('receive request delete ',TweetID)
         this.tweets = this.tweets.filter( tweet => tweet.id !== TweetID)
       } catch(error){
         console.log('error happend', error)

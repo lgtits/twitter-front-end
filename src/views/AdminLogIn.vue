@@ -66,7 +66,7 @@ export default {
   methods: {
     async handleSubmit (e) {
       try {
-        // console.log(e)
+        console.log(e)
         // 如果 email 或 password 為空，則使用 Toast 提示
         // 然後 return 不繼續往後執行
         if (!this.adminAccount || !this.password) {
