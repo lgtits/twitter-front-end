@@ -19,7 +19,7 @@ export default {
         })
     },
     getUserRepliesTweet({userId}){
-        return apiHelper.get(`users/${userId}/replies`,{
+        return apiHelper.get(`users/${userId}/replied_tweets`,{
             headers: { Authorization: `Bearer ${getToken()}`}
         })
     },

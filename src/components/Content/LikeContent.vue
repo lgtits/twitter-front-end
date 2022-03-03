@@ -25,7 +25,7 @@ import NoTweet from '../Tweet/NoTweet.vue'
 import Header from '../Header.vue'
 
 export default {
-    name: 'TweetContent',
+    name: 'LikeContent',
     components: {
         Tweet,
         NoTweet,
@@ -64,22 +64,20 @@ export default {
                    throw new Error(statusText)
                }
                // 先排除沒有tweet的資料
-                this.tweets = data.filter(tweet => {
-                    return tweet.Tweet
-                }).map(tweet => {
-                    console.log('123',tweet.Tweet)
+                this.tweets = data.map(tweet => {
                     return {
                         id: tweet.id,
-                        UserId: tweet.Tweet.User.id, //
-                        description: tweet.Tweet.description, //貼文內容
+                        UserId: tweet.UserId, //
+                        description: tweet.LikedTweet.description, //貼文內容
                         createdAt: tweet.createdAt,
                         updatedAt: tweet.updatedAt,
-                        userId: tweet.Tweet.User.id,
+                        userId: tweet.UserId,
+                        isLiked: tweet.isLiked,
                         User: {
-                            id: tweet.Tweet.User.id, //
-                            name: tweet.Tweet.User.name, // 貼文發表者
-                            account: tweet.Tweet.User.account,
-                            avatar: tweet.Tweet.User.acatar, // 貼文偷貼
+                            id: tweet.UserId, //
+                            name: tweet.LikedTweet.User.name, // 貼文發表者
+                            account: tweet.LikedTweet.User.account,
+                            avatar: tweet.LikedTweet.User.avatar, // 貼文偷貼
                         },
                    }
                 })

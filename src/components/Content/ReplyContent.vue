@@ -11,6 +11,7 @@
         v-else 
         v-for="tweet in tweets" 
         :key="tweet.id" 
+        :initLikesAndReplies = false
         :initTweet="tweet"/>
     </div>
 </template>
@@ -67,10 +68,12 @@ export default {
 
             //    }
                if(statusText !== 'OK'){
+                   console.log(statusText)
                    throw new Error(statusText)
                }
                // tweet接收的資料格式，務必照此格式tweet才能正常顯示
-               this.tweets = data.map(tweet => {
+               // 先過濾掉沒有Tweet的物件
+               this.tweets = data.filter(tweet => tweet.Tweet).map(tweet => {
                    return {
                         id: tweet.Tweet.id,
                         UserId: tweet.User.id,
@@ -82,7 +85,7 @@ export default {
                             id: tweet.User.id,
                             name: tweet.User.name,
                             account: tweet.User.account,
-                            avatar: tweet.User.acatar,
+                            avatar: tweet.User.avatar,
                         },
                         // 若卡牌有回復加上這條
                         replyPerson: tweet.User.account

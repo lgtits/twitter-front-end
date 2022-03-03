@@ -4,12 +4,12 @@ const getToken = () => localStorage.getItem('token')
 
 export default {
     followUser({userId}){
-        return apiHelper.post(`/followship/${userId}`, null, {
+        return apiHelper.post(`/followships`, {id: userId}, {
             headers: { Authorization: `Bearer ${getToken()}` }
         })
     },
     unFollowUser({userId}){
-        return apiHelper.delete(`/followship/${userId}`,{
+        return apiHelper.delete(`/followships/${userId}`,{
             headers: { Authorization: `Bearer ${getToken()}` }
         })
     }
