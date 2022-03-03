@@ -11,10 +11,10 @@
               <div class="cover-container">
                 <img :src="currentUser.cover" alt="">
               </div>
-              <label class="select-cover" for="cover">
+              <label class="select-cover" for="cover" >
                 <img src="../assets/image/icon_uploadPhoto.svg" alt="">
               </label>
-              <input id="cover" type="file" name="cover" accept="image/*">
+              <input id="cover" type="file" name="cover" accept="image/*" @change="handleCoverChange">
               <button class="delete-cover" type="button" @click="deleteCover">
                 <img src="../assets/image/icon_delete.svg" alt="">
               </button>
@@ -25,7 +25,7 @@
               <label class="upload-avatar" for="avatar">
                 <img src="../assets/image/icon_uploadPhoto.svg" alt="">
               </label>
-              <input id="avatar" type="file" name="avatar" accept="image/*">
+              <input id="avatar" type="file" name="avatar" accept="image/*" @change="handleAvatarChange">
               </div>
             </div>
             <div class="edit-personal-info">
@@ -81,6 +81,8 @@ import { Toast } from './../utils/helpers'
         name:"",
         introduction:"",
         alertMessage:"",
+        coverImage:"",
+        avatarImage:""
       }
     },
     methods:{
@@ -122,6 +124,26 @@ import { Toast } from './../utils/helpers'
       },
       deleteCover(){
         console.log('delete cover')
+      },
+      handleCoverChange(e){
+        const coverFiles = e.target.files
+        console.log('cover files', coverFiles)
+        if(coverFiles.length === 0) {
+          this.coverImage = ''
+        } else {
+          const coverURL = window.URL.createObjectURL(coverFiles[0])
+          this.coverImage = coverURL
+        }
+      },
+      handleAvatarChange(e){
+        const avatarFiles = e.target.files
+        console.log('avatar files', avatarFiles)
+        if(avatarFiles.length === 0) {
+          this.avatarFiles = ''
+        } else {
+          const avatarURL = window.URL.createObjectURL(avatarFiles[0])
+          this.avatarFiles = avatarURL
+        }
       }
     },
     computed: {
