@@ -105,6 +105,7 @@ export default {
           id,
           UserId: this.currentUser.id,
           description,
+          // replyPerson: ,
           // TODO:優化
           createdAt: new Date(),
           User: {
