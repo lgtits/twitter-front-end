@@ -131,6 +131,14 @@ import { Toast } from './../utils/helpers'
           }
           
           this.showEditModal = false
+
+          this.$emit('after-change-profile',{
+            name: this.name,
+            introduction: this.introduction,
+            avatar: this.avatarImage,
+            cover: this.coverImage,
+          })
+          this.isProcessing = false
           this.$router.push({ name: 'user-tweets', params: { id: this.currentUser.id }})
           // this.$route.go(0)
         } catch(error){
