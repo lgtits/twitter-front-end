@@ -58,10 +58,10 @@ export default {
   },
   methods: {
     async fetchTweets(userId) {
-      console.log(userId);
+      // console.log(userId);
       try {
         const { data, statusText } = await UsersApi.getUserTweets({ userId });
-           console.log('**',data)
+          //  console.log('**',data)
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
@@ -88,7 +88,7 @@ export default {
     async fetchUser(userId) {
       try {
         const { data, statusText } = await UsersApi.getUser({ userId });
-        console.log("$$", data);
+        // console.log("$$", data);
         const {
           id,
           email,

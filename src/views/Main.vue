@@ -87,7 +87,7 @@ export default {
     },
     // 接收navbar推文資料///
     afterCreateTweetFromNavbar(fromNavbar){
-      console.log('receive from navbar', fromNavbar)
+      // console.log('receive from navbar', fromNavbar)
       const {id, description} = fromNavbar.content
       const result2 = {
           id,
@@ -109,7 +109,7 @@ export default {
     async fetchTweets(){
       try{
         const { data,statusText } = await tweetApis.getMainTweet()
-        console.log('###',data)
+        // console.log('###',data)
         // 資料類型
         // User:{
         //   account:"user1"

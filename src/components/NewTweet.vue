@@ -37,9 +37,9 @@ export default {
   },
   methods: {
     async sendPost() {
-      console.log(this.$route)
+      // console.log(this.$route)
       try {
-        console.log("送出推文:", this.tweetContent);
+        // console.log("送出推文:", this.tweetContent);
         // 阻擋空白/140字以上發文，並發出警示文字
         if (!this.tweetContent.trim()) {
           return (this.alertMessage = "上面沒有内容捏。");
@@ -55,10 +55,10 @@ export default {
           createdAt: new Date(),
         });
         const { data } = response;
-        console.log("response", response);
+        // console.log("response", response);
 
         if (response.status !== 200) {
-          console.log("error", data);
+          // console.log("error", data);
           throw new Error(data.message);
         }
         //送出内容到外層
