@@ -74,11 +74,12 @@ export default {
                 avatar,
                 cover
             }
-            // this.$emit('after-receiver-profile-change',{
-            //     user: this.user
-            // })
-        }
+        },
     },
+    // created(){
+    //     const id = this.$route.params.id
+    //     this.fetchIsFollowed(id)
+    // },
     // 當props值須隨即監控時使用
     watch:{
         initUser(newValue){

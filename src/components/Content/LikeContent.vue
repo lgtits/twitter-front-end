@@ -73,6 +73,8 @@ export default {
                         updatedAt: tweet.updatedAt,
                         userId: tweet.UserId,
                         isLiked: tweet.isLiked,
+                        likeCount: tweet.LikedTweet.likeCount,
+                        replyCount: tweet.LikedTweet.replyCount,
                         User: {
                             id: tweet.UserId, //
                             name: tweet.LikedTweet.User.name, // 貼文發表者
@@ -138,7 +140,7 @@ export default {
                     title: '取得使用者資料失敗，請稍後再試'
                 })
             }
-        },
+        }
     },
     created(){
         const id = this.$route.params.id

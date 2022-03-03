@@ -10,8 +10,8 @@
         <Tweet 
         v-else 
         v-for="tweet in tweets" 
-        :key="tweet.id" 
-        :initLikesAndReplies = false
+        :key="tweet.id"
+        :initLikesAndReplies = false 
         :initTweet="tweet"/>
     </div>
 </template>
@@ -68,12 +68,10 @@ export default {
 
             //    }
                if(statusText !== 'OK'){
-                   console.log(statusText)
                    throw new Error(statusText)
                }
                // tweet接收的資料格式，務必照此格式tweet才能正常顯示
-               // 先過濾掉沒有Tweet的物件
-               this.tweets = data.filter(tweet => tweet.Tweet).map(tweet => {
+               this.tweets = data.map(tweet => {
                    return {
                         id: tweet.Tweet.id,
                         UserId: tweet.User.id,
@@ -88,7 +86,7 @@ export default {
                             avatar: tweet.User.avatar,
                         },
                         // 若卡牌有回復加上這條
-                        replyPerson: tweet.User.account
+                        replyPerson: tweet.Tweet.User.account
                    }
                })
             }catch(error){
@@ -142,6 +140,10 @@ export default {
 
             }catch(error){
                 console.log('error',error)
+                Toast.fire({
+                    icon: 'error',
+                    title: '未能取得使用者資料，請稍後再試'
+                })
             }
         },
     },
