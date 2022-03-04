@@ -61,7 +61,7 @@ export default {
       // console.log(userId);
       try {
         const { data, statusText } = await UsersApi.getUserTweets({ userId });
-           console.log('**',data)
+          //  console.log('**',data)
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
