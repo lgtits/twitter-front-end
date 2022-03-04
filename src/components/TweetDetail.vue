@@ -33,7 +33,7 @@
                 </a>
             <a href="#" class="favorite">
                 <i 
-                v-if="!tweet.isLiked"
+                v-if="!tweet.isLike"
                 @click.stop.prevent="handleAddLike(tweet.id)"
                 ><img src="../assets/image/favorite.svg" alt="尚未加入最愛"></i>
                 <i 
@@ -95,7 +95,7 @@ export default {
                     throw new Error(statusText)
                 }
                 this.tweet = data
-                const {createdAt, description, id, isLiked, likeCount, replyCount, UserId, User} = data
+                const {createdAt, description, id, isLike, likeCount, replyCount, UserId, User} = data
                 const {account, name, avatar} = User
                 this.modelData = {
                     accountName: account,
@@ -103,7 +103,7 @@ export default {
                     description,
                     id,
                     image: avatar,
-                    isLiked,
+                    isLike,
                     likeCount,
                     name,
                     replyCount,
@@ -129,6 +129,7 @@ export default {
             try{
                 // call api 前改狀態為處理中
                 this.isLoading = true 
+
                 const {statusText} = await tweetApis.addLike({tweetId})
                 if(statusText !== 'OK'){
                     throw new Error(statusText)
@@ -136,7 +137,7 @@ export default {
                 this.tweet = {
                     ...this.tweet,
                     likeCount: this.tweet.likeCount + 1,
-                    isLiked: true
+                    isLike: true
                 }
                 // call api 後並且畫面改變 狀態為處理完成
                 this.isLoading = false 
@@ -163,7 +164,7 @@ export default {
                 this.tweet = {
                     ...this.tweet,
                     likeCount: this.tweet.likeCount - 1,
-                    isLiked: false
+                    isLike: false
                 }
                 // call api 後並且畫面改變 狀態為處理完成
                 this.isLoading = false 
