@@ -5,7 +5,7 @@
             <div class="name">{{tweet.name}}</div>
             <div class="account-name">{{tweet.accountName}}</div>
             <div class="tweet-introduce">{{tweet.introduction}}</div>
-            <div class="buttonWrapper">
+            <div class="buttonWrapper" v-show="tweet.userId !== currentUser.id">
                 <FollowshipOutlineBtn 
                 initText="跟隨" 
                 init-size="sm" 
@@ -31,6 +31,7 @@ import { Toast } from '../../utils/helpers.js'
 import FollowshipSolidBtn from '../Button/FollowshipSolidBtn.vue'
 import FollowshipOutlineBtn from '../Button/FollowshipOutlineBtn.vue'
 import FollowShipsApi from '../../apis/Followships'
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -176,6 +177,9 @@ export default {
             return moment(datetime).fromNow()
         }
     },
+     computed: {
+        ...mapState(['currentUser'])
+    }
 }
 </script>
 
