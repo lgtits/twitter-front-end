@@ -60,7 +60,7 @@ export default {
         async fetchTweets(userId){
             try{
                const {data, statusText} = await UsersApi.getUserLikesTweet({userId})
-               console.log('!@###',data)
+            //    console.log('!@###',data)
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
