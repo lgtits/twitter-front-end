@@ -16,7 +16,6 @@
             name="account"
             type="account"
             class="form-control"
-            autocomplete="username"
             required
             autofocus
           />
@@ -29,7 +28,6 @@
             name="name"
             type="name"
             class="form-control"
-            autocomplete="name"
             required
             autofocus
           />
@@ -42,7 +40,6 @@
             name="email"
             type="email"
             class="form-control"
-            autocomplete="email"
             required
             autofocus
           />

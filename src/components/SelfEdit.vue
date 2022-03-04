@@ -42,7 +42,6 @@
                   autocomplete="username"
                   required
                   autofocus
-                  :placeholder="currentUser.name"
                 >
                 <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
                 <p class="name-count">{{this.name.length}}/50</p>
@@ -55,7 +54,6 @@
                   v-model="introduction" 
                   required 
                   autofocus
-                  :placeholder="currentUser.introduction"
                 >
                 </textarea>
                 <p class="alert-text" v-show="alertMessage">{{ alertMessage }}</p>
