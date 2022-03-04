@@ -10,7 +10,7 @@
                 <div class="update-time">{{tweet.createdAt | fromNow }}</div>
             </div>
             <div class="replyPerson" v-show="initTweet.replyPerson">
-                <span>回復</span>
+                <span>回覆</span>
                 <div class="account-name">{{tweet.replyPerson}}</div>
             </div>
             <div class="tweet-content">{{tweet.description}}</div>
