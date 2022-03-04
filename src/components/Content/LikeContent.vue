@@ -60,7 +60,7 @@ export default {
         async fetchTweets(userId){
             try{
                const {data, statusText} = await UsersApi.getUserLikesTweet({userId})
-            //    console.log('!@###',data)
+               console.log('!@###',data)
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
@@ -68,7 +68,8 @@ export default {
                 this.tweets = data.filter(tweet => tweet.LikedTweet)
                 .map(tweet => {
                     return {
-                        id: tweet.id,
+                        // 要帶入TweetId
+                        id: tweet.TweetId,
                         UserId: tweet.UserId, //
                         description: tweet.LikedTweet.description, //貼文內容
                         createdAt: tweet.createdAt,
