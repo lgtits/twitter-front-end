@@ -5,7 +5,7 @@
             <div class="name">{{tweet.name}}</div>
             <div class="account-name">{{tweet.accountName}}</div>
             <div class="tweet-introduce">{{tweet.introduction}}</div>
-            <div class="buttonWrapper" v-show="tweet.userId !== currentUser.id">
+            <div :class="['buttonWrapper', {'transparent': isMe}]">
                 <FollowshipOutlineBtn 
                 initText="跟隨" 
                 init-size="sm" 
@@ -178,7 +178,10 @@ export default {
         }
     },
      computed: {
-        ...mapState(['currentUser'])
+        ...mapState(['currentUser']),
+        isMe(){
+            return this.tweet.userId === this.currentUser.id
+        }
     }
 }
 </script>
@@ -222,6 +225,9 @@ export default {
             position: absolute;
             top: 10px;
             right: 10px;
+            &.transparent{
+                opacity: 0;
+            }
         }
     }
 </style>
