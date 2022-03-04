@@ -64,8 +64,9 @@ export default {
                if(statusText !== 'OK'){
                    throw new Error(statusText)
                }
-               // 先排除沒有tweet的資料
-                this.tweets = data.map(tweet => {
+               // 先排除沒有LikedTweet的資料
+                this.tweets = data.filter(tweet => tweet.LikedTweet)
+                .map(tweet => {
                     return {
                         id: tweet.id,
                         UserId: tweet.UserId, //
@@ -96,7 +97,7 @@ export default {
         async fetchUser(userId){
             try{
                 const {data, statusText} = await UsersApi.getUser({userId})
-                console.log('$$',data)
+                // console.log('$$',data)
                 const {
                     id,
                     email,
