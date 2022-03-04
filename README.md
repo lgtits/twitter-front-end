@@ -19,6 +19,19 @@ npm install
 npm run serve
 ```
 
+### 連接資料庫設定
+欲連接heroku遠端資料庫，請至../twitter-front-end/src/helper.js，選擇：
+```
+const baseURL = 'https://sheltered-ravine-31386.herokuapp.com/api'
+```
+若欲連接本地資料庫，請至../twitter-front-end/src/helper.js，選擇：
+```
+const baseURL = 'http://localhost:3000/api'
+```
+後端專案資料庫下載位置：
+https://github.com/dandywhy/twitter-api-2020
+
+
 
 ## 共用帳號
 下面 2 組帳號為測試帳號：
@@ -29,9 +42,8 @@ npm run serve
   * account: user1
   * password: 12345678
 
+
 ## 作者
 Will (401450349@gapp.fju.edu.tw)  
 紀陶 (0937370704@gmail.com)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
