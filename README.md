@@ -1,7 +1,7 @@
 @ twitter-front-end
 
 @線上版本網址：
-https://lgtits.github.io/twitter/
+https://lgtits.github.io/twitter-front-end
 
 # 將專案複製到本機
 ```
